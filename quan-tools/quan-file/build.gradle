@@ -1,0 +1,11 @@
+description = 'Quan Tools File'
+apply plugin: "kotlin"
+
+dependencies {
+    api("io.minio:minio:8.5.5")
+    api 'org.springframework:spring-context'
+    api 'org.springframework.boot:spring-boot-autoconfigure'
+    compileOnly("org.springframework.boot:spring-boot-starter-web")
+    api 'commons-codec:commons-codec'
+}
+

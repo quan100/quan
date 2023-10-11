@@ -1,0 +1,82 @@
+package ${package}.pm.bff.${moduleName}.feign;
+
+import ${package}.common.${moduleName}.${className}AddCommand;
+import ${package}.common.${moduleName}.${className}DTO;
+import ${package}.common.${moduleName}.${className}Query;
+import ${package}.common.${moduleName}.${className}UpdateCommand;
+import ${package}.common.utils.base.message.BasePage;
+import ${package}.common.utils.base.message.PageResult;
+import ${package}.common.utils.base.message.Result;
+import ${package}.pm.bff.${moduleName}.feign.fallback.${className}ServiceFallback;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @version ${version}
+ * @date ${datetime}
+ */
+@FeignClient(value = "${${prefixFeignUrl}.service.name}", url = "${${prefixFeignUrl}.service.url:}", fallbackFactory = ${className}ServiceFallback.class)
+public interface ${className}ServiceFeign {
+
+    /**
+     * 查询列表
+     *
+     * @param query
+     * @param basePage
+     * @return
+     */
+    @GetMapping("${prefixService}${moduleName}${controllerAddress}page")
+    Result<PageResult<${className}DTO>> page(${className}Query query);
+
+    /**
+     * 根据ID查询
+     *
+     * @param ${pk.attrname}
+     * @return
+     */
+    @GetMapping("${prefixService}${moduleName}${controllerAddress}details")
+    Result<${className}DTO> details(@RequestParam ${pk.attrType} ${pk.attrname});
+
+    /**
+     * 根据主键更新
+     *
+     * @param cmd
+     * @return
+     */
+    @PutMapping("${prefixService}${moduleName}${controllerAddress}update")
+    Result<Boolean> update(@RequestBody ${className}UpdateCommand cmd);
+
+    /**
+     * 新增
+     *
+     * @param cmd
+     * @return
+     */
+    @PostMapping("${prefixService}${moduleName}${controllerAddress}save")
+    Result<Boolean> save(@RequestBody ${className}AddCommand cmd);
+
+    /**
+     * 批量新增
+     *
+     * @param cmds
+     * @return
+     */
+    @PostMapping("${prefixService}${moduleName}${controllerAddress}saveBatch")
+    Result<Boolean> saveBatch(@RequestBody List<${className}AddCommand> cmds);
+
+    /**
+     * 删除
+     *
+     * @param ${pk.attrname}s
+     * @return
+     */
+    @DeleteMapping("${prefixService}${moduleName}${controllerAddress}deleteByIds")
+    Result<Boolean> deleteByIds(@RequestBody List<${pk.attrType}> ${pk.attrname}s);
+
+}

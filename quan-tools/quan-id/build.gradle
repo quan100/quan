@@ -1,0 +1,7 @@
+description = 'Quan Tools Id'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework:spring-beans'
+    api project(':quan-tools:quan-redis')
+}

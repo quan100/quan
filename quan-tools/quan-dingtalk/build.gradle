@@ -1,0 +1,10 @@
+description = 'quan-tools-dingtalk'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework:spring-beans'
+    api project(':quan-tools:quan-redis')
+    api 'org.projectlombok:lombok'
+    api 'com.aliyun:dingtalk'
+    api 'com.alibaba:fastjson'
+}

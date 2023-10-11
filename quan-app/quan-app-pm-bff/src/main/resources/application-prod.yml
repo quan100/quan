@@ -1,0 +1,9 @@
+spring:
+  # redis 配置
+  redis:
+    password: 'root'
+
+  # mysql
+  datasource:
+    username: root
+    password: root

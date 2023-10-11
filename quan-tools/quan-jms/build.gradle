@@ -1,0 +1,7 @@
+description = 'Quan Tools Jms'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework:spring-beans'
+    api 'org.springframework.boot:spring-boot-starter-artemis'
+}

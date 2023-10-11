@@ -1,0 +1,6 @@
+description = 'Quan Security Base Common'
+apply plugin: "kotlin"
+
+dependencies {
+    api project(':quan-common-utils:quan-base-common')
+}

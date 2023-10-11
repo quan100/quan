@@ -1,0 +1,22 @@
+description = 'Quan App Common'
+apply plugin: "kotlin"
+
+dependencies {
+    api project(':quan-common-utils:quan-base-common')
+    api project(':quan-common-utils:quan-config-common')
+    api project(':quan-tools:quan-id')
+    api project(':quan-security:quan-security-common:quan-security-conf-common')
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    api 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+    api 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+    api 'org.projectlombok:lombok'
+    api 'com.alibaba:fastjson'
+    api 'org.apache.commons:commons-lang3'
+    api 'org.springframework:spring-test'
+    api 'junit:junit'
+    api 'cn.hutool:hutool-all'
+    api 'org.mapstruct:mapstruct'
+    api project(':quan-tools:quan-jms')
+    api 'commons-codec:commons-codec'
+}

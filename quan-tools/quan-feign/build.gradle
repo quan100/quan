@@ -1,0 +1,7 @@
+description = 'quan-feign'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.projectlombok:lombok'
+}

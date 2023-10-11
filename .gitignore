@@ -1,0 +1,21 @@
+# Compiled class file
+*.class
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+*.iml
+.gradle
+.idea
+*/target
+
+**/build
+target
+
+# 前端
+node_modules
+dist
+
+# temp
+
+.flattened-pom.xml

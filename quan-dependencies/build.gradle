@@ -1,0 +1,47 @@
+plugins {
+    id 'java-platform'
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+dependencies {
+
+    constraints {
+        // redisson
+        api "org.redisson:redisson-spring-boot-starter:$redissonVersion"
+
+        // mybatis
+        api "com.baomidou:mybatis-plus-boot-starter:$mybatisPlusVersion"
+        api "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootVersion"
+        api "com.alibaba:druid:$druidVersion"
+        api "com.alibaba:druid-spring-boot-starter:$druidVersion"
+
+        api "commons-lang:commons-lang:$commonsLangVersion"
+        api "commons-io:commons-io:$commonsIoVersion"
+        api "commons-configuration:commons-configuration:$commonsConfigurationVersion"
+
+        api "com.alibaba:fastjson:$fastjsonVersion"
+        api "cn.hutool:hutool-all:$hutoolVersion"
+
+        // jjwt
+        api "io.jsonwebtoken:jjwt:$jjwtVersion"
+        // 验证码
+        api "com.github.bingoohuang:patchca:$patchcaVersion"
+
+        // shiro
+        api "org.apache.shiro:shiro-core:$shiroVersion"
+        // 配置加密
+        api "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4"
+
+        // mapstruct
+        api "org.mapstruct:mapstruct:$mapstructVersion"
+
+        // shardingsphere
+        api "org.apache.shardingsphere:shardingsphere-jdbc-core-spring-boot-starter:$shardingsphereVersion"
+
+        // aliyun
+        api "com.aliyun:dingtalk:$aliyunVersion"
+    }
+}

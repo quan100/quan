@@ -1,0 +1,32 @@
+spring:
+  # 消息队列配置
+  artemis:
+    broker-url: tcp://localhost:61616
+    user: ENC(6RN5dJs4Ge4HA2uIwZJk1Q==)
+    password: ENC(6RN5dJs4Ge4HA2uIwZJk1Q==)
+  cloud:
+    gateway:
+      routes:
+        - id: quan-app-aggregations
+          uri: http://localhost:10020
+          predicates:
+            - Path=/**
+          filters:
+            - StripPrefix=1
+
+jasypt:
+  encryptor:
+    password: 0ygWULnPXh8=
+
+quan:
+  app:
+    security:
+      url: http://localhost:10020
+    auth-source:
+      url: http://localhost:10020
+
+#####  eureka
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false

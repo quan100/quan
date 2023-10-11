@@ -1,0 +1,93 @@
+server:
+  port: 10011
+  tomcat:
+    # Nginx转发 获取客户端真实IP配置
+    remoteip:
+      remote-ip-header: X-Real-IP
+      protocol-header: X-Forwarded-Proto
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: quan-app-service
+  output:
+    ansi:
+      enabled: never
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    # 指定默认时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 指定时区
+    time-zone: GMT+8
+    # 忽略空值
+    default-property-inclusion: NON_NULL
+  #redis 配置
+  redis:
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      shutdown-timeout: 100ms
+
+  artemis:
+    pool:
+      # 是否替换默认的连接池
+      enabled: false
+      max-connections: 10
+    in-memory: false
+    packages:
+      trust-all: true
+  servlet:
+    # 配置文件上传大小限制（minio文件上传）
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+# 配置Feign调用超时时间
+resilience4j:
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 4s
+
+#####  eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+management:
+  endpoint:
+    health:
+      show-details: NEVER
+  endpoints:
+    web:
+      base-path: /
+
+quan:
+  app:
+    feign:
+      core:
+        name: quan-app-core
+        url: http://localhost:10020
+      service:
+        name: quan-app-service
+        url: http://localhost:10020
+      security:
+        name: quan-security
+        url: http://localhost:10020

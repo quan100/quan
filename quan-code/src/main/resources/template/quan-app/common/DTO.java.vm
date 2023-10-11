@@ -1,0 +1,29 @@
+package ${package}.common.${moduleName};
+
+import lombok.Data;
+
+import java.io.Serializable;
+#if(${table.hasDate})
+import java.util.Date;
+#end
+
+/**
+ * ${table.comments}
+ *
+ * @author ${author}
+ * @version ${version}
+ * @date ${datetime}
+ */
+@Data
+public class ${className}DTO implements Serializable {
+
+    private static final long serialVersionUID = -137770378920503836L;
+
+#foreach ($column in $columns)
+    /**
+     * $column.comments
+     */
+    private $column.attrType $column.attrname;
+
+#end
+}

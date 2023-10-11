@@ -1,0 +1,9 @@
+description = 'Quan Tools Captcha'
+apply plugin: "kotlin"
+
+dependencies {
+    implementation 'com.github.bingoohuang:patchca'
+    api project(':quan-tools:quan-redis')
+    api 'cn.hutool:hutool-all'
+    api 'commons-codec:commons-codec'
+}

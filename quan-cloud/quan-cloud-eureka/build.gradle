@@ -1,0 +1,11 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+description = 'Quan Cloud Eureka'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+    api 'com.sun.jersey:jersey-bundle:1.19.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

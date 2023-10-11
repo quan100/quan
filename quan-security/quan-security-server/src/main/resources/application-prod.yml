@@ -1,0 +1,9 @@
+spring:
+  redis:
+    password: 'root'
+
+#####  eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:10011/eureka/

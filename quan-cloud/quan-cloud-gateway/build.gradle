@@ -1,0 +1,22 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+description = 'Quan Cloud Gateway'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.cloud:spring-cloud-starter-gateway'
+    api 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    api 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    api 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
+    api 'org.springframework.boot:spring-boot-starter-webflux'
+    api 'org.springframework.boot:spring-boot-starter-actuator'
+    api 'org.springframework.boot:spring-boot-configuration-processor'
+
+    api project(':quan-tools:quan-jms')
+    api project(':quan-security:quan-security-common:quan-security-base-common')
+    api project(':quan-tools:quan-jasypt')
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

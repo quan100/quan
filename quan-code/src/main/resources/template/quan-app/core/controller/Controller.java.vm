@@ -1,0 +1,103 @@
+package ${package}.core.repository.${moduleName}.controller;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${package}.common.${moduleName}.${className}AddCommand;
+import ${package}.common.${moduleName}.${className}Query;
+import ${package}.common.${moduleName}.${className}UpdateCommand;
+import ${package}.common.utils.base.message.BasePage;
+import ${package}.common.utils.base.message.Result;
+import ${package}.core.repository.${moduleName}.${className}Repository;
+import ${package}.core.repository.${moduleName}.convert.${className}Assembler;
+import ${package}.core.repository.${moduleName}.entity.${className}PO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @version ${version}
+ * @date ${datetime}
+ */
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("${prefixCore}${moduleName}${controllerAddress}")
+public class ${className}Controller {
+
+    private final ${className}Repository ${classname}Repository;
+
+    /**
+     * 查询列表
+     *
+     * @param query
+     * @param basePage
+     * @return
+     */
+    @GetMapping("page")
+    public Result<Page> page(${className}Query query) {
+        ${className}PO po = ${className}Assembler.INSTANCE.toQueryPO(query);
+        return Result.success(${classname}Repository.page(po, basePage));
+    }
+
+    /**
+     * 根据ID查询
+     *
+     * @param ${pk.attrname}
+     * @return
+     */
+    @GetMapping("details")
+    public Result details(@RequestParam ${pk.attrType} ${pk.attrname}) {
+        return Result.success(${classname}Repository.getById(${pk.attrname}));
+    }
+
+    /**
+     * 根据主键更新
+     *
+     * @param cmd
+     * @return
+     */
+    @PutMapping("update")
+    public Result update(@RequestBody ${className}UpdateCommand cmd) {
+        ${className}PO po = ${className}Assembler.INSTANCE.toUpdatePO(cmd);
+        return Result.success(${classname}Repository.updateById(po));
+    }
+
+    /**
+     * 新增
+     *
+     * @param cmd
+     * @return
+     */
+    @PostMapping("save")
+    public Result save(@RequestBody ${className}AddCommand cmd) {
+        ${className}PO po = ${className}Assembler.INSTANCE.toAddPO(cmd);
+        return Result.success(${classname}Repository.save(po));
+    }
+
+    /**
+     * 批量新增
+     *
+     * @param cmds
+     * @return
+     */
+    @PostMapping("saveBatch")
+    public Result saveBatch(@RequestBody List<${className}AddCommand> cmds) {
+        List<${className}PO> pos = ${className}Assembler.INSTANCE.toAddPOS(cmds);
+        return Result.success(${classname}Repository.saveBatch(pos));
+    }
+
+    /**
+     * 删除
+     *
+     * @param ${pk.attrname}s
+     * @return
+     */
+    @DeleteMapping("deleteByIds")
+    public Result deleteByIds(@RequestBody List<${pk.attrType}> ${pk.attrname}s) {
+        return Result.success(${classname}Repository.removeByIds(${pk.attrname}s));
+    }
+
+}

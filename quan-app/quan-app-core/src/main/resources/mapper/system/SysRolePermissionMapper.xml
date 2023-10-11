@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quan.app.core.system.mapper.SysRolePermissionMapper">
+
+    <select id="permissionRoleList" resultType="com.quan.app.common.module.system.PermissionRoleDTO">
+        SELECT role.`code`,
+               role.`id`          AS roleId,
+               perm.permission_id AS permissionId
+        FROM sys_role AS role
+                 INNER JOIN sys_role_permission AS perm ON role.id = perm.role_id
+
+        WHERE role.`status` = 0
+          AND role.del_flag = 0
+    </select>
+
+</mapper>

@@ -1,0 +1,15 @@
+description = 'Quan Tools Redis'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter-data-redis'
+    api 'org.apache.commons:commons-pool2'
+
+    api 'org.springframework:spring-beans'
+    api 'com.fasterxml.jackson.core:jackson-databind'
+
+    api 'io.vavr:vavr:0.10.4'
+    api 'org.jooq:jool-java-8:0.9.14'
+
+    implementation 'org.projectlombok:lombok'
+}

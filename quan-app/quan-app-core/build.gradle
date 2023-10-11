@@ -1,0 +1,17 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+description = 'Quan App Core'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'com.baomidou:mybatis-plus-boot-starter'
+    api 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
+    api 'com.mysql:mysql-connector-j'
+    api 'com.alibaba:druid-spring-boot-starter'
+    api 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    api project(':quan-app:quan-app-common')
+    api project(':quan-tools:quan-redis')
+    api project(':quan-tools:quan-jasypt')
+    implementation project(path: ':quan-tools:quan-crypto')
+}

@@ -1,0 +1,80 @@
+server:
+  port: 10010
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: quan-security
+  output:
+    ansi:
+      enabled: never
+  jackson:
+    # 指定默认时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 指定时区
+    time-zone: GMT+8
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    host: redis
+    port: 6379
+    password: 'root'
+    lettuce:
+      pool:
+        max-active: 100    #最大连接数据库连接数,设 0 为没有限制,默认：8
+        max-idle: 20      #最大等待连接中的数量,设 0 为没有限制,默认：8
+        max-wait: -1      #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制,默认：-1
+        min-idle: 0       #最小等待连接中的数量,设 0 为没有限制,默认：0
+
+logging:
+  # 打印sql
+  level:
+    com.quan.security: info
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            ##设置连接超时时间 10秒
+            timeoutInMilliseconds: 10000
+  threadpool:
+    default:
+      coreSize: 20 # 核心线程数
+      maximumSize: 500 # 线程池最大值
+      maxQueueSize: 1500 # 默认值，无限长，不建议动态修改队列大小，通过 queueSizeRejectionThreshold 控制队列大小
+      queueSizeRejectionThreshold: 1000 # 队列大小拒绝阈值
+
+feign:
+  circuitbreaker:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 20000
+        readTimeout: 40000
+
+
+#####  eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:10011/eureka/
+
+# token 属性配置
+token:
+  issuer: quan
+  key: 9f7eb8b72474d587dadd165916a60901
+  subject: quan app login token
+  claims-name: identity

@@ -1,0 +1,119 @@
+server:
+  port: 10012
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-server
+  output:
+    ansi:
+      enabled: never
+  jackson:
+    # 指定默认时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 指定时区
+    time-zone: GMT+8
+  main:
+    allow-bean-definition-overriding: true
+  artemis:
+    pool:
+      # 是否替换默认的连接池
+      enabled: false
+      max-connections: 10
+    in-memory: false
+    packages:
+      trust-all: true
+
+logging:
+  # 打印sql
+  level:
+    com.quan.security: info
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            ##设置连接超时时间 10秒
+            timeoutInMilliseconds: 10000
+  threadpool:
+    default:
+      coreSize: 20 # 核心线程数
+      maximumSize: 500 # 线程池最大值
+      maxQueueSize: 1500 # 默认值，无限长，不建议动态修改队列大小，通过 queueSizeRejectionThreshold 控制队列大小
+      queueSizeRejectionThreshold: 1000 # 队列大小拒绝阈值
+
+feign:
+  circuitbreaker:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 20000
+        readTimeout: 40000
+
+#####  eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+  client:
+    service-url:
+      defaultZone: http://eureka:10011/eureka/
+
+management:
+  endpoint:
+    health:
+      show-details: NEVER
+  endpoints:
+    web:
+      base-path: /
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+# token 属性配置
+token:
+  issuer: quan
+  key: 9f7eb8b72474d587dadd165916a60901
+  subject: quan app login token
+  claims-name: identity
+
+# 默认权限责任链配置 从上到下匹配，模糊匹配请放置最后
+# 当前系统定义的默认权限：
+# onym : 匿名访问（生成访客token）
+# anon : 任意访问（无token）
+# user : 需登录访问（需验证token）
+# ip : 指定的IP可访问
+# 多个权限请用","隔开；如未通过验证，默认输出第一个权限验证信息
+quan:
+  app:
+    security:
+      name: quan-security
+    auth-source:
+      # 是否开启获取远程权限
+      enabled: true
+      # 获取远程权限接口服务名称，当配置url时，参数只是一个标识。当未配置url时，将通过注册中心服务调用接口
+      name: quan-app
+      # 获取远程权限接口
+      path: /service/sys/permission/perms
+  security:
+    authorization:
+      auth:
+        - /api/manager/auth/**=anon
+        - /api/user/permission/**=anon
+        - /api/open/**=anon
+        - /api/dingtalk/login/auth=anon
+      # 白名单 允许IP直接访问
+      ip:
+        - 127.0.0.1
+        - 0:0:0:0:0:0:0:1

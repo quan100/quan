@@ -1,0 +1,7 @@
+description = 'Quan Tools Jasypt'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-autoconfigure'
+    api 'com.github.ulisesbocchio:jasypt-spring-boot-starter'
+}

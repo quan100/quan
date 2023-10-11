@@ -1,0 +1,16 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+description = 'Quan Security Server'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-tomcat'
+    api 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    api 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    api 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+    api 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+    api 'org.springframework:spring-context-support'
+    api project(':quan-security:quan-security-common:quan-security-conf-common')
+}

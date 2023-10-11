@@ -1,0 +1,7 @@
+description = 'Quan Tools Crypto'
+apply plugin: "kotlin"
+
+dependencies {
+    implementation 'org.apache.shiro:shiro-core'
+    api project(':quan-tools:quan-redis')
+}

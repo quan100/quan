@@ -1,0 +1,8 @@
+description = 'Quan Tools Mail'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework:spring-context'
+    api 'org.springframework.boot:spring-boot-autoconfigure'
+    api 'org.springframework.boot:spring-boot-starter-mail'
+}

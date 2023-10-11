@@ -1,0 +1,10 @@
+description = 'Quan Security Conf Common'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework:spring-webmvc'
+    api 'cn.hutool:hutool-all'
+    api 'io.jsonwebtoken:jjwt'
+    api project(':quan-tools:quan-redis')
+    api project(':quan-security:quan-security-common:quan-security-base-common')
+}

@@ -1,0 +1,22 @@
+repositories {
+	mavenLocal()
+	maven {
+		url = uri('https://maven.aliyun.com/repository/public')
+		// allowInsecureProtocol = true
+	}
+	gradlePluginPortal()
+}
+
+ext {
+	def propertiesFile = new File(new File("$projectDir").parentFile, "gradle.properties")
+	propertiesFile.withInputStream {
+		def properties = new Properties()
+		properties.load(it)
+		set("kotlinVersion", properties["kotlinVersion"])
+	}
+}
+
+dependencies {
+	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+	implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:${kotlinVersion}")
+}

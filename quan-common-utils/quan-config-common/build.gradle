@@ -1,0 +1,8 @@
+description = 'Quan Common Config Utils'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.projectlombok:lombok'
+    api 'org.springframework:spring-web'
+    api 'org.springframework:spring-context'
+}

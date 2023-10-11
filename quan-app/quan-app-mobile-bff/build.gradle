@@ -1,0 +1,15 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+description = 'Quan App Mobile BFF'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-tomcat'
+    api 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    api project(':quan-app:quan-app-common')
+    api project(':quan-security:quan-security-common:quan-security-conf-common')
+    api project(':quan-tools:quan-jasypt')
+}

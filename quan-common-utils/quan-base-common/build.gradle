@@ -1,0 +1,12 @@
+description = 'Quan Common Base Utils'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'com.alibaba:fastjson'
+    api 'org.springframework.boot:spring-boot-starter-json'
+    api 'jakarta.validation:jakarta.validation-api'
+    api 'org.hibernate.validator:hibernate-validator'
+    api 'org.springframework.boot:spring-boot-starter-actuator'
+
+    api 'org.projectlombok:lombok'
+}

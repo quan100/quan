@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quan.app.core.article.mapper.ArticleMapper">
+
+    <resultMap id="articleByCategoryResultMap" type="com.quan.app.common.module.article.ArticleByCategoryDTO">
+        <result column="id" property="id"/>
+        <result column="article_id" property="articleId"/>
+        <result column="user_id" property="userId"/>
+        <result column="title" property="title"/>
+        <result column="author" property="author"/>
+        <result column="author_url" property="authorUrl"/>
+        <result column="type" property="type"/>
+        <result column="publish_type" property="publishType"/>
+        <result column="source" property="source"/>
+        <result column="source_url" property="sourceUrl"/>
+        <result column="avatar" property="avatar"/>
+        <result column="cover" property="cover"/>
+        <result column="author_accounts" property="authorAccounts"/>
+        <result column="author_accounts_public" property="authorAccountsPublic"/>
+        <result column="remarks" property="remarks"/>
+        <result column="jump_url" property="jumpUrl"/>
+        <result column="jump_type" property="jumpType"/>
+        <result column="sort" property="sort"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="status" property="status"/>
+        <result column="brief_content" property="briefContent"/>
+
+        <association property="category" column="category_id" javaType="com.quan.app.common.module.article.ArticleCategoryDTO" select="queryCategoryById">
+            <result column="category_id" property="categoryId"/>
+            <result column="categoryName" property="name"/>
+            <result column="categoryType" property="type"/>
+            <result column="categoryColor" property="color"/>
+        </association>
+
+        <collection property="tagList" column="article_id" ofType="com.quan.app.common.module.article.ArticleTagDTO" select="queryTagConfigByArticleId">
+            <result column="tag_id" property="tagId"/>
+            <result column="name" property="name"/>
+            <result column="type" property="type"/>
+            <result column="color" property="color"/>
+            <result column="icon" property="icon"/>
+        </collection>
+    </resultMap>
+
+    <select id="byCategory" resultMap="articleByCategoryResultMap">
+        SELECT
+            distinct article.article_id as configArticleId,
+            article.*
+--             tag.tag_id,
+--             tag.name AS tagName,
+--             tag.type AS tagType,
+--             tag.color AS tagColor,
+--             tag.icon AS tagIcon
+        FROM article AS article
+                 LEFT JOIN article_tag_config AS config ON config.article_id = article.article_id
+                 LEFT JOIN article_tag AS tag ON tag.tag_id = config.tag_id
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="queryTagConfigByArticleId" resultType="com.quan.app.common.module.article.ArticleTagDTO">
+        select * from article_tag_config as config
+        LEFT JOIN article_tag AS tag ON tag.tag_id = config.tag_id
+        where config.article_id = #{article_id}
+          and config.del_flag = 0
+          and tag.del_flag = 0
+    </select>
+
+    <select id="queryCategoryById" resultType="com.quan.app.common.module.article.ArticleCategoryDTO">
+        select * from article_category as category
+        where category.category_id = #{category_id}
+        and category.del_flag = 0
+    </select>
+</mapper>

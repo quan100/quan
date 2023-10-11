@@ -1,0 +1,74 @@
+ext {
+    javaProjects = subprojects - project(":quan-dependencies")
+    set('springCloudVersion', "2021.0.8")
+    set('springBootVersion', "2.7.16")
+    set('lombokVersion', "1.18.26")
+    set('mapstructVersion', "1.4.2.Final")
+    set('sourceCompatibility', "1.8")
+
+//    sourceCompatibility = '1.10'
+//    targetCompatibility = '1.8'
+}
+
+configure(allprojects) { project ->
+    repositories {
+        mavenLocal()
+        maven {
+            url = uri('https://maven.aliyun.com/repository/public')
+            // allowInsecureProtocol = true
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username '62834f209a06d6acdda6b604'
+                password 'nVGp)jh[jswH'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2230233-release-YBPaaa/'
+        }
+        maven {
+            credentials {
+                username '62834f209a06d6acdda6b604'
+                password 'nVGp)jh[jswH'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2230233-snapshot-jQ7piC/'
+        }
+    }
+}
+
+configure([rootProject] + javaProjects) { project ->
+    group = "com.quan"
+
+    apply plugin: "java"
+
+    configurations {
+        dependencyManagement {
+            canBeConsumed = false
+            canBeResolved = false
+            visible = false
+        }
+        matching { it.name.endsWith("Classpath") }.all { it.extendsFrom(dependencyManagement) }
+    }
+
+    compileJava {
+        // 忽略mapstruct警告
+        options.compilerArgs << "-Amapstruct.unmappedTargetPolicy=IGNORE"
+    }
+
+    dependencies {
+        implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+        implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+        dependencyManagement(enforcedPlatform(dependencies.project(path: ":quan-dependencies")))
+
+        annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+        annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}")
+    }
+}
+

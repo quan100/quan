@@ -1,0 +1,20 @@
+include "quan-common-utils:quan-base-common"
+include "quan-common-utils:quan-config-common"
+include "quan-cloud:quan-cloud-eureka"
+include "quan-cloud:quan-cloud-gateway"
+
+include "quan-security:quan-security-common:quan-security-base-common"
+include "quan-security:quan-security-common:quan-security-conf-common"
+include "quan-security:quan-security-server"
+
+include "quan-code"
+include "quan-dependencies"
+
+file("${rootDir}/quan-tools").eachDirMatch(~/quan-.*/) {
+    include "quan-tools:${it.name}"
+}
+file("${rootDir}/quan-app").eachDirMatch(~/quan-app.*/) {
+    include "quan-app:${it.name}"
+}
+
+rootProject.name = "quan"

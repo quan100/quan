@@ -1,0 +1,90 @@
+server:
+  port: 10024
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: quan-app-mobile-bff
+  output:
+    ansi:
+      enabled: never
+  jackson:
+    # 指定默认时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 指定时区
+    time-zone: GMT+8
+    # 忽略空值
+    default-property-inclusion: NON_NULL
+  main:
+    allow-bean-definition-overriding: true
+  #redis 配置
+  redis:
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      shutdown-timeout: 100ms
+
+  artemis:
+    pool:
+      # 是否替换默认的连接池
+      enabled: false
+      max-connections: 10
+    in-memory: false
+    packages:
+      trust-all: true
+  servlet:
+    # 配置文件上传大小限制（minio文件上传）
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+minio:
+  endpoint: http://127.0.0.1:9000
+  accessKey: root
+  secretKey: administrator
+  bucketName: community-web
+
+feign:
+  circuitbreaker:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 20000
+        readTimeout: 40000
+
+#####  eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+management:
+  endpoint:
+    health:
+      show-details: NEVER
+  endpoints:
+    web:
+      base-path: /
+
+quan:
+  tools:
+    geo:
+      db_path: ${user.home}/data/quan/geo/IP2LOCATION-LITE-DB11.BIN
+  app:
+    feign:
+      core:
+        name: quan-app-core
+      service:
+        name: quan-app-service

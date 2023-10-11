@@ -1,0 +1,44 @@
+spring:
+  #redis 配置
+  redis:
+    host: localhost
+    password: 'root'
+    port: 6379
+
+  # 消息队列配置
+  artemis:
+    broker-url: tcp://localhost:61616
+    user: ENC(6RN5dJs4Ge4HA2uIwZJk1Q==)
+    password: ENC(6RN5dJs4Ge4HA2uIwZJk1Q==)
+
+jasypt:
+  encryptor:
+    password: 0ygWULnPXh8=
+
+quan:
+  app:
+    feign:
+      service:
+        url: http://localhost:10022
+      security:
+        url: http://localhost:10010
+  minio:
+    host: http://localhost:9000
+    access-key: root
+    secret-key: administrator
+    default-bucket-name: public
+
+#####  eureka
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+logging:
+  level:
+    com.quan: debug
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL # 日志级别

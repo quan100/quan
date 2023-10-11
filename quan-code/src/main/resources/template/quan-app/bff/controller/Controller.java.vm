@@ -1,0 +1,98 @@
+package ${package}.pm.bff.${moduleName}.controller;
+
+import ${package}.common.${moduleName}.${className}AddCommand;
+import ${package}.common.${moduleName}.${className}DTO;
+import ${package}.common.${moduleName}.${className}Query;
+import ${package}.common.${moduleName}.${className}UpdateCommand;
+import ${package}.common.utils.base.message.BasePage;
+import ${package}.common.utils.base.message.PageResult;
+import ${package}.common.utils.base.message.Result;
+import ${package}.pm.bff.${moduleName}.feign.${className}ServiceFeign;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @version ${version}
+ * @date ${datetime}
+ */
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/${moduleName}${controllerAddress}")
+public class ${className}Controller {
+
+    private final ${className}ServiceFeign ${classname}ServiceFeign;
+
+    /**
+     * 查询列表
+     *
+     * @param query
+     * @param basePage
+     * @return
+     */
+    @GetMapping("page")
+    public Result<PageResult<${className}DTO>> page(${className}Query query) {
+        return ${classname}ServiceFeign.page(query, basePage);
+    }
+
+    /**
+     * 根据ID查询
+     *
+     * @param ${pk.attrname}
+     * @return
+     */
+    @GetMapping("details")
+    public Result<${className}DTO> details(@RequestParam ${pk.attrType} ${pk.attrname}) {
+        return ${classname}ServiceFeign.details(${pk.attrname});
+    }
+
+    /**
+     * 根据主键更新
+     *
+     * @param cmd
+     * @return
+     */
+    @PutMapping("update")
+    public Result<Boolean> update(@RequestBody ${className}UpdateCommand cmd) {
+        return ${classname}ServiceFeign.update(cmd);
+    }
+
+    /**
+     * 新增
+     *
+     * @param cmd
+     * @return
+     */
+    @PostMapping("save")
+    public Result<Boolean> save(@RequestBody ${className}AddCommand cmd) {
+        return ${classname}ServiceFeign.save(cmd);
+    }
+
+    /**
+     * 新增
+     *
+     * @param cmds
+     * @return
+     */
+    @PostMapping("saveBatch")
+    public Result<Boolean> saveBatch(@RequestBody List<${className}AddCommand> cmds) {
+        return ${classname}ServiceFeign.saveBatch(cmds);
+    }
+
+    /**
+     * 删除
+     *
+     * @param ${pk.attrname}s
+     * @return
+     */
+    @DeleteMapping("deleteByIds")
+    public Result<Boolean> deleteByIds(@RequestBody List<${pk.attrType}> ${pk.attrname}s) {
+        return ${classname}ServiceFeign.deleteByIds(${pk.attrname}s);
+    }
+
+}

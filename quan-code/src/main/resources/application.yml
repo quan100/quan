@@ -1,0 +1,9 @@
+# Tomcat
+server:
+  tomcat:
+    max-threads: 10
+    min-spare-threads: 10
+  port: 9092
+spring:
+  profiles:
+    active: blog

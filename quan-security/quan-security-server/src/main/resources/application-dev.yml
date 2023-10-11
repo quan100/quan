@@ -1,0 +1,11 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    password: 'root'
+
+#####  eureka
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false

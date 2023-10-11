@@ -1,0 +1,17 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+description = 'Quan App Service'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-tomcat'
+    api 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    api project(':quan-app:quan-app-common')
+    api project(':quan-tools:quan-crypto')
+    api project(':quan-tools:quan-captcha')
+    api project(':quan-tools:quan-mail')
+    api project(':quan-tools:quan-jasypt')
+}

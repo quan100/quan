@@ -1,0 +1,17 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+description = 'Quan App Aggregations'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'commons-lang:commons-lang'
+    api 'org.projectlombok:lombok'
+    api project(':quan-app:quan-app-core')
+    api project(':quan-app:quan-app-service')
+    api project(':quan-app:quan-app-pm-bff')
+    api project(':quan-app:quan-app-mobile-bff')
+    api project(':quan-security:quan-security-server')
+    api project(':quan-tools:quan-jasypt')
+    api 'org.springframework.boot:spring-boot-devtools'
+}

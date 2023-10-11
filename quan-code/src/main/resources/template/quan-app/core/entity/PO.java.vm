@@ -1,0 +1,40 @@
+package ${package}.core.repository.${moduleName}.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+#if(${table.hasDate})
+import java.util.Date;
+#end
+#if(${table.hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+/**
+ * ${table.comments}
+ *
+ * @author ${author}
+ * @version ${version}
+ * @date ${datetime}
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("${table.tableName}")
+public class ${className}PO extends Model<${className}PO> {
+    private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+    /**
+     * $column.comments
+     */
+#if($column.columnName == $pk.columnName)
+    @TableId(value = "id", type = IdType.AUTO)
+#end
+    private $column.attrType $column.attrname;
+
+#end
+}

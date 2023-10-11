@@ -1,0 +1,153 @@
+server:
+  port: 10020
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: quan-app-aggregations
+  output:
+    ansi:
+      enabled: never
+  jackson:
+    # 指定默认时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 指定时区
+    time-zone: GMT+8
+    # 忽略空值
+    default-property-inclusion: NON_NULL
+  main:
+    allow-bean-definition-overriding: true
+  #redis 配置
+  redis:
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      shutdown-timeout: 100ms
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 2
+  sql:
+    init:
+      platform: mysql
+  artemis:
+    pool:
+      # 是否替换默认的连接池
+      enabled: false
+      max-connections: 10
+    in-memory: false
+    packages:
+      trust-all: true
+  servlet:
+    # 配置文件上传大小限制（minio文件上传）
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+#mybatis plus 设置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.quan.app.core.**.entity.**
+  typeEnumsPackage: com.quan.app.core.**.entity.**.enums
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    db-config:
+      # 主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      # 默认数据库表下划线命名
+      table-underline: true
+      # 逻辑删除配置
+      logic-delete-field: flag # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 返回类型为Map,显示null对应的字段
+    call-setters-on-nulls: true
+    map-underscore-to-camel-case: true
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+# 配置Feign调用超时时间
+resilience4j:
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 4s
+
+#####  eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+management:
+  endpoint:
+    health:
+      show-details: NEVER
+  endpoints:
+    web:
+      base-path: /
+
+quan:
+  tools:
+    geo:
+      db_path: ${user.home}/data/quan/geo/IP2LOCATION-LITE-DB11.BIN
+  site:
+    domain:
+      title: JavaQuan
+      url: https://quan.icu
+  app:
+    feign:
+      core:
+        name: quan-app-core
+        url: http://localhost:10020
+      service:
+        name: quan-app-service
+        url: http://localhost:10020
+      security:
+        name: quan-security
+        url: http://localhost:10020
+  # token 属性配置
+  token:
+    issuer: quan
+    key: 9f7eb8b72474d587dadd165916a60901
+    subject: quan app login token
+    claims-name: identity
+
+  # 默认权限责任链配置 从上到下匹配，模糊匹配请放置最后
+  # 当前系统定义的默认权限：
+  # onym : 匿名访问（生成访客token）
+  # anon : 任意访问（无token）
+  # user : 需登录访问（需验证token）
+  # ip : 指定的IP可访问
+  # 多个权限请用","隔开；如未通过验证，默认输出第一个权限验证信息
+  security:
+    authorization:
+      auth:
+        - /api/manager/auth/logout=user
+        - /api/manager/auth/**=anon
+        - /api/user/permission/**=anon
+        - /api/auth/token=user,ip
+        - /api/auth/**=user
+      # 白名单 允许IP直接访问
+      ip:
+        - 127.0.0.1
+        - 0:0:0:0:0:0:0:1

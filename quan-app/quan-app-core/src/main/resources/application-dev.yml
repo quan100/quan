@@ -1,0 +1,35 @@
+spring:
+  #redis 配置
+  redis:
+    host: 127.0.0.1
+    password: ENC(N3N/kE3JUW6CffgwNeGZRQ==)
+    port: 6379
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/quan-app?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ENC(N3N/kE3JUW6CffgwNeGZRQ==)
+    password: ENC(N3N/kE3JUW6CffgwNeGZRQ==)
+
+  # MongoDB
+  data:
+    mongodb:
+      uri: mongodb://quan:123456@127.0.0.1:27017/quan-app
+
+jasypt:
+  encryptor:
+    password: 0ygWULnPXh8=
+
+#####  eureka
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+logging:
+  level:
+    com.quan: debug
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL # 日志级别

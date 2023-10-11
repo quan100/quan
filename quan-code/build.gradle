@@ -1,0 +1,18 @@
+description = 'Quan Code'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
+    api 'com.mysql:mysql-connector-j'
+    api 'com.alibaba:druid'
+    api 'commons-lang:commons-lang'
+    api 'commons-io:commons-io'
+    api 'commons-configuration:commons-configuration'
+    api 'com.alibaba:fastjson'
+    api 'org.apache.velocity:velocity:1.7'
+
+    api 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
