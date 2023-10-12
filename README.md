@@ -2,6 +2,7 @@
 
 ## [快速开始](https://doc.javaquan.cn)
 
+项目文档：[https://doc.javaquan.cn](https://doc.javaquan.cn)
 
 ## 主要模块
 

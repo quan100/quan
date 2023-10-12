@@ -41,8 +41,8 @@ public class DingtalkProperties {
     }
 
     public String determineDefaultAppSecret() {
-        Assert.hasText(this.appKey, "[Assertion failed appSecret] - this String argument must have text; it must not be null, empty, or blank");
-        return this.appKey;
+        Assert.hasText(this.appSecret, "[Assertion failed appSecret] - this String argument must have text; it must not be null, empty, or blank");
+        return this.appSecret;
     }
 
     public Long getExpireIn() {
