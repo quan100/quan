@@ -1,13 +1,22 @@
 <p align="center">
-	<img alt="logo" src="https://file.javaquan.cn/public/logo.png">
+	<img width="100px" alt="logo" src="https://file.javaquan.cn/public/logo.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Quan v2.2.0</h1>
 <h4 align="center">基于Java语言的轻量级、高性能、分布式架构的解决方案</h4>
 <p align="center">
-	<a href="https://gitee.com/quan100/quan/stargazers"><img src="https://gitee.com/quan100/quan/badge/star.svg"></a>
+    <a href="https://github.com/quan100/quan" target="_blank">
+        <img src='https://img.shields.io/github/stars/quan100/quan?style=social&label=Stars' alt='GitHub stars' class="no-zoom">
+    </a>
+	<a href="https://gitee.com/quan100/quan"><img src="https://gitee.com/quan100/quan/badge/star.svg"></a>
+    <img src="https://img.shields.io/badge/Quan-v2.2.0-green">
 	<a href="https://gitee.com/quan100/quan/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
-    <a href="https://gitee.com/quan100/quan/issues" target="_blank">
-        <img alt="Issues" src="https://img.shields.io/github/issues/quan100/quan?color=0088ff" class="no-zoom"/>
+</p>
+<p  align="center">
+    <a href="https://gitee.com/quan100/quan-admin">
+      <img src="https://img.shields.io/badge/Quan%20Admin-Gitee%20%E2%86%92-gray.svg?colorA=61c265&colorB=4CAF50&style=for-the-badge"/>
+    </a>
+    <a href="https://github.com/quan100/quan-admin">
+      <img src="https://img.shields.io/badge/Quan%20Admin-Github%20%E2%86%92-gray.svg?colorA=fcfcfc&colorB=1a1a1a&style=for-the-badge"/>
     </a>
 </p>
 
