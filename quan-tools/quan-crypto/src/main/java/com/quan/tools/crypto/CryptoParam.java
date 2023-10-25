@@ -75,4 +75,15 @@ public class CryptoParam implements Serializable {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+    @Override
+    public String toString() {
+        return "CryptoParam{" +
+                "account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", secret='" + secret + '\'' +
+                ", ip='" + ip + '\'' +
+                '}';
+    }
 }

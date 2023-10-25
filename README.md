@@ -16,7 +16,7 @@
       <img src="https://img.shields.io/badge/Quan%20Admin-Gitee%20%E2%86%92-gray.svg?colorA=61c265&colorB=4CAF50&style=for-the-badge"/>
     </a>
     <a href="https://github.com/quan100/quan-admin">
-      <img src="https://img.shields.io/badge/Quan%20Admin-Github%20%E2%86%92-gray.svg?colorA=fcfcfc&colorB=1a1a1a&style=for-the-badge"/>
+      <img src="https://img.shields.io/badge/Quan%20Admin-Github%20%E2%86%92-gray.svg?colorA=e8e8e8&colorB=1a1a1a&style=for-the-badge"/>
     </a>
 </p>
 
