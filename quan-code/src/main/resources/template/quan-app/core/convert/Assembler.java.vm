@@ -1,11 +1,9 @@
-package ${package}.core.repository.${moduleName}.convert;
+package ${package}.core.${moduleName}.convert;
 
-import ${package}.common.${moduleName}.${className}AddCommand;
-import ${package}.common.${moduleName}.${className}Query;
-import ${package}.common.${moduleName}.${className}UpdateCommand;
-import ${package}.common.util.LocalDateUtils;
-import ${package}.core.repository.${moduleName}.entity.${className}PO;
-import com.quan.tools.id.ID;
+import ${package}.common.module.${moduleName}.${className}AddCommand;
+import ${package}.common.module.${moduleName}.${className}Query;
+import ${package}.common.module.${moduleName}.${className}UpdateCommand;
+import ${package}.core.${moduleName}.entity.${className}PO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -19,7 +17,7 @@ import java.util.List;
  * @version ${version}
  * @date ${datetime}
  */
-@Mapper(imports = {ID.class, LocalDateUtils.class})
+@Mapper
 public interface ${className}Assembler {
 
     ${className}Assembler INSTANCE = Mappers.getMapper(${className}Assembler.class);
@@ -41,7 +39,6 @@ public interface ${className}Assembler {
      * @param cmd
      * @return
      */
-    @Mapping(target = "updateTime", expression = "java(LocalDateUtils.now())")
     @Mapping(target = "delFlag", ignore = true)
     ${className}PO toUpdatePO(${className}UpdateCommand cmd);
 
@@ -53,7 +50,6 @@ public interface ${className}Assembler {
      * @param cmd
      * @return
      */
-    @Mapping(target = "createTime", expression = "java(LocalDateUtils.now())")
     @Mapping(target = "delFlag", constant = "false")
     ${className}PO toAddPO(${className}AddCommand cmd);
 

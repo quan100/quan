@@ -51,6 +51,10 @@ quan:
     access-key: root
     secret-key: administrator
     default-bucket-name: public
+  im:
+    port: 10000
+    websocket-path: /chat
+    reader-idle-time: 1800 #允许连接空闲的时间，单位：秒。超时后强制下线
 
 #####  eureka
 eureka:

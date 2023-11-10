@@ -1,14 +1,13 @@
-package ${package}.core.repository.${moduleName}.controller;
+package ${package}.core.${moduleName}.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import ${package}.common.${moduleName}.${className}AddCommand;
-import ${package}.common.${moduleName}.${className}Query;
-import ${package}.common.${moduleName}.${className}UpdateCommand;
-import ${package}.common.utils.base.message.BasePage;
-import ${package}.common.utils.base.message.Result;
-import ${package}.core.repository.${moduleName}.${className}Repository;
-import ${package}.core.repository.${moduleName}.convert.${className}Assembler;
-import ${package}.core.repository.${moduleName}.entity.${className}PO;
+import ${package}.common.module.${moduleName}.${className}AddCommand;
+import ${package}.common.module.${moduleName}.${className}Query;
+import ${package}.common.module.${moduleName}.${className}UpdateCommand;
+import ${mainPath}.common.base.message.PageResult;
+import ${mainPath}.common.base.message.Result;
+import ${package}.core.${moduleName}.convert.${className}Assembler;
+import ${package}.core.${moduleName}.entity.${className}PO;
+import ${package}.core.${moduleName}.repository.${className}Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,13 +32,12 @@ public class ${className}Controller {
      * 查询列表
      *
      * @param query
-     * @param basePage
      * @return
      */
     @GetMapping("page")
-    public Result<Page> page(${className}Query query) {
+    public Result<PageResult> page(${className}Query query) {
         ${className}PO po = ${className}Assembler.INSTANCE.toQueryPO(query);
-        return Result.success(${classname}Repository.page(po, basePage));
+        return Result.success(${classname}Repository.page(po, query));
     }
 
     /**

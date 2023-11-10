@@ -1,7 +1,7 @@
-package ${package}.core.repository.${moduleName}.mapper;
+package ${package}.core.${moduleName}.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import ${package}.core.repository.${moduleName}.entity.${className}PO;
+import ${package}.core.${moduleName}.entity.${className}PO;
 
 /**
  * ${comments}

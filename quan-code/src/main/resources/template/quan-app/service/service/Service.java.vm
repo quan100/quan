@@ -1,9 +1,11 @@
 package ${package}.service.${moduleName}.service;
 
-import ${package}.common.${moduleName}.*;
-import ${package}.common.utils.base.message.BasePage;
-import ${package}.common.utils.base.message.PageResult;
-import ${package}.common.utils.base.message.Result;
+import ${package}.common.module.${moduleName}.${className}AddCommand;
+import ${package}.common.module.${moduleName}.${className}DTO;
+import ${package}.common.module.${moduleName}.${className}Query;
+import ${package}.common.module.${moduleName}.${className}UpdateCommand;
+import ${mainPath}.common.base.message.PageResult;
+import ${mainPath}.common.base.message.Result;
 import ${package}.service.${moduleName}.feign.${className}RepositoryFeign;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,11 +29,10 @@ public class ${className}Service {
      * 查询列表
      *
      * @param query
-     * @param basePage
      * @return
      */
     public Result<PageResult<${className}DTO>> page(${className}Query query) {
-        return ${classname}RepositoryFeign.page(query, basePage);
+        return ${classname}RepositoryFeign.page(query);
     }
 
     /**

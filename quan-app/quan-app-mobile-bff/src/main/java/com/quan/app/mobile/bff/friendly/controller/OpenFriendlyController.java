@@ -1,6 +1,6 @@
 package com.quan.app.mobile.bff.friendly.controller;
 
-import com.quan.app.common.module.convert.PageResultAssembler;
+import com.quan.app.common.convert.PageResultAssembler;
 import com.quan.app.common.module.friendly.FriendlyLinkDTO;
 import com.quan.app.common.module.friendly.FriendlyLinkQuery;
 import com.quan.app.common.module.friendly.FriendlyLinkVO;

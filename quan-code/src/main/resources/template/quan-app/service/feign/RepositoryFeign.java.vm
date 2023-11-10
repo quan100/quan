@@ -1,12 +1,14 @@
 package ${package}.service.${moduleName}.feign;
 
-import ${package}.common.${moduleName}.*;
-import ${package}.common.utils.base.message.BasePage;
-import ${package}.common.utils.base.message.PageResult;
-import ${package}.common.utils.base.message.Result;
+import ${package}.common.module.${moduleName}.${className}AddCommand;
+import ${package}.common.module.${moduleName}.${className}DTO;
+import ${package}.common.module.${moduleName}.${className}Query;
+import ${package}.common.module.${moduleName}.${className}UpdateCommand;
+import ${mainPath}.common.base.message.PageResult;
+import ${mainPath}.common.base.message.Result;
 import ${package}.service.${moduleName}.feign.fallback.${className}RepositoryFallback;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Component;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,11 +27,10 @@ public interface ${className}RepositoryFeign {
      * 查询列表
      *
      * @param query
-     * @param basePage
      * @return
      */
     @GetMapping("${prefixCore}${moduleName}${controllerAddress}page")
-    Result<PageResult<${className}DTO>> page(${className}Query query);
+    Result<PageResult<${className}DTO>> page(@SpringQueryMap ${className}Query query);
 
     /**
      * 根据ID查询

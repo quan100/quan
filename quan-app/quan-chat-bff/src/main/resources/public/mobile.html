@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <title>WAP 版演示</title>
+
+  <link href="layui/css/layui.css" rel="stylesheet">
+</head>
+<body>
+
+<script src="layui/layui.js"></script>
+<script>
+  layui.config({
+    base: '/layim/assets/lib/'
+    , layimAssetsPath: '/layim/assets/' //layim 资源文件所在目录
+  }).extend({
+    'layer-mobile': 'layer-mobile'
+    , 'zepto': 'zepto'
+    , 'upload-mobile': 'upload-mobile'
+    , 'layim-mobile': 'layim-mobile'
+  }).use('layim-mobile', function () {
+    var layim = layui['layim-mobile'] // WebIM
+      , layer = layui['layer-mobile']; // 弹层
+
+    //提示层
+    layer.msg = function (content) {
+      return layer.open({
+        content: content
+        , skin: 'msg'
+        , time: 2 //2秒后自动关闭
+      });
+    };
+
+    // 演示自动回复
+    var autoReplay = [
+      '模拟消息 1',
+      '模拟消息 2',
+      '模拟消息 3',
+      '模拟消息 4',
+      '模拟消息 5',
+      '模拟消息 6',
+      '模拟消息 7',
+      '模拟消息 8',
+      '模拟消息 9'
+    ];
+
+    layim.config({
+      //上传图片接口
+      uploadImage: {
+        url: '/upload/image' //（返回的数据格式见下文）
+        , type: '' //默认 post
+      }
+
+      //上传文件接口
+      , uploadFile: {
+        url: '/upload/file' //（返回的数据格式见下文）
+        , type: '' //默认 post
+      }
+
+      //,brief: true
+
+      , init: {
+        // 我的信息
+        mine: {
+          "username": "测试" //我的昵称
+          , "id": 123 //我的ID
+          , "avatar": "" //我的头像
+          , "sign": "测试内容"
+        }
+
+        // 我的好友列表
+        , "friend": [{
+          "groupname": "测试分组一"
+          , "id": 0
+          , "list": [{
+            "username": "测试1"
+            , "id": "100001"
+            , "avatar": ""
+            , "sign": "测试内容1"
+            , "status": "online"
+          }, {
+            "username": "测试2"
+            , "id": "100001222"
+            , "sign": "测试内容2"
+            , "avatar": ""
+          }, {
+            "username": "测试3"
+            , "id": "10034001"
+            , "avatar": ""
+            , "sign": ""
+          }, {
+            "username": "测试4"
+            , "id": "168168"
+            , "avatar": ""
+            , "sign": "测试内容4"
+          }, {
+            "username": "测试5"
+            , "id": "666666"
+            , "avatar": ""
+            , "sign": "测试内容5"
+          }]
+        }, {
+          "groupname": "测试分组二"
+          , "id": 1
+          , "list": [{
+            "username": "测试6"
+            , "id": "121286"
+            , "avatar": ""
+            , "sign": "测试内容6"
+          }, {
+            "username": "测试7"
+            , "id": "108101"
+            , "avatar": ""
+            , "sign": "微电商达人"
+          }, {
+            "username": "测试8"
+            , "id": "12123454"
+            , "avatar": ""
+            , "sign": "测试内容8"
+          }, {
+            "username": "测试9"
+            , "id": "102101"
+            , "avatar": ""
+            , "sign": ""
+          }, {
+            "username": "测试10"
+            , "id": "3435343"
+            , "avatar": ""
+            , "sign": ""
+          }]
+        }, {
+          "groupname": "测试分组三"
+          , "id": 2
+          , "list": [{
+            "username": "测试11"
+            , "id": "76543"
+            , "avatar": ""
+            , "sign": "测试内容11"
+          }, {
+            "username": "测试12"
+            , "id": "4803920"
+            , "avatar": ""
+            , "sign": "测试内容12"
+          }]
+        }]
+
+        // 群组列表
+        , "group": [{
+          "groupname": "测试群组一"
+          , "id": "101"
+          , "avatar": ""
+        }, {
+          "groupname": "测试群组二"
+          , "id": "102"
+          , "avatar": ""
+        }]
+      }
+
+      //扩展聊天面板工具栏
+      , tool: [{
+        alias: 'code'
+        , title: '代码'
+        , iconUnicode: '&#xe64e;'
+      }]
+
+      //扩展更多列表
+      , moreList: [{
+        alias: 'find'
+        , title: '发现'
+        , iconUnicode: '&#xe628;' //图标字体的unicode，可不填
+        , iconClass: '' //图标字体的class类名
+      }, {
+        alias: 'share'
+        , title: '分享与邀请'
+        , iconUnicode: '&#xe641;' //图标字体的unicode，可不填
+        , iconClass: '' //图标字体的class类名
+      }]
+
+      //,tabIndex: 1 // 用户设定初始打开的 Tab 项下标
+      //,isNewFriend: false // 是否开启“新的朋友”
+      , isgroup: true // 是否开启“群聊”
+      //,chatTitleColor: '#c00' // 顶部 Bar 颜色
+      //,title: 'LayIM' // 应用名，默认：我的IM
+    });
+
+    //创建一个会话
+    /*
+    layim.chat({
+      id: 111111
+      ,name: 'nickname'
+      ,type: 'kefu' // friend、group 等字符，如果是 group，则创建的是群聊
+      ,avatar: ''
+    });
+    */
+
+    //事件 - 点击“新的朋友”
+    layim.on('newFriend', function () {
+      layim.panel({
+        title: '新的朋友' //标题
+        , tpl: '<div style="padding: 10px;">自定义模版，{{d.data.test}}</div>' //模版
+        , data: { //数据
+          test: '123'
+        }
+      });
+    });
+
+    //查看聊天信息
+    layim.on('detail', function (data) {
+      //console.log(data); //获取当前会话对象
+      layim.panel({
+        title: data.name + ' 聊天信息' //标题
+        , tpl: '<div style="padding: 10px;">自定义模版</div>' //模版
+        , data: { //数据
+          test: '123'
+        }
+      });
+    });
+
+    //事件 - 点击更多列表
+    layim.on('moreList', function (obj) {
+      switch (obj.alias) {
+        case 'find':
+          layer.msg('自定义发现动作');
+
+          //模拟标记“发现新动态”为已读
+          layim.showNew('More', false);
+          layim.showNew('find', false);
+          break;
+        case 'share':
+          layim.panel({
+            title: '邀请好友' //标题
+            , tpl: '<div style="padding: 10px;">自定义模版，{{d.data.test}}</div>' //模版
+            , data: { //数据
+              test: '么么哒'
+            }
+          });
+          break;
+      }
+    });
+
+    //事件 - 返回
+    layim.on('back', function () {
+      //如果你只是弹出一个会话界面（不显示主面板），那么可通过返回事件，跳转到上一页面，如：history.back();
+    });
+
+    //事件 - 自定义工具栏点击，以添加代码为例
+    layim.on('tool(code)', function (insert, send) {
+      insert('[pre class=layui-code]123[/pre]'); //将内容插入到编辑器
+      send();
+    });
+
+    //事件 - 发送消息
+    layim.on('sendMessage', function (data) {
+      var To = data.to;
+      //console.log(data);
+
+      //演示自动回复
+      setTimeout(function () {
+        var obj = {};
+        if (To.type === 'group') {
+          obj = {
+            username: '模拟群员 ' + (Math.random() * 100 | 0)
+            , avatar: layim.cache().base.defaultAvatar // 这里赋值默认头像，实际使用时请改成正式头像地址
+            , id: To.id
+            , type: 'group'
+            , content: autoReplay[Math.random() * 9 | 0]
+          }
+        } else {
+          obj = {
+            username: To.name
+            , avatar: To.avatar
+            , id: To.id
+            , type: To.type
+            , content: autoReplay[Math.random() * 9 | 0]
+          }
+        }
+        layim.getMessage(obj);
+      }, 3000);
+    });
+
+    // 模拟收到一条好友消息
+    setTimeout(function () {
+      layim.getMessage({
+        username: "测试1"
+        , avatar: ""
+        , id: "100001"
+        , type: "friend"
+        , cid: Math.random() * 100000 | 0 //模拟消息id，会赋值在li的data-cid上，以便完成一些消息的操作（如撤回），可不填
+        , content: "这是模拟接受的一段测试消息。标记：" + new Date().getTime()
+      });
+    }, 3000);
+
+    //事件 - 查看更多记录
+    layim.on('chatlog', function (data, ul) {
+      console.log(data);
+      layim.panel({
+        title: '与 ' + data.name + ' 的聊天记录' //标题
+        , tpl: '<div style="padding: 10px;">这里是模版，{{d.data.test}}</div>' //模版
+        , data: { //数据
+          test: 'Hello'
+        }
+      });
+    });
+
+    //模拟"更多"有新动态
+    layim.showNew('More', true);
+    layim.showNew('find', true);
+  });
+</script>
+</body>
+</html>

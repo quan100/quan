@@ -1,10 +1,9 @@
 package ${package}.pm.bff.${moduleName}.feign.fallback;
 
-import ${package}.common.${moduleName}.${className}AddCommand;
-import ${package}.common.${moduleName}.${className}Query;
-import ${package}.common.${moduleName}.${className}UpdateCommand;
-import ${package}.common.utils.base.message.BasePage;
-import ${package}.common.utils.base.message.Result;
+import ${package}.common.module.${moduleName}.${className}AddCommand;
+import ${package}.common.module.${moduleName}.${className}Query;
+import ${package}.common.module.${moduleName}.${className}UpdateCommand;
+import ${mainPath}.common.base.message.Result;
 import ${package}.pm.bff.${moduleName}.feign.${className}ServiceFeign;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;

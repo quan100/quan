@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 角色类型定义类
+ *
  * @author quan.wang
  * @date 2020/1/13 14:41
  */

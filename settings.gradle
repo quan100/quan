@@ -13,7 +13,7 @@ include "quan-dependencies"
 file("${rootDir}/quan-tools").eachDirMatch(~/quan-.*/) {
     include "quan-tools:${it.name}"
 }
-file("${rootDir}/quan-app").eachDirMatch(~/quan-app.*/) {
+file("${rootDir}/quan-app").eachDirMatch(~/quan-.*/) {
     include "quan-app:${it.name}"
 }
 

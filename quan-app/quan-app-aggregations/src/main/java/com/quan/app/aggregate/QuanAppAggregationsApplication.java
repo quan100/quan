@@ -20,14 +20,14 @@ import org.springframework.context.annotation.FilterType;
  */
 @ServletComponentScan(basePackages = "com.quan.app.*")
 @ComponentScan(
-        basePackages = {"com.quan.app", "com.quan.security"}, nameGenerator = QuanBeanNameGenerator.class,
+        basePackages = {"com.quan.app", "com.quan.security", "cn.javaquan"}, nameGenerator = QuanBeanNameGenerator.class,
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, value = {
                 SpringBootApplication.class,
         })
 )
-@ConfigurationPropertiesScan(basePackages = {"com.quan.app", "com.quan.security"})
+@ConfigurationPropertiesScan(basePackages = {"com.quan.app", "com.quan.security", "cn.javaquan"})
 @EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.quan.app", "com.quan.security"})
+@EnableFeignClients(basePackages = {"com.quan.app", "com.quan.security", "cn.javaquan"})
 @SpringBootApplication
 public class QuanAppAggregationsApplication {
     public static void main(String[] args) {

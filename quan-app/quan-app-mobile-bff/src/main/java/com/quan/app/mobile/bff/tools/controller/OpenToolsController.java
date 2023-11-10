@@ -1,6 +1,6 @@
 package com.quan.app.mobile.bff.tools.controller;
 
-import com.quan.app.common.module.convert.PageResultAssembler;
+import com.quan.app.common.convert.PageResultAssembler;
 import com.quan.app.common.module.tools.OpenToolsQuery;
 import com.quan.app.common.module.tools.OpenToolsVO;
 import com.quan.app.common.module.tools.ToolsDTO;

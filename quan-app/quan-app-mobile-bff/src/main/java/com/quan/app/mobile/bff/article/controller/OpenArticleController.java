@@ -1,8 +1,7 @@
 package com.quan.app.mobile.bff.article.controller;
 
 import com.quan.app.common.module.article.*;
-import com.quan.app.common.module.article.*;
-import com.quan.app.common.module.convert.PageResultAssembler;
+import com.quan.app.common.convert.PageResultAssembler;
 import com.quan.common.base.message.PageResult;
 import com.quan.common.base.message.Result;
 import com.quan.app.mobile.bff.article.convert.OpenArticleAssembler;

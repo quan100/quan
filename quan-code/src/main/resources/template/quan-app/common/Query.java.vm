@@ -1,5 +1,6 @@
 package ${package}.common.${moduleName};
 
+import ${mainPath}.common.base.message.BasePage;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import java.util.Date;
  * @date ${datetime}
  */
 @Data
-public class ${className}Query implements Serializable {
+public class ${className}Query extends BasePage implements Serializable {
 
     private static final long serialVersionUID = 742833405930788595L;
 

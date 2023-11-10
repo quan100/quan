@@ -6,4 +6,4 @@ server:
   port: 9092
 spring:
   profiles:
-    active: blog
+    active: quan-app

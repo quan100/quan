@@ -1,0 +1,14 @@
+description = 'Quan Tools Chat'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.springframework:spring-context'
+    api 'org.springframework.boot:spring-boot-autoconfigure'
+
+    api 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations'
+    api 'com.fasterxml.jackson.core:jackson-databind'
+
+    api 'io.netty:netty-all'
+
+    implementation 'org.projectlombok:lombok'
+}

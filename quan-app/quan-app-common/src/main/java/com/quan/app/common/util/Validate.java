@@ -1,7 +1,7 @@
 package com.quan.app.common.util;
 
 import com.quan.app.common.constant.ErrorCodeEnum;
-import com.quan.app.common.module.exception.SystemException;
+import com.quan.app.common.exception.SystemException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
 

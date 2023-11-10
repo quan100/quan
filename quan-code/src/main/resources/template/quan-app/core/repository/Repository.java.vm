@@ -1,9 +1,9 @@
 package ${package}.core.${moduleName}.repository;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.quan.common.base.message.BasePage;
-import ${package}.core.repository.${moduleName}.entity.${className}PO;
+import ${mainPath}.common.base.message.BasePage;
+import ${mainPath}.common.base.message.PageResult;
+import ${package}.core.${moduleName}.entity.${className}PO;
 
 /**
  * ${comments}
@@ -16,14 +16,12 @@ public interface ${className}Repository extends IService<${className}PO> {
 
     /**
      * 分页查询
-     * <p>
-     * 当有排序参数 sort 时，优先根据sort 升序，然后根据创建时间降序
      *
      * @param po
      * @param basePage
      * @return
      */
-    Page<${className}PO> page(${className}PO po);
+    PageResult<${className}PO> page(${className}PO po, BasePage basePage);
 
 }
 

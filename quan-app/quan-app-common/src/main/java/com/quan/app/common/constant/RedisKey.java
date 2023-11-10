@@ -5,6 +5,8 @@ import com.quan.app.common.util.LocalDateUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
+ * Redis key 生成
+ *
  * @author wangquan
  * @date 2021/12/29 23:07
  */

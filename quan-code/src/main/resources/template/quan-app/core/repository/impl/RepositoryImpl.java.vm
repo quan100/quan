@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import ${package}.common.utils.base.message.BasePage;
-import ${package}.core.convert.PageMapping;
-import ${package}.core.repository.${moduleName}.${className}Repository;
-import ${package}.core.repository.${moduleName}.entity.${className}PO;
-import ${package}.core.repository.${moduleName}.mapper.${className}Mapper;
-import org.springframework.stereotype.Service;
+import com.quan.common.base.message.BasePage;
+import com.quan.common.base.message.PageResult;
+import ${package}.core.convert.PageAssembler;
+import ${package}.core.convert.PageResultAssembler;
+import ${package}.core.${moduleName}.entity.${className}PO;
+import ${package}.core.${moduleName}.mapper.${className}Mapper;
+import ${package}.core.${moduleName}.repository.${className}Repository;
+import org.springframework.stereotype.Repository;
 
 /**
  * ${comments}
@@ -18,12 +20,12 @@ import org.springframework.stereotype.Service;
  * @version ${version}
  * @date ${datetime}
  */
-@Service
+@Repository
 public class ${className}RepositoryImpl extends ServiceImpl<${className}Mapper, ${className}PO> implements ${className}Repository {
 
     @Override
-    public Page<${className}PO> page(${className}PO po) {
-        Page<${className}PO> page = PageMapping.INSTANCE.toPage(basePage);
+    public PageResult<${className}PO> page(${className}PO po, BasePage basePage) {
+        Page<${className}PO> page = PageAssembler.INSTANCE.toPage(basePage);
         LambdaQueryWrapper<${className}PO> queryWrapper = Wrappers.lambdaQuery(po);
         page = this.page(page, queryWrapper);
         return PageResultAssembler.INSTANCE.toPageResult(page);

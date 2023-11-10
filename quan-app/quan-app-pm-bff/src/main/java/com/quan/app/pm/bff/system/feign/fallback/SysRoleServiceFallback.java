@@ -1,6 +1,6 @@
 package com.quan.app.pm.bff.system.feign.fallback;
 
-import com.quan.app.common.module.exception.SystemException;
+import com.quan.app.common.exception.SystemException;
 import com.quan.app.common.module.system.AuthorizeRolePermissionEvent;
 import com.quan.app.common.module.system.SysRoleAddCommand;
 import com.quan.app.common.module.system.SysRoleQuery;
