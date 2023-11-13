@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
 /**
  * id生成参数配置
@@ -22,13 +21,12 @@ public class IdAutoConfiguration {
     @Configuration(proxyBeanMethods = false)
     protected static class IdConfiguration {
 
-        @Bean
+        @Bean("quanToolsIdService")
         IdService idService(IdProperties properties) {
             return new IdServiceImpl(properties);
         }
 
-        @Bean
-        @DependsOn({"idService"})
+        @Bean("quanToolsId")
         ID id(IdService idService) {
             return new ID(idService);
         }

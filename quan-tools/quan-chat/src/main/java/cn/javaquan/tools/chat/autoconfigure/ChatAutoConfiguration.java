@@ -41,11 +41,6 @@ public class ChatAutoConfiguration {
             return new ChatServer();
         }
 
-//        @Bean
-//        ChatServerApplication chatServerApplication() {
-//            return new ChatServerApplication();
-//        }
-
     }
 
     static class ChatCondition extends AnyNestedCondition {
