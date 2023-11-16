@@ -8,9 +8,7 @@ import io.netty.channel.Channel;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.AnyNestedCondition;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -35,10 +33,18 @@ public class ChatAutoConfiguration {
     @Conditional(ChatCondition.class)
     protected static class ChatConfiguration {
 
+        @ConditionalOnProperty(prefix = "quan.im.ssl", name = "enabled", havingValue = "false", matchIfMissing = true)
         @ConditionalOnMissingBean
         @Bean
         ChatServer chatServer() {
             return new ChatServer();
+        }
+
+        @ConditionalOnMissingBean
+        @Bean
+        ChannelPool channelPool() {
+            Map<String, Channel> channelContainer = new ConcurrentHashMap<>();
+            return new ChannelPool(channelContainer);
         }
 
     }
@@ -67,13 +73,6 @@ public class ChatAutoConfiguration {
         @Bean
         ChatServer secureChatServer(SslContext context) {
             return new SecureChatServer(context);
-        }
-
-        @ConditionalOnMissingBean
-        @Bean
-        ChannelPool channelPool() {
-            Map<String, Channel> channelContainer = new ConcurrentHashMap<>();
-            return new ChannelPool(channelContainer);
         }
     }
 

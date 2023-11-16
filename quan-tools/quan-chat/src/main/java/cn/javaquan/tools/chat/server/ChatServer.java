@@ -58,8 +58,8 @@ public class ChatServer {
         ChannelFuture future = this.start(new InetSocketAddress(properties.getPort()), properties);
         addShutdownHook(this);
         future.addListener((listener) -> {
-            Assert.isTrue(listener.isSuccess(), "Chat server started error on port(s): " + properties.getPort());
-            logger.info("Chat server started on port(s): " + properties.getPort());
+            Assert.isTrue(listener.isSuccess(), logMessageFormat(properties.getPort(), "error"));
+            logger.info(logMessageFormat(properties.getPort(), "success"));
         });
     }
 
@@ -70,5 +70,9 @@ public class ChatServer {
      */
     private void addShutdownHook(ChatServer chatServer) {
         Runtime.getRuntime().addShutdownHook(new Thread(chatServer::destroy));
+    }
+
+    private String logMessageFormat(Integer port, String state) {
+        return String.format("%s started %s on port(s): %s", this.getClass().getSimpleName(), state, port);
     }
 }
