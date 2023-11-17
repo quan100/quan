@@ -93,7 +93,7 @@ public class ChatProperties {
     }
 
     public String determineDefaultWebsocketPath() {
-        Assert.hasText(this.websocketPath, "[Assertion failed chat server websocketPath] - this numeric argument must have value; it must not be null");
+        Assert.hasText(this.websocketPath, "[Assertion failed chat server websocketPath] - it must not be null or empty");
         return this.websocketPath;
     }
 
@@ -150,6 +150,16 @@ public class ChatProperties {
         private boolean enabled = false;
         private String protocol = "TLS";
 
+        /**
+         * an X.509 certificate chain file in PEM format
+         */
+        private String keyCertChainFilePath;
+
+        /**
+         * a PKCS#8 private key file in PEM format
+         */
+        private String keyFilePath;
+
         public boolean isEnabled() {
             return enabled;
         }
@@ -165,6 +175,33 @@ public class ChatProperties {
         public void setProtocol(String protocol) {
             this.protocol = protocol;
         }
+
+        public String getKeyCertChainFilePath() {
+            return keyCertChainFilePath;
+        }
+
+        public void setKeyCertChainFilePath(String keyCertChainFilePath) {
+            this.keyCertChainFilePath = keyCertChainFilePath;
+        }
+
+        public String determineDefaultKeyCertChainFilePath() {
+            Assert.hasText(this.keyCertChainFilePath, "[Assertion failed chat server keyCertChainFilePath] - it must not be null or empty");
+            return this.keyCertChainFilePath;
+        }
+
+        public String getKeyFilePath() {
+            return keyFilePath;
+        }
+
+        public void setKeyFilePath(String keyFilePath) {
+            this.keyFilePath = keyFilePath;
+        }
+
+        public String determineDefaultKeyFilePath() {
+            Assert.hasText(this.keyFilePath, "[Assertion failed chat server keyFilePath] - it must not be null or empty");
+            return this.keyFilePath;
+        }
+
     }
 
     public void afterPropertiesSet() {
