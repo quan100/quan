@@ -3,7 +3,9 @@ package cn.javaquan.tools.chat.core.message;
 import java.io.Serializable;
 
 /**
- * 按照layim消息格式定义
+ * 消息模版定义，即 quan-chat 组件接收的客户端消息格式
+ * <p>
+ * 任何通过 quan-chat 组件发送的消息必须按照消息模版定义的格式
  *
  * @author javaquan
  */

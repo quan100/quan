@@ -8,6 +8,10 @@ import java.util.UUID;
 
 /**
  * 接收聊天消息的结构
+ * <p>
+ * quan-chat 组件输出的消息格式
+ * <p>
+ * 当 quan-chat 通过 {@link MessageTemplate} 模版接收消息后，会将接收者的消息转换为 {@link #ChatMessage} 结构发送给接收者
  *
  * @author javaquan
  */

@@ -1,6 +1,8 @@
 package cn.javaquan.tools.chat.context;
 
 import cn.javaquan.tools.chat.core.ChannelPool;
+import cn.javaquan.tools.chat.core.support.AuthorizationProcessor;
+import cn.javaquan.tools.chat.util.SpringUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -116,6 +118,14 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
      */
     private void online(Channel channel, Map<String, String> urlParams) {
         String userId = urlParams.get("userId");
+        String authorization = urlParams.get("authorization");
+        AuthorizationProcessor authorizationProcessor = SpringUtils.getBean(AuthorizationProcessor.class);
+
+        if (!authorizationProcessor.checkAuth(authorization)) {
+            channel.close();
+            logger.info(String.format("用户[%s]凭证校验失败，连接被服务器拒绝", userId));
+            return;
+        }
 
         logger.info(String.format("用户[%s]上线", userId));
 

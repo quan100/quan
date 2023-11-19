@@ -167,7 +167,7 @@
 
       });
 
-      var socket = new WebSocket('ws://localhost:10000/chat?userId=' + data.userId);
+      var socket = new WebSocket('ws://localhost:10000/chat?authorization=test&userId=' + data.userId);
 
       // 缓存登录信息
       sessionStorage.setItem("loginForm", JSON.stringify(data));

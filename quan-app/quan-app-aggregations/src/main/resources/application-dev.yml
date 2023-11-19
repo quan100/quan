@@ -55,6 +55,18 @@ quan:
     port: 10000
     websocket-path: /chat
     reader-idle-time: 1800 #允许连接空闲的时间，单位：秒。超时后强制下线
+#    ssl:
+#      enabled: true
+#      # /// 仅测试使用的SSL证书。
+#      key-cert-chain-file-path: ${用户目录}/quan/quan-app/quan-chat-bff/src/main/resources/test_cert.pem
+#      key-file-path: ${用户目录}/quan/quan-app/quan-chat-bff/src/main/resources/test_private_pkcs8.pem
+#
+#server:
+#  ssl:
+#    enabled: true
+#    key-store: classpath:test_cert.jks
+#    key-store-password: javaquan
+#    key-store-type: JKS
 
 #####  eureka
 eureka:

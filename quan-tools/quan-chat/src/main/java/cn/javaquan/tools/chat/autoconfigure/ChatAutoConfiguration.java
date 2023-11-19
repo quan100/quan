@@ -2,6 +2,8 @@ package cn.javaquan.tools.chat.autoconfigure;
 
 import cn.javaquan.tools.chat.ChatServerApplication;
 import cn.javaquan.tools.chat.core.ChannelPool;
+import cn.javaquan.tools.chat.core.support.AbstractAuthorizationCheckProcessor;
+import cn.javaquan.tools.chat.core.support.AuthorizationProcessor;
 import cn.javaquan.tools.chat.server.ChatServer;
 import cn.javaquan.tools.chat.server.SecureChatServer;
 import io.netty.channel.Channel;
@@ -48,6 +50,12 @@ public class ChatAutoConfiguration {
         ChannelPool channelPool() {
             Map<String, Channel> channelContainer = new ConcurrentHashMap<>();
             return new ChannelPool(channelContainer);
+        }
+
+        @ConditionalOnMissingBean
+        @Bean
+        AuthorizationProcessor authorizationProcessor() {
+            return new AbstractAuthorizationCheckProcessor();
         }
 
     }
