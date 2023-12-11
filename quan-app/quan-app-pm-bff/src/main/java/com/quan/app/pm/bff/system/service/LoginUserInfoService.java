@@ -1,6 +1,5 @@
 package com.quan.app.pm.bff.system.service;
 
-import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.quan.app.common.module.user.RolePermissionDTO;
@@ -28,7 +27,7 @@ public class LoginUserInfoService {
 
     public Result<UserInfoDTO> currentUser(AuthEntity authEntity) {
         UserInfoDTO userInfoDto = ((JSONObject) authEntity.getData()).toJavaObject(UserInfoDTO.class);
-        List<UserRoleDTO> roleDtos = JSONUtil.toList(JSON.toJSONString(authEntity.getRoles()), UserRoleDTO.class);
+        List<UserRoleDTO> roleDtos = JSON.parseArray(JSON.toJSONString(authEntity.getRoles()), UserRoleDTO.class);
 
         List<String> paths = roleDtos.stream()
                 .flatMap(userRoleDto -> userRoleDto.getPermissions().stream())

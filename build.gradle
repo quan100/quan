@@ -1,7 +1,7 @@
 ext {
     javaProjects = subprojects - project(":quan-dependencies")
     set('springCloudVersion', "2021.0.8")
-    set('springBootVersion', "2.7.16")
+    set('springBootVersion', "2.7.18")
     set('lombokVersion', "1.18.26")
     set('mapstructVersion', "1.4.2.Final")
     set('sourceCompatibility', "1.8")

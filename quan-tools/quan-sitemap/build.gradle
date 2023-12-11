@@ -3,5 +3,5 @@ apply plugin: "kotlin"
 
 dependencies {
     api 'org.projectlombok:lombok'
-    api 'org.dom4j:dom4j:2.1.3'
+    api 'org.dom4j:dom4j:2.1.4'
 }

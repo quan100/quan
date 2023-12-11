@@ -1,6 +1,7 @@
 package com.quan.app.service.system.convert;
 
 import com.quan.app.common.module.system.SysPermissionDTO;
+import com.quan.app.common.module.system.UserPermissionTreeDTO;
 import com.quan.app.common.module.user.RolePermissionDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,4 +23,5 @@ public interface PermissionAssembler {
 
     List<RolePermissionDTO> toRolePermissionDtoList(List<SysPermissionDTO> dtos);
 
+    UserPermissionTreeDTO toUserPermissionTreeDTO(SysPermissionDTO dto);
 }

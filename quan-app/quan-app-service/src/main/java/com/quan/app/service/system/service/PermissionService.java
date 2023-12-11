@@ -1,21 +1,19 @@
 package com.quan.app.service.system.service;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.quan.app.common.module.auth.AuthQuery;
 import com.quan.app.common.constant.RoleTypeEnum;
-import com.quan.app.common.module.system.*;
+import com.quan.app.common.module.auth.AuthQuery;
 import com.quan.app.common.module.system.*;
 import com.quan.app.common.module.system.convert.SystemAssembler;
 import com.quan.app.common.module.user.RolePermissionDTO;
 import com.quan.app.common.util.ArraysUtil;
 import com.quan.app.common.util.Validate;
 import com.quan.app.common.util.tree.TreeUtil;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.system.convert.PermissionAssembler;
 import com.quan.app.service.system.feign.SysPermissionRepositoryFeign;
 import com.quan.app.service.system.feign.SysRolePermissionRepositoryFeign;
 import com.quan.app.service.system.feign.SysRoleRepositoryFeign;
 import com.quan.app.service.system.feign.SysUserRoleRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -159,8 +157,7 @@ public class PermissionService {
 
         // 过滤按钮权限
         List<UserPermissionTreeDTO> userPermissionDtos = menuPerms.stream().map(sysPermissionPo -> {
-            UserPermissionTreeDTO userPermissionDto = new UserPermissionTreeDTO();
-            BeanUtil.copyProperties(sysPermissionPo, userPermissionDto);
+            UserPermissionTreeDTO userPermissionDto = PermissionAssembler.INSTANCE.toUserPermissionTreeDTO(sysPermissionPo);
 
             userPermissionDto.setPermissions(PermissionAssembler.INSTANCE.toRolePermissionDtoList(permGroup.get(sysPermissionPo.getId())));
             return userPermissionDto;

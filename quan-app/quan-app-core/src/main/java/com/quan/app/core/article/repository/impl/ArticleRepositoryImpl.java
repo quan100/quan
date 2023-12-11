@@ -38,8 +38,6 @@ import java.util.stream.Collectors;
 public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO> implements ArticleRepository {
 
     private final ArticleMapper articleMapper;
-    private final ArticleCategoryRepository articleCategoryRepository;
-    private final ArticleCategoryConfigRepository articleCategoryConfigRepository;
     private final ArticleTagRepository articleTagRepository;
     private final ArticleTagConfigRepository articleTagConfigRepository;
 
@@ -119,6 +117,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
         queryWrapper.eq(Validate.isNotNull(query.getJumpType()), "article.jump_type", query.getJumpType());
 
         queryWrapper.eq("article.del_flag", 0);
+        queryWrapper.eq("article.status", 0);
         queryWrapper.eq(Validate.isNotBlank(query.getTagId()),"tag.del_flag", 0);
         queryWrapper.eq(Validate.isNotBlank(query.getTagId()),"config.del_flag", 0);
 

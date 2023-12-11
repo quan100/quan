@@ -1,6 +1,5 @@
 package com.quan.tools.captcha.service;
 
-import cn.hutool.captcha.generator.RandomGenerator;
 import com.github.bingoohuang.patchca.background.MyCustomBackgroundFactory;
 import com.github.bingoohuang.patchca.custom.ConfigurableCaptchaService;
 import com.github.bingoohuang.patchca.filter.predefined.*;
@@ -125,8 +124,7 @@ public class CaptchaService {
      * @return
      */
     public String createEmailCode(String uuid, String email) {
-        RandomGenerator randomGenerator = new RandomGenerator(properties.determineDefaultCharacters(), properties.determineDefaultMaxLength());
-        String code = randomGenerator.generate();
+        String code = RandomUtil.generate(properties.determineDefaultCharacters(), properties.determineDefaultMaxLength());
         redisService.set(getKey(uuid, email), DigestUtils.md5Hex(code), properties.determineDefaultInvalidTime());
         return code;
     }

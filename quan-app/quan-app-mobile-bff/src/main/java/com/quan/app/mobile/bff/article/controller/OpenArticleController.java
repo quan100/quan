@@ -1,14 +1,13 @@
 package com.quan.app.mobile.bff.article.controller;
 
 import com.quan.app.common.module.article.*;
-import com.quan.app.common.convert.PageResultAssembler;
-import com.quan.common.base.message.PageResult;
-import com.quan.common.base.message.Result;
 import com.quan.app.mobile.bff.article.convert.OpenArticleAssembler;
 import com.quan.app.mobile.bff.article.feign.ArticleCategoryServiceFeign;
 import com.quan.app.mobile.bff.article.feign.ArticleContentServiceFeign;
 import com.quan.app.mobile.bff.article.feign.ArticleServiceFeign;
 import com.quan.app.mobile.bff.article.feign.ArticleTagServiceFeign;
+import com.quan.common.base.message.PageResult;
+import com.quan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,20 +31,6 @@ public class OpenArticleController {
     private final ArticleContentServiceFeign articleContentService;
     private final ArticleCategoryServiceFeign articleCategoryService;
     private final ArticleTagServiceFeign articleTagService;
-
-    /**
-     * 查询列表
-     *
-     * @param query
-     * @return
-     */
-    @GetMapping("/page")
-    public Result<PageResult<ArticleVO>> page(OpenArticleQuery query) {
-        Result<PageResult<ArticleDTO>> result = articleService.page(OpenArticleAssembler.INSTANCE.toArticleQuery(query));
-        PageResult<ArticleVO> page = PageResultAssembler.INSTANCE.toPageResult(result.getData());
-        page.setRecords(OpenArticleAssembler.INSTANCE.toArticleVoList(result.getData().getRecords()));
-        return Result.success(page);
-    }
 
     /**
      * 获取详情

@@ -23,7 +23,6 @@ dependencies {
         api "commons-configuration:commons-configuration:$commonsConfigurationVersion"
 
         api "com.alibaba:fastjson:$fastjsonVersion"
-        api "cn.hutool:hutool-all:$hutoolVersion"
 
         // jjwt
         api "io.jsonwebtoken:jjwt:$jjwtVersion"

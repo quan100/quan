@@ -15,7 +15,6 @@ dependencies {
     api 'org.apache.commons:commons-lang3'
     api 'org.springframework:spring-test'
     api 'junit:junit'
-    api 'cn.hutool:hutool-all'
     api 'org.mapstruct:mapstruct'
     api project(':quan-tools:quan-jms')
     api 'commons-codec:commons-codec'
