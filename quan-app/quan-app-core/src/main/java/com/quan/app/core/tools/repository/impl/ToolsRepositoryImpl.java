@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.quan.app.common.module.tools.ToolsQuery;
 import com.quan.app.common.util.Validate;
+import com.quan.common.base.constant.CommonConstant;
 import com.quan.common.base.message.BasePage;
 import com.quan.common.base.message.PageResult;
 import com.quan.app.core.convert.PageAssembler;
@@ -42,7 +43,7 @@ public class ToolsRepositoryImpl extends ServiceImpl<ToolsMapper, ToolsPO> imple
         queryWrapper.eq(Validate.isNotNull(query.getDataType()), ToolsPO::getDataType, query.getDataType());
         queryWrapper.eq(ToolsPO::getListType, query.getListType());
         queryWrapper.eq(ToolsPO::getStatus, query.getStatus());
-        queryWrapper.eq(ToolsPO::getDelFlag, false);
+        queryWrapper.eq(ToolsPO::getDelFlag, CommonConstant.FALSE);
         queryWrapper.orderByAsc(ToolsPO::getSort);
         queryWrapper.orderByDesc(ToolsPO::getCreateTime, ToolsPO::getUpdateTime);
         return PageResultAssembler.INSTANCE.toPageResult(this.page(page, queryWrapper));

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.quan.common.base.constant.CommonConstant;
 import com.quan.common.base.message.BasePage;
 import com.quan.common.base.message.PageResult;
 import com.quan.app.core.article.entity.ArticleTagConfigPO;
@@ -37,7 +38,7 @@ public class ArticleTagConfigRepositoryImpl extends ServiceImpl<ArticleTagConfig
     public List<ArticleTagConfigPO> queryByArticleId(String articleId) {
         LambdaQueryWrapper<ArticleTagConfigPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(ArticleTagConfigPO::getArticleId, articleId);
-        queryWrapper.eq(ArticleTagConfigPO::getDelFlag, 0);
+        queryWrapper.eq(ArticleTagConfigPO::getDelFlag, CommonConstant.FALSE);
         return this.list(queryWrapper);
     }
 
@@ -45,7 +46,7 @@ public class ArticleTagConfigRepositoryImpl extends ServiceImpl<ArticleTagConfig
     public List<ArticleTagConfigPO> queryByTagIdList(List<String> tagIdList) {
         LambdaQueryWrapper<ArticleTagConfigPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.in(ArticleTagConfigPO::getTagId, tagIdList);
-        queryWrapper.eq(ArticleTagConfigPO::getDelFlag, 0);
+        queryWrapper.eq(ArticleTagConfigPO::getDelFlag, CommonConstant.FALSE);
         return this.list(queryWrapper);
     }
 

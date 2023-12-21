@@ -177,7 +177,7 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     public int countByAccount(String account) {
         LambdaQueryWrapper<SysUserAccountPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysUserAccountPO::getAccount, account);
-        queryWrapper.eq(SysUserAccountPO::getDelFlag, false);
+        queryWrapper.eq(SysUserAccountPO::getDelFlag, CommonConstant.FALSE);
         return this.count(queryWrapper);
     }
 
@@ -190,7 +190,7 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     public SysUserAccountPO getByUserId(String userId) {
         LambdaQueryWrapper<SysUserAccountPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysUserAccountPO::getUserId, userId);
-        queryWrapper.eq(SysUserAccountPO::getDelFlag, false);
+        queryWrapper.eq(SysUserAccountPO::getDelFlag, CommonConstant.FALSE);
         return this.getOne(queryWrapper);
     }
 

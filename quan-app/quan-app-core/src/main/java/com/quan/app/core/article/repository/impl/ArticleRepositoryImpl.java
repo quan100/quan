@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.quan.common.base.constant.CommonConstant;
 import com.quan.common.base.message.BasePage;
 import com.quan.common.base.message.PageResult;
 import com.quan.app.common.constant.ErrorCodeEnum;
@@ -73,7 +74,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
     public ArticlePO getArticle(String articleId) {
         LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(ArticlePO::getArticleId, articleId);
-        queryWrapper.eq(ArticlePO::getDelFlag, false);
+        queryWrapper.eq(ArticlePO::getDelFlag, CommonConstant.FALSE);
         queryWrapper.eq(ArticlePO::getStatus, 0);
         return this.getOne(queryWrapper);
     }
@@ -82,7 +83,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
     public List<ArticlePO> hotCategoryArticle(List<String> articleIds) {
         LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.in(ArticlePO::getArticleId, articleIds);
-        queryWrapper.eq(ArticlePO::getDelFlag, false);
+        queryWrapper.eq(ArticlePO::getDelFlag, CommonConstant.FALSE);
         queryWrapper.eq(ArticlePO::getStatus, 0);
         queryWrapper.orderByAsc(ArticlePO::getSort);
         queryWrapper.orderByDesc(ArticlePO::getCreateTime);
@@ -98,7 +99,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
     @Override
     public List<ArticlePO> getSitemaps() {
         LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(ArticlePO::getDelFlag, 0);
+        queryWrapper.eq(ArticlePO::getDelFlag, CommonConstant.FALSE);
         queryWrapper.eq(ArticlePO::getStatus, 0);
         queryWrapper.eq(ArticlePO::getJumpType, 1);
         return this.list(queryWrapper);

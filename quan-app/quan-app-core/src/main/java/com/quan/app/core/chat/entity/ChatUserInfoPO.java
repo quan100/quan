@@ -1,9 +1,6 @@
 package com.quan.app.core.chat.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -67,6 +64,7 @@ public class ChatUserInfoPO extends Model<ChatUserInfoPO> {
     /**
      * 删除状态
      */
+    @TableLogic
     private Boolean delFlag;
 
 }

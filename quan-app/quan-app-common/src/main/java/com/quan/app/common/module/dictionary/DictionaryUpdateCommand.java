@@ -43,4 +43,8 @@ public class DictionaryUpdateCommand implements Serializable {
      */
     private String name;
 
+    /**
+     * 类型
+     */
+    private String type;
 }

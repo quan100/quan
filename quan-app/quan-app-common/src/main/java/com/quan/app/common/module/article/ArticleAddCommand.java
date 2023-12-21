@@ -75,7 +75,7 @@ public class ArticleAddCommand implements Serializable {
     /**
      * 作者联系账号是否公开
      */
-    private Integer authorAccountsPublic;
+    private Boolean authorAccountsPublic;
 
     /**
      * 备注

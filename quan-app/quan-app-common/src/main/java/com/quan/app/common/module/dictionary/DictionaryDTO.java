@@ -54,5 +54,9 @@ public class DictionaryDTO implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 类型
+     */
+    private String type;
 
 }

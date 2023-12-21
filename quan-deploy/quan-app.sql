@@ -1,17 +1,15 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 14.116.150.209
  Source Server Type    : MySQL
  Source Server Version : 50736 (5.7.36)
- Source Host           : 14.116.150.209:3306
  Source Schema         : quan-app
 
  Target Server Type    : MySQL
  Target Server Version : 50736 (5.7.36)
  File Encoding         : 65001
 
- Date: 28/09/2023 11:54:17
+ Date: 21/12/2023 11:34:55
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +33,7 @@ CREATE TABLE `article` (
   `avatar` varchar(128) DEFAULT NULL COMMENT '图标地址',
   `cover` varchar(128) DEFAULT NULL COMMENT '封面图',
   `author_accounts` varchar(128) DEFAULT NULL COMMENT '作者联系账号',
-  `author_accounts_public` tinyint(1) DEFAULT NULL COMMENT '作者联系账号是否公开',
+  `author_accounts_public` bit(1) DEFAULT NULL COMMENT '作者联系账号是否公开',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   `jump_url` varchar(128) DEFAULT NULL COMMENT '内容跳转链接',
   `jump_type` int(4) DEFAULT NULL COMMENT '跳转类型',
@@ -45,11 +43,11 @@ CREATE TABLE `article` (
   `create_user` varchar(32) DEFAULT NULL,
   `update_user` varchar(32) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL COMMENT '状态，0：正常，1：审核中，2：审核不通过',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `brief_content` varchar(255) DEFAULT NULL COMMENT '文章缩略文',
   `category_id` varchar(32) DEFAULT NULL COMMENT '文章分类ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COMMENT='文章';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章';
 
 -- ----------------------------
 -- Table structure for article_category
@@ -64,11 +62,11 @@ CREATE TABLE `article_category` (
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `create_user` varchar(32) DEFAULT NULL,
   `update_user` varchar(32) DEFAULT NULL,
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `color` varchar(16) DEFAULT NULL COMMENT '字体颜色',
   `sort` int(8) DEFAULT '0' COMMENT '分类排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
 
 -- ----------------------------
 -- Table structure for article_category_config
@@ -78,9 +76,9 @@ CREATE TABLE `article_category_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `article_id` varchar(32) DEFAULT NULL COMMENT '文章ID',
   `category_id` varchar(32) DEFAULT NULL COMMENT '分类ID',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='文章分类配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类配置';
 
 -- ----------------------------
 -- Table structure for article_content
@@ -92,7 +90,7 @@ CREATE TABLE `article_content` (
   `content` text COMMENT '内容',
   `brief_content` varchar(1024) DEFAULT NULL COMMENT '文章缩略文',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章内容';
 
@@ -108,10 +106,10 @@ CREATE TABLE `article_tag` (
   `icon` varchar(16) DEFAULT NULL COMMENT '标签图标',
   `type` tinyint(1) DEFAULT '0' COMMENT '0：自定义标签；1：系统标签',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `sort` int(8) DEFAULT '0' COMMENT '标签排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='文章标签';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章标签';
 
 -- ----------------------------
 -- Table structure for article_tag_config
@@ -121,9 +119,9 @@ CREATE TABLE `article_tag_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `article_id` varchar(32) DEFAULT NULL COMMENT '文章ID',
   `tag_id` varchar(32) DEFAULT NULL COMMENT '标签ID',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COMMENT='文章标签配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章标签配置';
 
 -- ----------------------------
 -- Table structure for base_config
@@ -139,7 +137,109 @@ CREATE TABLE `base_config` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='消息配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息配置';
+
+-- ----------------------------
+-- Table structure for chat_group_info
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_group_info`;
+CREATE TABLE `chat_group_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `group_id` varchar(32) DEFAULT NULL COMMENT '群组ID',
+  `group_name` varchar(64) DEFAULT NULL COMMENT '群组名称',
+  `group_notice` varchar(255) DEFAULT NULL COMMENT '群公告，最大200个字符',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '群主用户ID',
+  `group_limit` int(11) DEFAULT '500' COMMENT '群成员数量限制，默认：500',
+  `user_count` int(11) DEFAULT '0' COMMENT '群成员数量',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='群组信息';
+
+-- ----------------------------
+-- Table structure for chat_history
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_history`;
+CREATE TABLE `chat_history` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `friend_user_id` varchar(32) DEFAULT NULL COMMENT '好友用户ID',
+  `content` text COMMENT '聊天内容',
+  `send_time` timestamp NULL DEFAULT NULL COMMENT '发送时间',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='聊天记录表';
+
+-- ----------------------------
+-- Table structure for chat_user_friend
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_user_friend`;
+CREATE TABLE `chat_user_friend` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `friend_user_id` varchar(32) DEFAULT NULL COMMENT '好友用户ID',
+  `friend_group_id` varchar(32) DEFAULT NULL COMMENT '好友分组ID',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态',
+  `disturb` bit(1) DEFAULT b'0' COMMENT '是否免打扰',
+  `topping` bit(1) DEFAULT b'0' COMMENT '是否置顶',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户好友信息关联表';
+
+-- ----------------------------
+-- Table structure for chat_user_friend_group
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_user_friend_group`;
+CREATE TABLE `chat_user_friend_group` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `group_id` varchar(32) DEFAULT NULL COMMENT '分组ID',
+  `group_name` varchar(64) DEFAULT NULL COMMENT '分组名称',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `status` varchar(16) DEFAULT NULL,
+  `disturb` bit(1) DEFAULT b'0' COMMENT '是否免打扰',
+  `topping` bit(1) DEFAULT b'0' COMMENT '是否置顶',
+  `order` int(11) DEFAULT NULL COMMENT '排序',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户好友分组表';
+
+-- ----------------------------
+-- Table structure for chat_user_group
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_user_group`;
+CREATE TABLE `chat_user_group` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `group_id` varchar(32) DEFAULT NULL COMMENT '群组ID',
+  `disturb` bit(1) DEFAULT b'0' COMMENT '是否免打扰',
+  `topping` bit(1) DEFAULT b'0' COMMENT '是否置顶',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `group_leader` tinyint(1) DEFAULT '0' COMMENT '0：群员，1：群主，2：群管理员',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户群组表';
+
+-- ----------------------------
+-- Table structure for chat_user_info
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_user_info`;
+CREATE TABLE `chat_user_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `user_name` varchar(64) DEFAULT NULL COMMENT '用户名',
+  `status` varchar(16) DEFAULT NULL COMMENT 'online：在线；offline：离线',
+  `sign` varchar(255) DEFAULT NULL COMMENT '签名信息',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Table structure for dictionary
@@ -154,6 +254,8 @@ CREATE TABLE `dictionary` (
   `name` varchar(64) DEFAULT NULL COMMENT '字典名称',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `type` varchar(8) DEFAULT NULL COMMENT '类型',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 
@@ -175,9 +277,9 @@ CREATE TABLE `friendly_link` (
   `create_user` varchar(32) DEFAULT NULL,
   `update_user` varchar(32) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL COMMENT '状态，0：正常，1：审核中，2：审核不通过',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='友情链接';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='友情链接';
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -210,13 +312,13 @@ CREATE TABLE `sys_permission` (
   `type` tinyint(1) DEFAULT NULL COMMENT '类型，1：菜单，2：按钮',
   `description` varchar(128) DEFAULT NULL COMMENT '资源描述',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_user` varchar(64) DEFAULT NULL COMMENT '创建人',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `update_user` varchar(64) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8mb4 COMMENT='系统资源权限配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统资源权限配置';
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -227,10 +329,10 @@ CREATE TABLE `sys_role` (
   `name` varchar(32) DEFAULT NULL COMMENT '角色名称',
   `code` varchar(32) DEFAULT NULL COMMENT '角色编码',
   `status` tinyint(1) DEFAULT '0' COMMENT '0：启用，1：禁用',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `app_type` varchar(16) DEFAULT NULL COMMENT '应用编码，标识权限所属的应用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='角色配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色配置';
 
 -- ----------------------------
 -- Table structure for sys_role_permission
@@ -241,7 +343,7 @@ CREATE TABLE `sys_role_permission` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `permission_id` bigint(20) NOT NULL COMMENT '权限ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3412 DEFAULT CHARSET=utf8mb4 COMMENT='角色权限配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色权限配置';
 
 -- ----------------------------
 -- Table structure for sys_user_account
@@ -255,14 +357,14 @@ CREATE TABLE `sys_user_account` (
   `secret` varchar(128) DEFAULT NULL COMMENT '登录凭证',
   `type` tinyint(1) DEFAULT '1' COMMENT '登录类型（1：普通用户；2：会员用户）',
   `status` tinyint(1) DEFAULT '0' COMMENT '状态（0：正常，1：冻结，2：注销）',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `create_user` varchar(64) DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_user` varchar(64) DEFAULT NULL COMMENT '更新人',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `app_type` varchar(16) DEFAULT NULL COMMENT '应用编码，标识权限所属的应用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='用户账号';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户账号';
 
 -- ----------------------------
 -- Table structure for sys_user_info
@@ -280,13 +382,13 @@ CREATE TABLE `sys_user_info` (
   `description` varchar(256) DEFAULT NULL COMMENT '个人描述',
   `phone` varchar(16) DEFAULT NULL COMMENT '通讯电话',
   `avatar` varchar(256) DEFAULT NULL COMMENT '用户头像',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `create_user` varchar(64) DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_user` varchar(64) DEFAULT NULL COMMENT '更新人',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户信息';
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -297,7 +399,7 @@ CREATE TABLE `sys_user_role` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `user_id` varchar(64) NOT NULL COMMENT '用户ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='用户角色配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色配置';
 
 -- ----------------------------
 -- Table structure for sys_user_tripartite_account
@@ -310,14 +412,14 @@ CREATE TABLE `sys_user_tripartite_account` (
   `third_type` varchar(16) DEFAULT NULL COMMENT '第三方类型',
   `third_id` varchar(128) DEFAULT NULL COMMENT '第三方ID',
   `bind_status` tinyint(1) DEFAULT '0' COMMENT '绑定状态，0：未绑定，1：已绑定',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `create_user` varchar(64) DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_user` varchar(64) DEFAULT NULL COMMENT '更新人',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `status` tinyint(1) DEFAULT '0' COMMENT '状态（0：正常，1：冻结，2：注销）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COMMENT='用户第三方账户';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户第三方账户';
 
 -- ----------------------------
 -- Table structure for tools
@@ -336,12 +438,12 @@ CREATE TABLE `tools` (
   `create_user` varchar(32) DEFAULT NULL,
   `update_user` varchar(32) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL COMMENT '状态，0：正常，1：审核中，2：审核不通过',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '删除状态，0：正常，1：删除',
+  `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `content` varchar(255) DEFAULT NULL COMMENT '内容',
   `jump_url` varchar(128) DEFAULT NULL COMMENT '内容跳转链接',
   `jump_type` int(4) DEFAULT NULL COMMENT '跳转类型',
   `sort` int(8) DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;

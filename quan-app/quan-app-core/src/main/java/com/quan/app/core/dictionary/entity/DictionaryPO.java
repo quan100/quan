@@ -1,9 +1,6 @@
 package com.quan.app.core.dictionary.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
@@ -70,4 +67,14 @@ public class DictionaryPO extends Model<DictionaryPO> {
      */
     private Date updateTime;
 
+    /**
+     * 类型
+     */
+    private String type;
+
+    /**
+     * 删除状态，false：未删除，true：已删除
+     */
+    @TableLogic
+    private Boolean delFlag;
 }

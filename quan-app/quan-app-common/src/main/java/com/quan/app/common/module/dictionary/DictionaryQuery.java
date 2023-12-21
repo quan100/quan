@@ -44,4 +44,8 @@ public class DictionaryQuery extends BasePage implements Serializable {
      */
     private String name;
 
+    /**
+     * 类型
+     */
+    private String type;
 }

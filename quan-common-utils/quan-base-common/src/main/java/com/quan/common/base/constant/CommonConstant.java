@@ -10,10 +10,10 @@ public class CommonConstant {
     /**
      * 是
      */
-    public static final Integer TRUE = 1;
+    public static final boolean TRUE = true;
 
     /**
      * 否
      */
-    public static final Integer FALSE = 0;
+    public static final boolean FALSE = false;
 }

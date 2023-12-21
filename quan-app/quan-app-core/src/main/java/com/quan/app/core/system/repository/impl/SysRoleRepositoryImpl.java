@@ -8,6 +8,7 @@ import com.quan.app.common.module.system.SysRolePermissionEvent;
 import com.quan.app.common.module.system.SysRoleQuery;
 import com.quan.app.common.util.RunUtil;
 import com.quan.app.common.util.Validate;
+import com.quan.common.base.constant.CommonConstant;
 import com.quan.common.base.message.BasePage;
 import com.quan.common.base.message.PageResult;
 import com.quan.app.core.convert.PageAssembler;
@@ -52,7 +53,7 @@ public class SysRoleRepositoryImpl extends ServiceImpl<SysRoleMapper, SysRolePO>
         queryWrapper.eq(Validate.isNotBlank(query.getCode()), SysRolePO::getCode, query.getCode());
         queryWrapper.eq(Validate.isNotBlank(query.getAppType()), SysRolePO::getAppType, query.getAppType());
         queryWrapper.eq(Validate.isNotNull(query.getStatus()), SysRolePO::getStatus, query.getStatus());
-        queryWrapper.eq(SysRolePO::getDelFlag, 0);
+        queryWrapper.eq(SysRolePO::getDelFlag, CommonConstant.FALSE);
         return this.getOne(queryWrapper);
     }
 

@@ -54,5 +54,8 @@ public class DictionaryVO implements Serializable {
      */
     private Date updateTime;
 
-
+    /**
+     * 类型
+     */
+    private String type;
 }

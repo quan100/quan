@@ -1,7 +1,6 @@
 package com.quan.app.mobile.bff.article.convert;
 
 import com.quan.app.common.module.article.*;
-import com.quan.app.common.module.article.*;
 import com.quan.app.common.util.Validate;
 import com.quan.common.base.message.PageResult;
 import com.quan.common.base.message.Result;
@@ -25,7 +24,7 @@ public interface OpenArticleAssembler {
 
     @Named("toAuthorAccounts")
     default String toAuthorAccounts(ArticleDTO dto) {
-        if (Validate.defaultValue(dto.getAuthorAccountsPublic()) == 1) {
+        if (Validate.defaultValue(dto.getAuthorAccountsPublic())) {
             return dto.getAuthorAccounts();
         }
         return null;

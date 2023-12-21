@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.quan.app.common.module.dictionary.DictionaryQuery;
 import com.quan.app.common.util.Validate;
+import com.quan.common.base.constant.CommonConstant;
 import com.quan.common.base.message.BasePage;
 import com.quan.common.base.message.PageResult;
 import com.quan.app.core.convert.PageAssembler;
@@ -33,15 +34,16 @@ public class DictionaryRepositoryImpl extends ServiceImpl<DictionaryMapper, Dict
     @Override
     public PageResult<DictionaryPO> page(DictionaryPO po, BasePage basePage) {
         Page<DictionaryPO> page = PageAssembler.INSTANCE.toPage(basePage);
-        LambdaQueryWrapper<DictionaryPO> queryWrapper = Wrappers.lambdaQuery(po);
+        LambdaQueryWrapper<DictionaryPO> queryWrapper = Wrappers.lambdaQuery(po).eq(DictionaryPO::getDelFlag, CommonConstant.FALSE);
         queryWrapper.select(
                 DictionaryPO::getId,
                 DictionaryPO::getName,
                 DictionaryPO::getOpen,
                 DictionaryPO::getCode,
-                DictionaryPO::getUpdateTime
+                DictionaryPO::getUpdateTime,
+                DictionaryPO::getType
         );
-        queryWrapper.orderByDesc(DictionaryPO::getCreateTime, DictionaryPO::getUpdateTime);
+        queryWrapper.orderByDesc(DictionaryPO::getUpdateTime);
         page = this.page(page, queryWrapper);
         return PageResultAssembler.INSTANCE.toPageResult(page);
     }
@@ -52,6 +54,7 @@ public class DictionaryRepositoryImpl extends ServiceImpl<DictionaryMapper, Dict
         queryWrapper.select(DictionaryPO::getValue);
         queryWrapper.eq(DictionaryPO::getCode, query.getCode());
         queryWrapper.eq(Validate.isNotNull(query.getOpen()), DictionaryPO::getOpen, query.getOpen());
+        queryWrapper.eq(DictionaryPO::getDelFlag, CommonConstant.FALSE);
         DictionaryPO dictionaryPo = this.getOne(queryWrapper);
         if (null != dictionaryPo) {
             return dictionaryPo.getValue();
@@ -64,6 +67,7 @@ public class DictionaryRepositoryImpl extends ServiceImpl<DictionaryMapper, Dict
         LambdaQueryWrapper<DictionaryPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(DictionaryPO::getCode, query.getCode());
         queryWrapper.eq(Validate.isNotNull(query.getOpen()), DictionaryPO::getOpen, query.getOpen());
+        queryWrapper.eq(DictionaryPO::getDelFlag, CommonConstant.FALSE);
         return this.getOne(queryWrapper);
     }
 
@@ -71,6 +75,7 @@ public class DictionaryRepositoryImpl extends ServiceImpl<DictionaryMapper, Dict
     public List<DictionaryPO> getDictionaries(DictionaryQuery query) {
         LambdaQueryWrapper<DictionaryPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(DictionaryPO::getCode, query.getCode());
+        queryWrapper.eq(DictionaryPO::getDelFlag, CommonConstant.FALSE);
         return this.list(queryWrapper);
     }
 }

@@ -2,6 +2,7 @@ package com.quan.app.core.chat.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
@@ -50,6 +51,7 @@ public class ChatHistoryPO extends Model<ChatHistoryPO> {
     /**
      * 删除状态
      */
+    @TableLogic
     private Boolean delFlag;
 
 }

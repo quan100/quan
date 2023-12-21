@@ -8,6 +8,7 @@ import com.quan.app.common.module.system.SubsetPermissionsQuery;
 import com.quan.app.common.module.system.SysPermissionTreeDTO;
 import com.quan.app.common.module.system.SysRolePermissionQuery;
 import com.quan.app.common.util.Validate;
+import com.quan.common.base.constant.CommonConstant;
 import com.quan.common.base.message.BasePage;
 import com.quan.common.base.message.PageResult;
 import com.quan.app.core.convert.PageAssembler;
@@ -60,7 +61,7 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
         LambdaQueryWrapper<SysPermissionPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.in(SysPermissionPO::getId, permissionIds);
         queryWrapper.eq(null != query.getType(), SysPermissionPO::getType, query.getType());
-        queryWrapper.eq(SysPermissionPO::getDelFlag, 0);
+        queryWrapper.eq(SysPermissionPO::getDelFlag, CommonConstant.FALSE);
         queryWrapper.orderByAsc(SysPermissionPO::getSort);
         List<SysPermissionPO> sysPermissionPos = this.list(queryWrapper);
         return sysPermissionPos;
@@ -136,7 +137,7 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
         // 不匹配菜单权限（菜单权限由路由控制）
         LambdaQueryWrapper<SysPermissionPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysPermissionPO::getType, 2);
-        queryWrapper.eq(SysPermissionPO::getDelFlag, 0);
+        queryWrapper.eq(SysPermissionPO::getDelFlag, CommonConstant.FALSE);
         List<SysPermissionPO> sysPermissionPos = this.list(queryWrapper);
         if (Validate.isEmpty(sysPermissionPos)) {
             return Collections.emptyList();
