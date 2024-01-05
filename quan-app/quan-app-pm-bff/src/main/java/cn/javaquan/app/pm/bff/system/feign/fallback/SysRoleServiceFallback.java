@@ -1,7 +1,7 @@
 package cn.javaquan.app.pm.bff.system.feign.fallback;
 
 import cn.javaquan.app.common.exception.SystemException;
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.system.AuthorizeRolePermissionEvent;
 import cn.javaquan.app.common.module.system.SysRoleAddCommand;
 import cn.javaquan.app.common.module.system.SysRoleQuery;
@@ -30,32 +30,32 @@ public class SysRoleServiceFallback implements FallbackFactory<SysRoleServiceFei
         return new SysRoleServiceFeign() {
             @Override
             public Result page(SysRoleQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(SysRoleUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(SysRoleAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysRoleAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override

@@ -3,7 +3,7 @@ package cn.javaquan.app.service.system.feign.fallback;
 import cn.javaquan.app.common.module.system.*;
 import cn.javaquan.app.service.system.feign.SysRolePermissionRepositoryFeign;
 import cn.javaquan.common.base.message.Result;
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -26,52 +26,52 @@ public class SysRolePermissionRepositoryFallback implements FallbackFactory<SysR
         return new SysRolePermissionRepositoryFeign() {
             @Override
             public Result page(SysRolePermissionQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(SysRolePermissionUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(SysRolePermissionAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysRolePermissionAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result getRolePermissionIds(SysRolePermissionQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<Integer> count(SysRolePermissionQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<Boolean> delRolePermission(SysRolePermissionEvent event) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<List<PermissionRoleDTO>> getPermissionRoles() {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

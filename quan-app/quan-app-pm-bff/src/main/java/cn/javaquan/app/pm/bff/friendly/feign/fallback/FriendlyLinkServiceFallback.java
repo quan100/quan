@@ -1,6 +1,6 @@
 package cn.javaquan.app.pm.bff.friendly.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.friendly.FriendlyLinkAddCommand;
 import cn.javaquan.app.common.module.friendly.FriendlyLinkQuery;
 import cn.javaquan.app.common.module.friendly.FriendlyLinkUpdateCommand;
@@ -28,32 +28,32 @@ public class FriendlyLinkServiceFallback implements FallbackFactory<FriendlyLink
         return new FriendlyLinkServiceFeign() {
             @Override
             public Result page(FriendlyLinkQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(FriendlyLinkUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(FriendlyLinkAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<FriendlyLinkAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

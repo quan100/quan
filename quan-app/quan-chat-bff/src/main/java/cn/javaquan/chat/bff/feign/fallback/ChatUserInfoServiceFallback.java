@@ -1,7 +1,7 @@
 package cn.javaquan.chat.bff.feign.fallback;
 
 import cn.javaquan.chat.bff.feign.ChatUserInfoServiceFeign;
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.chat.ChatUserInfoAddCommand;
 import cn.javaquan.app.common.module.chat.ChatUserInfoDTO;
 import cn.javaquan.app.common.module.chat.ChatUserInfoQuery;
@@ -28,42 +28,42 @@ public class ChatUserInfoServiceFallback implements FallbackFactory<ChatUserInfo
         return new ChatUserInfoServiceFeign() {
             @Override
             public Result page(ChatUserInfoQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(ChatUserInfoUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(ChatUserInfoAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ChatUserInfoAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<ChatUserInfoDTO> queryByUserId(String userId) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<List<ChatUserInfoDTO>> queryByUserIds(List<String> userIds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

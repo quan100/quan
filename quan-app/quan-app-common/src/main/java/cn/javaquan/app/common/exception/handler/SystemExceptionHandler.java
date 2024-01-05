@@ -1,8 +1,8 @@
 package cn.javaquan.app.common.exception.handler;
 
 import cn.javaquan.app.common.exception.SystemException;
-import cn.javaquan.tools.notice.SystemNoticeException;
 import cn.javaquan.common.base.message.Result;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -64,8 +64,8 @@ public class SystemExceptionHandler {
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
-    @ExceptionHandler(SystemNoticeException.class)
-    public Result<?> handleFeignException(SystemNoticeException e) {
+    @ExceptionHandler(SystemNotifyException.class)
+    public Result<?> handleFeignException(SystemNotifyException e) {
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
 

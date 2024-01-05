@@ -1,6 +1,6 @@
 package cn.javaquan.app.service.article.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.article.ArticleCategoryConfigAddCommand;
 import cn.javaquan.app.common.module.article.ArticleCategoryConfigQuery;
 import cn.javaquan.app.common.module.article.ArticleCategoryConfigUpdateCommand;
@@ -28,32 +28,32 @@ public class ArticleCategoryConfigRepositoryFallback implements FallbackFactory<
         return new ArticleCategoryConfigRepositoryFeign() {
             @Override
             public Result page(ArticleCategoryConfigQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(ArticleCategoryConfigUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(ArticleCategoryConfigAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ArticleCategoryConfigAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

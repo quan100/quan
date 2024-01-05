@@ -1,1 +1,1 @@
-cn.javaquan.app.common.exception.handler.SystemExceptionHandler
+cn.javaquan.app.common.autoconfigure.QuanAppCommonAutoConfiguration

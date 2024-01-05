@@ -1,6 +1,6 @@
 package cn.javaquan.app.service.tools.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.tools.ToolsAddCommand;
 import cn.javaquan.app.common.module.tools.ToolsQuery;
 import cn.javaquan.app.common.module.tools.ToolsUpdateCommand;
@@ -28,37 +28,37 @@ public class ToolsRepositoryFallback implements FallbackFactory<ToolsRepositoryF
         return new ToolsRepositoryFeign() {
             @Override
             public Result page(ToolsQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(ToolsUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(ToolsAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ToolsAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result getTools(ToolsQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

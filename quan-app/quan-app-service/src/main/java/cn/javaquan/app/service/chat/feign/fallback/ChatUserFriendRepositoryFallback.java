@@ -1,6 +1,6 @@
 package cn.javaquan.app.service.chat.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.chat.ChatUserFriendAddCommand;
 import cn.javaquan.app.common.module.chat.ChatUserFriendQuery;
 import cn.javaquan.app.common.module.chat.ChatUserFriendUpdateCommand;
@@ -27,37 +27,37 @@ public class ChatUserFriendRepositoryFallback implements FallbackFactory<ChatUse
         return new ChatUserFriendRepositoryFeign() {
             @Override
             public Result page(ChatUserFriendQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(ChatUserFriendUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(ChatUserFriendAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ChatUserFriendAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result queryByUserId(String userId) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

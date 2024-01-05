@@ -1,6 +1,6 @@
 package cn.javaquan.app.pm.bff.system.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.system.SysUserInfoAddCommand;
 import cn.javaquan.app.common.module.system.SysUserInfoDTO;
 import cn.javaquan.app.common.module.system.SysUserInfoQuery;
@@ -29,37 +29,37 @@ public class SysUserInfoServiceFallback implements FallbackFactory<SysUserInfoSe
         return new SysUserInfoServiceFeign() {
             @Override
             public Result page(SysUserInfoQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(SysUserInfoUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(SysUserInfoAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysUserInfoAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<SysUserInfoDTO> getUserInfo(String userId) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

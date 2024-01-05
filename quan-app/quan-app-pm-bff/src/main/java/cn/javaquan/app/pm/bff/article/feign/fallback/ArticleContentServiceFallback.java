@@ -1,6 +1,6 @@
 package cn.javaquan.app.pm.bff.article.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.article.ArticleContentAddCommand;
 import cn.javaquan.app.common.module.article.ArticleContentUpdateCommand;
 import cn.javaquan.app.pm.bff.article.feign.ArticleContentServiceFeign;
@@ -28,22 +28,22 @@ public class ArticleContentServiceFallback implements FallbackFactory<ArticleCon
 
             @Override
             public Result details(String articleId) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(ArticleContentUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(ArticleContentAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

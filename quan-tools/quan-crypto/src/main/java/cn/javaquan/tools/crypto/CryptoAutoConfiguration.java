@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 /**
- * 验证码工具配置
+ * 密码加密工具配置
  *
  * @author javaquan
  * @since 2.2.0

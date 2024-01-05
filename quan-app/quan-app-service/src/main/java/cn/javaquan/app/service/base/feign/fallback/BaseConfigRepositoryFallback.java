@@ -1,6 +1,6 @@
 package cn.javaquan.app.service.base.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.base.BaseConfigAddCommand;
 import cn.javaquan.app.common.module.base.BaseConfigQuery;
 import cn.javaquan.app.common.module.base.BaseConfigUpdateCommand;
@@ -28,32 +28,32 @@ public class BaseConfigRepositoryFallback implements FallbackFactory<BaseConfigR
         return new BaseConfigRepositoryFeign() {
             @Override
             public Result page(BaseConfigQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Integer id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(BaseConfigUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(BaseConfigAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<BaseConfigAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Integer> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

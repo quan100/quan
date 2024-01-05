@@ -1,6 +1,6 @@
 package cn.javaquan.app.mobile.bff.article.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.article.ArticleTagAddCommand;
 import cn.javaquan.app.common.module.article.ArticleTagQuery;
 import cn.javaquan.app.common.module.article.ArticleTagUpdateCommand;
@@ -28,32 +28,32 @@ public class ArticleTagServiceFallback implements FallbackFactory<ArticleTagServ
         return new ArticleTagServiceFeign() {
             @Override
             public Result page(ArticleTagQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(ArticleTagUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(ArticleTagAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ArticleTagAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

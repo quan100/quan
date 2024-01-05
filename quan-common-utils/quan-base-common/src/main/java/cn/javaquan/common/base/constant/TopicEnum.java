@@ -8,5 +8,6 @@ package cn.javaquan.common.base.constant;
 public class TopicEnum {
     public static final String ROLE_AUTHORIZATION = "ROLE_AUTHORIZATION";
 
+    public static final String DING_MSG_TOPIC = "DING_MSG_TOPIC";
 
 }

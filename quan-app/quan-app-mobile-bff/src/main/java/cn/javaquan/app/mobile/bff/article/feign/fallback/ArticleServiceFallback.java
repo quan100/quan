@@ -1,6 +1,6 @@
 package cn.javaquan.app.mobile.bff.article.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.article.ArticleDTO;
 import cn.javaquan.app.common.module.article.ArticleQuery;
 import cn.javaquan.app.common.module.article.HotArticleQuery;
@@ -27,27 +27,27 @@ public class ArticleServiceFallback implements FallbackFactory<ArticleServiceFei
         return new ArticleServiceFeign() {
             @Override
             public Result page(ArticleQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<ArticleDTO> getArticle(String articleId) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result hotCategoryArticle(HotArticleQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result byCategory(OpenArticleQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

@@ -1,6 +1,6 @@
 package cn.javaquan.app.mobile.bff.article.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.mobile.bff.article.feign.ArticleContentServiceFeign;
 import cn.javaquan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class ArticleContentServiceFallback implements FallbackFactory<ArticleCon
 
             @Override
             public Result details(String articleId) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
         };

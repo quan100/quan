@@ -1,6 +1,6 @@
 package cn.javaquan.app.pm.bff.system.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.auth.AuthQuery;
 import cn.javaquan.app.common.module.system.SysUserAccountAddCommand;
 import cn.javaquan.app.common.module.system.SysUserAccountDTO;
@@ -30,42 +30,42 @@ public class SysUserAccountServiceFallback implements FallbackFactory<SysUserAcc
         return new SysUserAccountServiceFeign() {
             @Override
             public Result page(SysUserAccountQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(SysUserAccountUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(SysUserAccountAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysUserAccountAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result getUserPermission(AuthQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<SysUserAccountDTO> getUserAccount(SysUserAccountQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

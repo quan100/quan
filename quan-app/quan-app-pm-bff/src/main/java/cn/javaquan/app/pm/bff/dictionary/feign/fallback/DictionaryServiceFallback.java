@@ -1,6 +1,6 @@
 package cn.javaquan.app.pm.bff.dictionary.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.dictionary.DictionaryAddCommand;
 import cn.javaquan.app.common.module.dictionary.DictionaryQuery;
 import cn.javaquan.app.common.module.dictionary.DictionaryUpdateCommand;
@@ -28,37 +28,37 @@ public class DictionaryServiceFallback implements FallbackFactory<DictionaryServ
         return new DictionaryServiceFeign() {
             @Override
             public Result page(DictionaryQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(DictionaryUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(DictionaryAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<DictionaryAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result getValue(DictionaryQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

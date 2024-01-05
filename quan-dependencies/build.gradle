@@ -40,7 +40,7 @@ dependencies {
         // shardingsphere
         api "org.apache.shardingsphere:shardingsphere-jdbc-core-spring-boot-starter:$shardingsphereVersion"
 
-        // aliyun
-        api "com.aliyun:dingtalk:$aliyunVersion"
+        // dingtalk
+        api "com.aliyun:dingtalk:$dingtalkVersion"
     }
 }

@@ -1,4 +1,4 @@
-description = 'quan-notice'
+description = 'quan-notify'
 apply plugin: "kotlin"
 
 dependencies {

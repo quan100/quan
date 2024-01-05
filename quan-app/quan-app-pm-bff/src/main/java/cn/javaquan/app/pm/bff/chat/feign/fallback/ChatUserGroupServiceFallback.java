@@ -1,6 +1,6 @@
 package cn.javaquan.app.pm.bff.chat.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.chat.ChatUserGroupAddCommand;
 import cn.javaquan.app.common.module.chat.ChatUserGroupQuery;
 import cn.javaquan.app.common.module.chat.ChatUserGroupUpdateCommand;
@@ -27,32 +27,32 @@ public class ChatUserGroupServiceFallback implements FallbackFactory<ChatUserGro
         return new ChatUserGroupServiceFeign() {
             @Override
             public Result page(ChatUserGroupQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(ChatUserGroupUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(ChatUserGroupAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ChatUserGroupAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

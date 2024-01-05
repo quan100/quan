@@ -1,6 +1,6 @@
 package cn.javaquan.app.mobile.bff.dictionary.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.dictionary.DictionaryQuery;
 import cn.javaquan.app.mobile.bff.dictionary.feign.OpenDictionaryServiceFeign;
 import cn.javaquan.common.base.message.Result;
@@ -25,7 +25,7 @@ public class OpenDictionaryServiceFallback implements FallbackFactory<OpenDictio
 
             @Override
             public Result getValue(DictionaryQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

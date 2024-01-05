@@ -1,6 +1,6 @@
 package cn.javaquan.app.pm.bff.command.feign.fallback;
 
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.article.ArticleDTO;
 import cn.javaquan.app.pm.bff.command.feign.ArticleSitemapFeign;
 import cn.javaquan.common.base.message.Result;
@@ -25,7 +25,7 @@ public class ArticleSitemapFallback implements FallbackFactory<ArticleSitemapFei
 
             @Override
             public Result<List<ArticleDTO>> getSitemaps() {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }

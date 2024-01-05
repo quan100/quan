@@ -1,2 +1,2 @@
 cn.javaquan.tools.limit.autoconfigure.LimitAutoConfiguration
-redisson.executor.cn.javaquan.tools.limit.RedissonLimitAutoConfiguration
+cn.javaquan.tools.limit.executor.redisson.RedissonLimitAutoConfiguration

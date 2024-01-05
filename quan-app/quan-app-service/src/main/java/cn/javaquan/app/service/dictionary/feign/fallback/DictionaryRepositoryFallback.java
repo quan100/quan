@@ -1,7 +1,7 @@
 package cn.javaquan.app.service.dictionary.feign.fallback;
 
 import cn.javaquan.app.service.dictionary.feign.DictionaryRepositoryFeign;
-import cn.javaquan.tools.notice.SystemNoticeException;
+import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.dictionary.DictionaryAddCommand;
 import cn.javaquan.app.common.module.dictionary.DictionaryDTO;
 import cn.javaquan.app.common.module.dictionary.DictionaryQuery;
@@ -29,47 +29,47 @@ public class DictionaryRepositoryFallback implements FallbackFactory<DictionaryR
         return new DictionaryRepositoryFeign() {
             @Override
             public Result page(DictionaryQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result update(DictionaryUpdateCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result save(DictionaryAddCommand cmd) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result saveBatch(List<DictionaryAddCommand> cmds) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result getValue(DictionaryQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<DictionaryDTO> getDictionary(DictionaryQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
 
             @Override
             public Result<List<DictionaryDTO>> getDictionaries(DictionaryQuery query) {
-                throw new SystemNoticeException(throwable);
+                throw new SystemNotifyException(throwable);
             }
         };
     }
