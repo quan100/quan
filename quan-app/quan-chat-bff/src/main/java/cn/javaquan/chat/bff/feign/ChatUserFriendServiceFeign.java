@@ -1,12 +1,12 @@
 package cn.javaquan.chat.bff.feign;
 
 import cn.javaquan.chat.bff.feign.fallback.ChatUserFriendServiceFallback;
-import com.quan.app.common.module.chat.ChatUserFriendAddCommand;
-import com.quan.app.common.module.chat.ChatUserFriendDTO;
-import com.quan.app.common.module.chat.ChatUserFriendQuery;
-import com.quan.app.common.module.chat.ChatUserFriendUpdateCommand;
-import com.quan.common.base.message.PageResult;
-import com.quan.common.base.message.Result;
+import cn.javaquan.app.common.module.chat.ChatUserFriendAddCommand;
+import cn.javaquan.app.common.module.chat.ChatUserFriendDTO;
+import cn.javaquan.app.common.module.chat.ChatUserFriendQuery;
+import cn.javaquan.app.common.module.chat.ChatUserFriendUpdateCommand;
+import cn.javaquan.common.base.message.PageResult;
+import cn.javaquan.common.base.message.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;

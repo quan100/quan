@@ -1,12 +1,12 @@
 package cn.javaquan.chat.bff.feign;
 
 import cn.javaquan.chat.bff.feign.fallback.ChatHistoryServiceFallback;
-import com.quan.app.common.module.chat.ChatHistoryAddCommand;
-import com.quan.app.common.module.chat.ChatHistoryDTO;
-import com.quan.app.common.module.chat.ChatHistoryQuery;
-import com.quan.app.common.module.chat.ChatHistoryUpdateCommand;
-import com.quan.common.base.message.PageResult;
-import com.quan.common.base.message.Result;
+import cn.javaquan.app.common.module.chat.ChatHistoryAddCommand;
+import cn.javaquan.app.common.module.chat.ChatHistoryDTO;
+import cn.javaquan.app.common.module.chat.ChatHistoryQuery;
+import cn.javaquan.app.common.module.chat.ChatHistoryUpdateCommand;
+import cn.javaquan.common.base.message.PageResult;
+import cn.javaquan.common.base.message.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;

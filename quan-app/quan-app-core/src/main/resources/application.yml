@@ -60,8 +60,8 @@ minio:
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.quan.app.core.**.entity.**
-  typeEnumsPackage: com.quan.app.core.**.entity.**.enums
+  typeAliasesPackage: cn.javaquan.app.core.**.entity.**
+  typeEnumsPackage: cn.javaquan.app.core.**.entity.**.enums
   global-config:
     # 关闭MP3.0自带的banner
     banner: false

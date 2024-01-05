@@ -43,7 +43,7 @@ allprojects {
 }
 
 configure([rootProject] + javaProjects) { project ->
-    group = "com.quan"
+    group = "cn.javaquan"
 
     apply plugin: "java"
 

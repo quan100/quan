@@ -31,7 +31,7 @@ eureka:
 
 logging:
   level:
-    com.quan: debug
+    cn.javaquan: debug
 feign:
   client:
     config:

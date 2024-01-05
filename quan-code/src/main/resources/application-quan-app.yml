@@ -1,7 +1,7 @@
 # Mybatis配置
 mybatis:
   mapperLocations: classpath:mapper/**/*.xml
-  type-aliases-package: com.quan.code.**.entity.**
+  type-aliases-package: cn.javaquan.code.**.entity.**
   configuration:
     map-underscore-to-camel-case: true
 
@@ -23,10 +23,10 @@ spring:
 # 代码生成器，配置信息
 generator:
   # group id
-  mainPath: com.quan
+  mainPath: cn.javaquan
 
   # 包名
-  packageName: com.quan.app
+  packageName: cn.javaquan.app
   # 模块名，当设置为空时，默认取表前缀
   moduleName:
   # 领域模块，若配置，则相关URL增加该前缀

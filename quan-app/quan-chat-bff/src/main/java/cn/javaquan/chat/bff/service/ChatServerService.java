@@ -2,12 +2,12 @@ package cn.javaquan.chat.bff.service;
 
 import cn.javaquan.chat.bff.convert.MineInfoAssembler;
 import cn.javaquan.chat.bff.feign.*;
-import com.quan.app.common.module.chat.ChatUserFriendDTO;
-import com.quan.app.common.module.chat.ChatUserFriendGroupDTO;
-import com.quan.app.common.module.chat.ChatUserGroupDTO;
-import com.quan.app.common.module.chat.ChatUserInfoDTO;
-import com.quan.app.common.module.chat.layim.MineInfoVo;
-import com.quan.common.base.message.Result;
+import cn.javaquan.app.common.module.chat.ChatUserFriendDTO;
+import cn.javaquan.app.common.module.chat.ChatUserFriendGroupDTO;
+import cn.javaquan.app.common.module.chat.ChatUserGroupDTO;
+import cn.javaquan.app.common.module.chat.ChatUserInfoDTO;
+import cn.javaquan.app.common.module.chat.layim.MineInfoVo;
+import cn.javaquan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

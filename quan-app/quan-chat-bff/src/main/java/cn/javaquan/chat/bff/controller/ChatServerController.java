@@ -1,7 +1,7 @@
 package cn.javaquan.chat.bff.controller;
 
 import cn.javaquan.chat.bff.service.ChatServerService;
-import com.quan.common.base.message.Result;
+import cn.javaquan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

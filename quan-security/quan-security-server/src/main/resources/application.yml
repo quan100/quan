@@ -35,7 +35,7 @@ spring:
 logging:
   # 打印sql
   level:
-    com.quan.security: info
+    cn.javaquan.security: info
 
 hystrix:
   command:

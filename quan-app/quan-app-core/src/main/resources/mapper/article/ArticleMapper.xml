@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.quan.app.core.article.mapper.ArticleMapper">
+<mapper namespace="cn.javaquan.app.core.article.mapper.ArticleMapper">
 
-    <resultMap id="articleByCategoryResultMap" type="com.quan.app.common.module.article.ArticleByCategoryDTO">
+    <resultMap id="articleByCategoryResultMap" type="cn.javaquan.app.common.module.article.ArticleByCategoryDTO">
         <result column="id" property="id"/>
         <result column="article_id" property="articleId"/>
         <result column="user_id" property="userId"/>
@@ -28,14 +28,14 @@
         <result column="status" property="status"/>
         <result column="brief_content" property="briefContent"/>
 
-        <association property="category" column="category_id" javaType="com.quan.app.common.module.article.ArticleCategoryDTO" select="queryCategoryById">
+        <association property="category" column="category_id" javaType="cn.javaquan.app.common.module.article.ArticleCategoryDTO" select="queryCategoryById">
             <result column="category_id" property="categoryId"/>
             <result column="categoryName" property="name"/>
             <result column="categoryType" property="type"/>
             <result column="categoryColor" property="color"/>
         </association>
 
-        <collection property="tagList" column="article_id" ofType="com.quan.app.common.module.article.ArticleTagDTO" select="queryTagConfigByArticleId">
+        <collection property="tagList" column="article_id" ofType="cn.javaquan.app.common.module.article.ArticleTagDTO" select="queryTagConfigByArticleId">
             <result column="tag_id" property="tagId"/>
             <result column="name" property="name"/>
             <result column="type" property="type"/>
@@ -59,7 +59,7 @@
             ${ew.customSqlSegment}
     </select>
 
-    <select id="queryTagConfigByArticleId" resultType="com.quan.app.common.module.article.ArticleTagDTO">
+    <select id="queryTagConfigByArticleId" resultType="cn.javaquan.app.common.module.article.ArticleTagDTO">
         select * from article_tag_config as config
         LEFT JOIN article_tag AS tag ON tag.tag_id = config.tag_id
         where config.article_id = #{article_id}
@@ -67,7 +67,7 @@
           and tag.del_flag = 0
     </select>
 
-    <select id="queryCategoryById" resultType="com.quan.app.common.module.article.ArticleCategoryDTO">
+    <select id="queryCategoryById" resultType="cn.javaquan.app.common.module.article.ArticleCategoryDTO">
         select * from article_category as category
         where category.category_id = #{category_id}
         and category.del_flag = 0
