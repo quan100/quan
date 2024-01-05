@@ -2,21 +2,21 @@ package cn.javaquan.app.common.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * im聊天sdk配置
+ * QuanAppCommon 配置
  *
  * @author javaquan
  * @since 1.0.0
  */
-@ComponentScan(basePackages = {"cn.javaquan.app.common"})
+@ComponentScan(basePackages = {"cn.javaquan.app.common.exception.handler", "cn.javaquan.app.common.consumer"})
 @AutoConfiguration
 public class QuanAppCommonAutoConfiguration {
 
-//    @ComponentScan
-//    @Configuration(proxyBeanMethods = false)
-//    protected static class QuanAppCommonConfiguration {
-//
-//    }
+    @Configuration(proxyBeanMethods = false)
+    protected static class QuanAppCommonConfiguration {
+
+    }
 
 }
