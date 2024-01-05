@@ -1,9 +1,10 @@
 package com.quan.app.service.article.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.article.ArticleContentAddCommand;
 import com.quan.app.common.module.article.ArticleContentUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.article.feign.ArticleContentRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,22 +28,22 @@ public class ArticleContentRepositoryFallback implements FallbackFactory<Article
 
             @Override
             public Result details(String articleId) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(ArticleContentUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(ArticleContentAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

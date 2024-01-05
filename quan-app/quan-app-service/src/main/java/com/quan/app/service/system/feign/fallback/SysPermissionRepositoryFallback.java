@@ -1,8 +1,9 @@
 package com.quan.app.service.system.feign.fallback;
 
-import com.quan.common.base.message.Result;
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.system.*;
 import com.quan.app.service.system.feign.SysPermissionRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -25,52 +26,52 @@ public class SysPermissionRepositoryFallback implements FallbackFactory<SysPermi
         return new SysPermissionRepositoryFeign() {
             @Override
             public Result page(SysPermissionQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(SysPermissionUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(SysPermissionAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysPermissionAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result getRolePermission(SysRolePermissionQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result getSubsetPermissions(SubsetPermissionsQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result getTreePermissions(SubsetPermissionsQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<List<SysPermissionDTO>> getPerms() {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

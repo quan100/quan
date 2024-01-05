@@ -1,4 +1,4 @@
-description = 'quan-feign'
+description = 'quan-notice'
 apply plugin: "kotlin"
 
 dependencies {

@@ -1,6 +1,7 @@
 package com.quan.app.common.exception.handler;
 
 import com.quan.app.common.exception.SystemException;
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,11 @@ public class SystemExceptionHandler {
     public Result<?> handleException(Exception e) {
         log.error(e.getMessage(), e);
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(SystemNoticeException.class)
+    public Result<?> handleFeignException(SystemNoticeException e) {
+        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
 
     /**

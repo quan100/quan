@@ -1,5 +1,6 @@
 package ${package}.service.${moduleName}.feign.fallback;
 
+import ${package}.common.exception.SystemFeignException;
 import ${package}.common.module.${moduleName}.${className}AddCommand;
 import ${package}.common.module.${moduleName}.${className}Query;
 import ${package}.common.module.${moduleName}.${className}UpdateCommand;
@@ -27,32 +28,32 @@ public class ${className}RepositoryFallback implements FallbackFactory<${classNa
         return new ${className}RepositoryFeign() {
             @Override
             public Result page(${className}Query query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemFeignException(throwable);
             }
 
             @Override
             public Result details(${pk.attrType} ${pk.attrname}) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemFeignException(throwable);
             }
 
             @Override
             public Result update(${className}UpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemFeignException(throwable);
             }
 
             @Override
             public Result save(${className}AddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemFeignException(throwable);
             }
 
             @Override
             public Result saveBatch(List<${className}AddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemFeignException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<${pk.attrType}> ${pk.attrname}s) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemFeignException(throwable);
             }
         };
     }

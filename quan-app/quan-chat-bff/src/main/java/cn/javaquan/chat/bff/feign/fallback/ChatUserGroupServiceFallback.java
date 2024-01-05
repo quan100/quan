@@ -1,6 +1,7 @@
 package cn.javaquan.chat.bff.feign.fallback;
 
 import cn.javaquan.chat.bff.feign.ChatUserGroupServiceFeign;
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.chat.ChatUserGroupAddCommand;
 import com.quan.app.common.module.chat.ChatUserGroupDTO;
 import com.quan.app.common.module.chat.ChatUserGroupQuery;
@@ -27,37 +28,37 @@ public class ChatUserGroupServiceFallback implements FallbackFactory<ChatUserGro
         return new ChatUserGroupServiceFeign() {
             @Override
             public Result page(ChatUserGroupQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(ChatUserGroupUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(ChatUserGroupAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ChatUserGroupAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<List<ChatUserGroupDTO>> queryByUserId(String userId) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

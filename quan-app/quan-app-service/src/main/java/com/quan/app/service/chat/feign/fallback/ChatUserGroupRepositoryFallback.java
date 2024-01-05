@@ -1,11 +1,12 @@
 package com.quan.app.service.chat.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.chat.ChatUserGroupAddCommand;
 import com.quan.app.common.module.chat.ChatUserGroupDTO;
 import com.quan.app.common.module.chat.ChatUserGroupQuery;
 import com.quan.app.common.module.chat.ChatUserGroupUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.chat.feign.ChatUserGroupRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,37 +28,37 @@ public class ChatUserGroupRepositoryFallback implements FallbackFactory<ChatUser
         return new ChatUserGroupRepositoryFeign() {
             @Override
             public Result page(ChatUserGroupQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(ChatUserGroupUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(ChatUserGroupAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ChatUserGroupAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<List<ChatUserGroupDTO>> queryByUserId(String userId) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

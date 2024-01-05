@@ -1,10 +1,11 @@
 package com.quan.app.pm.bff.tools.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.tools.ToolsAddCommand;
 import com.quan.app.common.module.tools.ToolsQuery;
 import com.quan.app.common.module.tools.ToolsUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.pm.bff.tools.feign.ToolsServiceFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,32 +28,32 @@ public class ToolsServiceFallback implements FallbackFactory<ToolsServiceFeign> 
         return new ToolsServiceFeign() {
             @Override
             public Result page(ToolsQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(ToolsUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(ToolsAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ToolsAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

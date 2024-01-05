@@ -1,10 +1,11 @@
 package com.quan.app.service.article.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.article.ArticleCategoryAddCommand;
 import com.quan.app.common.module.article.ArticleCategoryQuery;
 import com.quan.app.common.module.article.ArticleCategoryUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.article.feign.ArticleCategoryRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,32 +28,32 @@ public class ArticleCategoryRepositoryFallback implements FallbackFactory<Articl
         return new ArticleCategoryRepositoryFeign() {
             @Override
             public Result page(ArticleCategoryQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(ArticleCategoryUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(ArticleCategoryAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ArticleCategoryAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

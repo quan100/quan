@@ -1,10 +1,11 @@
 package com.quan.app.service.system.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.system.SysUserAccountAddCommand;
 import com.quan.app.common.module.system.SysUserAccountQuery;
 import com.quan.app.common.module.system.SysUserAccountUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.system.feign.SysUserAccountRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,37 +28,37 @@ public class SysUserAccountRepositoryFallback implements FallbackFactory<SysUser
         return new SysUserAccountRepositoryFeign() {
             @Override
             public Result page(SysUserAccountQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(SysUserAccountUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(SysUserAccountAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysUserAccountAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result getUserAccount(SysUserAccountQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

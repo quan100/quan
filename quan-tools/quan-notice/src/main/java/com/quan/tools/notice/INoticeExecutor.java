@@ -1,4 +1,4 @@
-package com.quan.tools.feign;
+package com.quan.tools.notice;
 
 /**
  * 消息通知执行器

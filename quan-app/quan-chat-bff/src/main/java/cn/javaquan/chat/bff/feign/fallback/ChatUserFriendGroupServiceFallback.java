@@ -1,6 +1,7 @@
 package cn.javaquan.chat.bff.feign.fallback;
 
 import cn.javaquan.chat.bff.feign.ChatUserFriendGroupServiceFeign;
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.chat.ChatUserFriendGroupAddCommand;
 import com.quan.app.common.module.chat.ChatUserFriendGroupDTO;
 import com.quan.app.common.module.chat.ChatUserFriendGroupQuery;
@@ -27,37 +28,37 @@ public class ChatUserFriendGroupServiceFallback implements FallbackFactory<ChatU
         return new ChatUserFriendGroupServiceFeign() {
             @Override
             public Result page(ChatUserFriendGroupQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(ChatUserFriendGroupUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(ChatUserFriendGroupAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ChatUserFriendGroupAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<List<ChatUserFriendGroupDTO>> queryByUserId(String userId) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

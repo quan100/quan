@@ -1,10 +1,11 @@
 package com.quan.app.pm.bff.base.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.base.BaseConfigAddCommand;
 import com.quan.app.common.module.base.BaseConfigQuery;
 import com.quan.app.common.module.base.BaseConfigUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.pm.bff.base.feign.BaseConfigServiceFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,32 +28,32 @@ public class BaseConfigServiceFallback implements FallbackFactory<BaseConfigServ
         return new BaseConfigServiceFeign() {
             @Override
             public Result page(BaseConfigQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Integer id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(BaseConfigUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(BaseConfigAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<BaseConfigAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Integer> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

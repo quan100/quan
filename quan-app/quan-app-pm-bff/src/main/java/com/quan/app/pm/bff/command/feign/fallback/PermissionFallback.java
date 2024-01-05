@@ -1,8 +1,9 @@
 package com.quan.app.pm.bff.command.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.auth.AuthQuery;
-import com.quan.common.base.message.Result;
 import com.quan.app.pm.bff.command.feign.PermissionFeign;
+import com.quan.common.base.message.Result;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ public class PermissionFallback implements FallbackFactory<PermissionFeign> {
 
             @Override
             public Result getUserPermission(AuthQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

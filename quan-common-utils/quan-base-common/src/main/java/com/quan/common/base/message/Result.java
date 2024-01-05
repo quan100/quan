@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Collections;
 
 
 /**
@@ -17,7 +16,11 @@ import java.util.Collections;
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 485088578586623310L;
-    public static final String MESSAGE_TYPE = "serialMESSAGE_";
+
+    /**
+     * 标记 JSON字符串中 {@link #uniformFormat} 参数的键值
+     */
+    public static final String UNIFORM_FORMAT_KEY = "uniformFormat";
 
     private Integer code;
 
@@ -27,7 +30,13 @@ public class Result<T> implements Serializable {
 
     private T data;
 
-    private Long serialMESSAGE_ = System.currentTimeMillis();
+    /**
+     * 标记参数为统一的格式。
+     * 在统一参数处理器中，会对所有响应参数进行检查，若响应参数非统一的格式，则将响应参数转换为 {@link Result} 格式并返回。
+     * <p>
+     * 为了避免当前参数被重复转换，应该设置该参数的值为 {@code true}
+     */
+    private boolean uniformFormat = true;
 
     public Result(Integer code, String type, String message, T data) {
         this.code = code;

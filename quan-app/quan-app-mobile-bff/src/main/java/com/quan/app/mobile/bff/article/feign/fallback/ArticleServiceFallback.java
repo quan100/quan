@@ -1,11 +1,12 @@
 package com.quan.app.mobile.bff.article.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.article.ArticleDTO;
 import com.quan.app.common.module.article.ArticleQuery;
 import com.quan.app.common.module.article.HotArticleQuery;
 import com.quan.app.common.module.article.OpenArticleQuery;
-import com.quan.common.base.message.Result;
 import com.quan.app.mobile.bff.article.feign.ArticleServiceFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -26,27 +27,27 @@ public class ArticleServiceFallback implements FallbackFactory<ArticleServiceFei
         return new ArticleServiceFeign() {
             @Override
             public Result page(ArticleQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<ArticleDTO> getArticle(String articleId) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result hotCategoryArticle(HotArticleQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result byCategory(OpenArticleQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

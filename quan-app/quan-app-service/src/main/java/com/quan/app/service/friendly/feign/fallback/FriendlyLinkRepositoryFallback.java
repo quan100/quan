@@ -1,10 +1,11 @@
 package com.quan.app.service.friendly.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.friendly.FriendlyLinkAddCommand;
 import com.quan.app.common.module.friendly.FriendlyLinkQuery;
 import com.quan.app.common.module.friendly.FriendlyLinkUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.friendly.feign.FriendlyLinkRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,32 +28,32 @@ public class FriendlyLinkRepositoryFallback implements FallbackFactory<FriendlyL
         return new FriendlyLinkRepositoryFeign() {
             @Override
             public Result page(FriendlyLinkQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(FriendlyLinkUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(FriendlyLinkAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<FriendlyLinkAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

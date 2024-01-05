@@ -1,4 +1,4 @@
-package com.quan.tools.feign;
+package com.quan.tools.notice;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class NoticeExecutor implements InitializingBean {
             noticeExecutor.push(e);
         }
         if (printStackTrace) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 

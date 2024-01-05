@@ -1,10 +1,11 @@
 package com.quan.app.pm.bff.system.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.system.SysRolePermissionAddCommand;
 import com.quan.app.common.module.system.SysRolePermissionQuery;
 import com.quan.app.common.module.system.SysRolePermissionUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.pm.bff.system.feign.SysRolePermissionServiceFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -27,37 +28,37 @@ public class SysRolePermissionServiceFallback implements FallbackFactory<SysRole
         return new SysRolePermissionServiceFeign() {
             @Override
             public Result page(SysRolePermissionQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(SysRolePermissionUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(SysRolePermissionAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysRolePermissionAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result rolePermissionIds(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
         };

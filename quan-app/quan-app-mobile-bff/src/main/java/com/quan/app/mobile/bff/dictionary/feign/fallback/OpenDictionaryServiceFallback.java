@@ -1,8 +1,9 @@
 package com.quan.app.mobile.bff.dictionary.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.dictionary.DictionaryQuery;
-import com.quan.common.base.message.Result;
 import com.quan.app.mobile.bff.dictionary.feign.OpenDictionaryServiceFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class OpenDictionaryServiceFallback implements FallbackFactory<OpenDictio
 
             @Override
             public Result getValue(DictionaryQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

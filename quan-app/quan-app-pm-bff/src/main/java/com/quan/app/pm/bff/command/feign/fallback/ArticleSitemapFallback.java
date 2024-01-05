@@ -1,8 +1,9 @@
 package com.quan.app.pm.bff.command.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.article.ArticleDTO;
-import com.quan.common.base.message.Result;
 import com.quan.app.pm.bff.command.feign.ArticleSitemapFeign;
+import com.quan.common.base.message.Result;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,7 @@ public class ArticleSitemapFallback implements FallbackFactory<ArticleSitemapFei
 
             @Override
             public Result<List<ArticleDTO>> getSitemaps() {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

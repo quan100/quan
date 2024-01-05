@@ -1,6 +1,7 @@
 package cn.javaquan.chat.bff.feign.fallback;
 
 import cn.javaquan.chat.bff.feign.ChatHistoryServiceFeign;
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.chat.ChatHistoryAddCommand;
 import com.quan.app.common.module.chat.ChatHistoryQuery;
 import com.quan.app.common.module.chat.ChatHistoryUpdateCommand;
@@ -26,32 +27,32 @@ public class ChatHistoryServiceFallback implements FallbackFactory<ChatHistorySe
         return new ChatHistoryServiceFeign() {
             @Override
             public Result page(ChatHistoryQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(ChatHistoryUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(ChatHistoryAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<ChatHistoryAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

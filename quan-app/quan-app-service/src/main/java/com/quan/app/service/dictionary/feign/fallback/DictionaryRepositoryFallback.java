@@ -1,11 +1,12 @@
 package com.quan.app.service.dictionary.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.dictionary.DictionaryAddCommand;
 import com.quan.app.common.module.dictionary.DictionaryDTO;
 import com.quan.app.common.module.dictionary.DictionaryQuery;
 import com.quan.app.common.module.dictionary.DictionaryUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.dictionary.feign.DictionaryRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -28,47 +29,47 @@ public class DictionaryRepositoryFallback implements FallbackFactory<DictionaryR
         return new DictionaryRepositoryFeign() {
             @Override
             public Result page(DictionaryQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(DictionaryUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(DictionaryAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<DictionaryAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result getValue(DictionaryQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<DictionaryDTO> getDictionary(DictionaryQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<List<DictionaryDTO>> getDictionaries(DictionaryQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

@@ -60,7 +60,7 @@ public class ResponseFilter implements GlobalFilter, Ordered {
         char prefix = body.charAt(0);
         if (prefix == '{') {
             JSONObject jsonObject = JSON.parseObject(body);
-            if (jsonObject.containsKey(Result.MESSAGE_TYPE)) {
+            if (jsonObject.getBooleanValue(Result.UNIFORM_FORMAT_KEY)) {
                 return body;
             }
             return Result.success(jsonObject).toJSONString();

@@ -1,11 +1,12 @@
 package com.quan.app.service.system.feign.fallback;
 
+import com.quan.tools.notice.SystemNoticeException;
 import com.quan.app.common.module.system.SysUserRoleAddCommand;
 import com.quan.app.common.module.system.SysUserRoleDTO;
 import com.quan.app.common.module.system.SysUserRoleQuery;
 import com.quan.app.common.module.system.SysUserRoleUpdateCommand;
-import com.quan.common.base.message.Result;
 import com.quan.app.service.system.feign.SysUserRoleRepositoryFeign;
+import com.quan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -28,47 +29,47 @@ public class SysUserRoleRepositoryFallback implements FallbackFactory<SysUserRol
         return new SysUserRoleRepositoryFeign() {
             @Override
             public Result page(SysUserRoleQuery query) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result details(Long id) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result update(SysUserRoleUpdateCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result save(SysUserRoleAddCommand cmd) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result saveBatch(List<SysUserRoleAddCommand> cmds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result deleteByIds(List<Long> ids) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<List<SysUserRoleDTO>> getUserRole(String userId) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<Integer> getCount(List<Long> roleIds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
 
             @Override
             public Result<Boolean> delByRoleId(List<Long> roleIds) {
-                return Result.fail(throwable.getMessage());
+                throw new SystemNoticeException(throwable);
             }
         };
     }

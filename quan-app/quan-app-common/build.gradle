@@ -17,5 +17,6 @@ dependencies {
     api 'junit:junit'
     api 'org.mapstruct:mapstruct'
     api project(':quan-tools:quan-jms')
+    api project(':quan-tools:quan-notice')
     api 'commons-codec:commons-codec'
 }
