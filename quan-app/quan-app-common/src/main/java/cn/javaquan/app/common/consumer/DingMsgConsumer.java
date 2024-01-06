@@ -22,6 +22,10 @@ public class DingMsgConsumer {
 
     @JmsListener(destination = TopicEnum.DING_MSG_TOPIC)
     public void roleAuthorizationListener(DingRobotTextMsgCommand cmd) {
-        dingRobotService.sendText(cmd);
+        try {
+            dingRobotService.sendText(cmd);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }

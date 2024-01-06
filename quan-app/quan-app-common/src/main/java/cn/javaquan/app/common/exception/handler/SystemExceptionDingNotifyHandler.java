@@ -7,6 +7,7 @@ import cn.javaquan.tools.notify.ISystemExceptionNotification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * 系统异常钉钉通知
@@ -33,6 +34,9 @@ public class SystemExceptionDingNotifyHandler implements ISystemExceptionNotific
     }
 
     private void send(String text) {
+        if (!StringUtils.hasText(to)) {
+            return;
+        }
         DingRobotTextMsgCommand cmd = new DingRobotTextMsgCommand();
         cmd.setContent(String.format(TEMPLATE, env, tag, "系统异常", text));
         cmd.setTo(to);

@@ -22,6 +22,12 @@ quan:
         url: http://localhost:10010
       service:
         url: http://localhost:10011
+  tools:
+    notify:
+      printStackTrace: false
+      # exception-webhook:
+      tag: quan-app # 机器人安全设置-自定义关键词
+      enabled: false
 
 #####  eureka
 eureka:

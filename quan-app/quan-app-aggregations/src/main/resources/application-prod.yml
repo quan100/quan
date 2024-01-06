@@ -54,8 +54,9 @@ quan:
   tools:
     notify:
       printStackTrace: false
-      exception-webhook: ENC(WYSi3YSKugi3IxAUn8ZjtGW3zOEQuI6OzKugNf2qoracKDu2qoacKDsW4y8P) # 使用 Webhook 地址，向钉钉群推送消息
-      tag: quan-app # 机器人安全设置-自定义关键词
+      exception-webhook: ENC(feVs6tigIGb8AEbneaP1OIcJzUvD5r8wOA4E7yc7bHTRBLU+wNE06Z6RRwpX4wOIQw+VBFo8fbMQaOonhCmcT6017X8h6IPeh6reYFkhRArQRZ/o7UmVnhvmjtYo75E3LbIKuDHA5paKzxfg2HvB3nYBMrw+xFAKk5Awuj+xhIQ=)
+      tag: quan-app
+      enabled: true
 
 
 ######  eureka
