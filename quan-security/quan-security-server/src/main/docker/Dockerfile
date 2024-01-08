@@ -1,7 +1,7 @@
 FROM java:8
 VOLUME /tmp
 RUN mkdir -p /app
-ADD quan-security-1.0-SNAPSHOT-exec.jar /app/app.jar
+ADD quan-security-server-2.2.0.jar /app/app.jar
 ADD runboot.sh /app/
 RUN bash -c 'touch /app/app.jar'
 WORKDIR /app
