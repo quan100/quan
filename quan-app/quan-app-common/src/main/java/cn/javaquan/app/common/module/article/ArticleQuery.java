@@ -147,4 +147,8 @@ public class ArticleQuery extends BasePage implements Serializable {
      */
     private String categoryId;
 
+    /**
+     * 是否置顶
+     */
+    private Boolean topping;
 }

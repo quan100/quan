@@ -156,4 +156,9 @@ public class ArticleDTO implements Serializable {
      * 分类ID
      */
     private String categoryId;
+
+    /**
+     * 是否置顶
+     */
+    private Boolean topping;
 }

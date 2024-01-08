@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 文章
@@ -141,4 +142,18 @@ public class ArticleVO implements Serializable {
      */
     private String categoryId;
 
+    /**
+     * 是否置顶
+     */
+    private Boolean topping;
+
+    /**
+     * 文章标签列表
+     */
+    private List<ArticleTagDTO> tagList;
+
+    /**
+     * 文章分类
+     */
+    private ArticleCategoryDTO category;
 }

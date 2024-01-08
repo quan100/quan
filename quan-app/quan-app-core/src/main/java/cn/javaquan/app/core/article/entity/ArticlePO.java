@@ -154,4 +154,9 @@ public class ArticlePO extends Model<ArticlePO> {
      */
     private String categoryId;
 
+    /**
+     * 是否置顶
+     */
+    private Boolean topping;
+
 }

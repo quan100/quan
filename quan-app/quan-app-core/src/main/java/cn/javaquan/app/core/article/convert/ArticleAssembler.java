@@ -96,4 +96,6 @@ public interface ArticleAssembler {
     List<ArticlePO> toAddPOS(List<ArticleAddCommand> cmds);
 
     ArticleDTO toArticleDTO(ArticlePO po);
+
+    OpenArticleQuery toOpenArticleQuery(String articleId);
 }

@@ -127,4 +127,9 @@ public class ArticleAddCommand implements Serializable {
      */
     @NotNull(message = "文章内容不可为空")
     private ArticleContentAddCommand content;
+
+    /**
+     * 是否置顶
+     */
+    private Boolean topping;
 }

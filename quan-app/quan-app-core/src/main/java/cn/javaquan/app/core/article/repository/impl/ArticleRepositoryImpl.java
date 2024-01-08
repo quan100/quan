@@ -1,18 +1,5 @@
 package cn.javaquan.app.core.article.repository.impl;
 
-import cn.javaquan.app.core.article.repository.ArticleRepository;
-import cn.javaquan.app.core.article.repository.ArticleTagConfigRepository;
-import cn.javaquan.app.core.article.repository.ArticleTagRepository;
-import cn.javaquan.app.core.convert.PageAssembler;
-import cn.javaquan.app.core.convert.PageResultAssembler;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import cn.javaquan.common.base.constant.CommonConstant;
-import cn.javaquan.common.base.message.BasePage;
-import cn.javaquan.common.base.message.PageResult;
 import cn.javaquan.app.common.constant.ErrorCodeEnum;
 import cn.javaquan.app.common.module.article.*;
 import cn.javaquan.app.common.util.RunUtil;
@@ -21,12 +8,25 @@ import cn.javaquan.app.core.article.convert.ArticleAssembler;
 import cn.javaquan.app.core.article.entity.ArticlePO;
 import cn.javaquan.app.core.article.entity.ArticleTagConfigPO;
 import cn.javaquan.app.core.article.mapper.ArticleMapper;
-import cn.javaquan.app.core.article.repository.*;
+import cn.javaquan.app.core.article.repository.ArticleRepository;
+import cn.javaquan.app.core.article.repository.ArticleTagConfigRepository;
+import cn.javaquan.app.core.article.repository.ArticleTagRepository;
+import cn.javaquan.app.core.convert.PageAssembler;
+import cn.javaquan.app.core.convert.PageResultAssembler;
+import cn.javaquan.common.base.constant.CommonConstant;
+import cn.javaquan.common.base.message.BasePage;
+import cn.javaquan.common.base.message.PageResult;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -74,12 +74,21 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
     }
 
     @Override
-    public ArticlePO getArticle(String articleId) {
-        LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(ArticlePO::getArticleId, articleId);
-        queryWrapper.eq(ArticlePO::getDelFlag, CommonConstant.FALSE);
-        queryWrapper.eq(ArticlePO::getStatus, 0);
-        return this.getOne(queryWrapper);
+    public ArticleByCategoryDTO getArticle(String articleId) {
+//        LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery();
+//        queryWrapper.eq(ArticlePO::getArticleId, articleId);
+//        queryWrapper.eq(ArticlePO::getDelFlag, CommonConstant.FALSE);
+//        queryWrapper.eq(ArticlePO::getStatus, 0);
+//
+//
+//        Page<ArticleByCategoryDTO> pageResult = articleMapper.byCategory(page, queryWrapper);
+//        return PageResultAssembler.INSTANCE.toPageResult(pageResult);
+
+        OpenArticleQuery query = ArticleAssembler.INSTANCE.toOpenArticleQuery(articleId);
+        PageResult<ArticleByCategoryDTO> pageResult = byCategory(query);
+        List<ArticleByCategoryDTO> records = pageResult.getRecords();
+
+        return Optional.of(records).orElse(null).stream().findFirst().get();
     }
 
     @Override
@@ -122,8 +131,8 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
 
         queryWrapper.eq("article.del_flag", 0);
         queryWrapper.eq("article.status", 0);
-        queryWrapper.eq(Validate.isNotBlank(query.getTagId()),"tag.del_flag", 0);
-        queryWrapper.eq(Validate.isNotBlank(query.getTagId()),"config.del_flag", 0);
+        queryWrapper.eq(Validate.isNotBlank(query.getTagId()), "tag.del_flag", 0);
+        queryWrapper.eq(Validate.isNotBlank(query.getTagId()), "config.del_flag", 0);
 
         queryWrapper.like(Validate.isNotBlank(query.getTitle()), "article.title", query.getTitle());
         queryWrapper.like(Validate.isNotBlank(query.getAuthor()), "article.author", query.getAuthor());

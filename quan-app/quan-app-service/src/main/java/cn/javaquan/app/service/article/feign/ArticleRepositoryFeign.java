@@ -81,7 +81,7 @@ public interface ArticleRepositoryFeign {
      * @return
      */
     @GetMapping("/core/article/article")
-    Result<ArticleDTO> getArticle(@RequestParam(value = "articleId") String articleId);
+    Result<ArticleByCategoryDTO> getArticle(@RequestParam(value = "articleId") String articleId);
 
     /**
      * 根据文章ID查询

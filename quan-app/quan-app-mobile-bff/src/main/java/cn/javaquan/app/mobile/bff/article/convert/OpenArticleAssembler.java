@@ -19,13 +19,16 @@ public interface OpenArticleAssembler {
     @Mapping(target = "delFlag", constant = "false")
     ArticleQuery toArticleQuery(OpenArticleQuery query);
 
-    @Mapping(target = "authorAccounts", expression = "java(toAuthorAccounts(dto))")
+    @Mapping(target = "authorAccounts", expression = "java(toAuthorAccounts(dto.getAuthorAccountsPublic(), dto.getAuthorAccounts()))")
     ArticleVO toArticleVo(ArticleDTO dto);
 
+    @Mapping(target = "authorAccounts", expression = "java(toAuthorAccounts(dto.getAuthorAccountsPublic(), dto.getAuthorAccounts()))")
+    ArticleVO toArticleVo(ArticleByCategoryDTO dto);
+
     @Named("toAuthorAccounts")
-    default String toAuthorAccounts(ArticleDTO dto) {
-        if (Validate.defaultValue(dto.getAuthorAccountsPublic())) {
-            return dto.getAuthorAccounts();
+    default String toAuthorAccounts(Boolean authorAccountsPublic, String authorAccounts) {
+        if (Validate.defaultValue(authorAccountsPublic)) {
+            return authorAccounts;
         }
         return null;
     }

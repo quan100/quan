@@ -100,7 +100,7 @@ public class ArticleController {
      * @return
      */
     @GetMapping("article")
-    public Result<ArticleDTO> getArticle(@RequestParam String articleId) {
+    public Result<ArticleByCategoryDTO> getArticle(@RequestParam String articleId) {
         return articleRepositoryFeign.getArticle(articleId);
     }
 

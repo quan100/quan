@@ -40,7 +40,7 @@ public class OpenArticleController {
      */
     @GetMapping("/details")
     public Result<ArticleVO> details(@RequestParam String articleId) {
-        Result<ArticleDTO> result = articleService.getArticle(articleId);
+        Result<ArticleByCategoryDTO> result = articleService.getArticle(articleId);
         ArticleVO articleVo = OpenArticleAssembler.INSTANCE.toArticleVo(result.getData());
         if (null != articleVo) {
             Result<ArticleContentDTO> contentResult = articleContentService.details(articleVo.getArticleId());

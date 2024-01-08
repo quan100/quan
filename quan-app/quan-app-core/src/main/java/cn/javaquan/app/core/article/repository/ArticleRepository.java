@@ -34,7 +34,7 @@ public interface ArticleRepository extends IService<ArticlePO> {
      * @param articleId
      * @return
      */
-    ArticlePO getArticle(String articleId);
+    ArticleByCategoryDTO getArticle(String articleId);
 
     List<ArticlePO> hotCategoryArticle(List<String> articleIds);
 

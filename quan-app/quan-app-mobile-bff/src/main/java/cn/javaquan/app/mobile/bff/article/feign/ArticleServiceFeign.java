@@ -46,7 +46,7 @@ public interface ArticleServiceFeign {
      * @return
      */
     @GetMapping("/service/article/article")
-    Result<ArticleDTO> getArticle(@RequestParam(value = "articleId") String articleId);
+    Result<ArticleByCategoryDTO> getArticle(@RequestParam(value = "articleId") String articleId);
 
     /**
      * 查询分类下最新文章列表
