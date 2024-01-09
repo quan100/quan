@@ -24,9 +24,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -75,20 +75,13 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
 
     @Override
     public ArticleByCategoryDTO getArticle(String articleId) {
-//        LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery();
-//        queryWrapper.eq(ArticlePO::getArticleId, articleId);
-//        queryWrapper.eq(ArticlePO::getDelFlag, CommonConstant.FALSE);
-//        queryWrapper.eq(ArticlePO::getStatus, 0);
-//
-//
-//        Page<ArticleByCategoryDTO> pageResult = articleMapper.byCategory(page, queryWrapper);
-//        return PageResultAssembler.INSTANCE.toPageResult(pageResult);
-
         OpenArticleQuery query = ArticleAssembler.INSTANCE.toOpenArticleQuery(articleId);
         PageResult<ArticleByCategoryDTO> pageResult = byCategory(query);
         List<ArticleByCategoryDTO> records = pageResult.getRecords();
-
-        return Optional.of(records).orElse(null).stream().findFirst().get();
+        if (CollectionUtils.isEmpty(records)) {
+            return null;
+        }
+        return records.get(0);
     }
 
     @Override
@@ -137,6 +130,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
         queryWrapper.like(Validate.isNotBlank(query.getTitle()), "article.title", query.getTitle());
         queryWrapper.like(Validate.isNotBlank(query.getAuthor()), "article.author", query.getAuthor());
         queryWrapper.like(Validate.isNotBlank(query.getSource()), "article.source", query.getSource());
+        queryWrapper.orderByDesc("article.topping");
         queryWrapper.orderByAsc("article.sort");
         queryWrapper.orderByDesc("article.create_time", "article.update_time");
 

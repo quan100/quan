@@ -152,4 +152,8 @@ public class ArticleByCategoryDTO implements Serializable {
      */
     private ArticleCategoryDTO category;
 
+    /**
+     * 是否置顶
+     */
+    private Boolean topping;
 }
