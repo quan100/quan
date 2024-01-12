@@ -28,6 +28,8 @@ quan:
       # exception-webhook:
       tag: quan-app # 机器人安全设置-自定义关键词
       enabled: false
+    limiter:
+      enabled: true
 
 #####  eureka
 eureka:

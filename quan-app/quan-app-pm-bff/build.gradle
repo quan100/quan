@@ -17,5 +17,5 @@ dependencies {
     api project(':quan-tools:quan-sitemap')
     api project(':quan-tools:quan-file')
     api project(':quan-tools:quan-jasypt')
-    implementation project(path: ':quan-tools:quan-limit')
+    implementation project(path: ':quan-tools:quan-limiter')
 }

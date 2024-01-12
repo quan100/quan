@@ -1,0 +1,12 @@
+description = 'Quan Tools Limit'
+apply plugin: "kotlin"
+
+dependencies {
+    api 'org.projectlombok:lombok'
+    api 'org.springframework.boot:spring-boot-starter-aop'
+    api 'org.springframework.boot:spring-boot-configuration-processor'
+    api 'org.redisson:redisson-spring-boot-starter'
+    api 'commons-codec:commons-codec'
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+//    implementation 'com.google.guava:guava'
+}

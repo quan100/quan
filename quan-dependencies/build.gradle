@@ -42,5 +42,7 @@ dependencies {
 
         // dingtalk
         api "com.aliyun:dingtalk:$dingtalkVersion"
+
+        api "com.google.guava:guava:$guavaVersion"
     }
 }

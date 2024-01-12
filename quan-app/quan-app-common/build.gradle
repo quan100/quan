@@ -19,5 +19,6 @@ dependencies {
     api project(':quan-tools:quan-jms')
     api project(':quan-tools:quan-notify')
     api project(':quan-tools:quan-dingtalk')
+    api project(':quan-tools:quan-limiter')
     api 'commons-codec:commons-codec'
 }

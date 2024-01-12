@@ -7,7 +7,7 @@ import cn.javaquan.app.common.module.auth.LoginCommand;
 import cn.javaquan.app.pm.bff.system.feign.SysUserLoginFeign;
 import cn.javaquan.app.pm.bff.system.service.UserLoginService;
 import cn.javaquan.security.common.annotation.AuthToken;
-import cn.javaquan.tools.limit.annotation.Limit;
+import cn.javaquan.tools.limiter.annotation.Limiter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,7 +84,7 @@ public class AuthController {
      *
      * @return
      */
-    @Limit(params = "#cmd.email", message = "请求过于频繁，请稍后再试！", leaseTime = 60000, automaticReleaseLock = false)
+    @Limiter(params = "#cmd.email", message = "请求过于频繁，请稍后再试！", leaseTime = 60000, automaticReleaseLock = false)
     @ResponseBody
     @PostMapping(value = "/email/captcha")
     public Result<Long> verifyEmailCode(@RequestBody EmailCodeCommand cmd, HttpServletRequest request) {
