@@ -19,7 +19,7 @@ import org.springframework.core.Ordered;
 import java.util.List;
 
 /**
- * 限流自动配置
+ * 限制器自动配置
  *
  * @author javaquan
  * @since 2.2.0

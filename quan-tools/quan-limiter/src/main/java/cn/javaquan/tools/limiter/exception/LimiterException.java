@@ -1,7 +1,7 @@
 package cn.javaquan.tools.limiter.exception;
 
 /**
- * 流量控制自定义异常
+ * 限制器自定义异常
  *
  * @author javaquan
  * @since 2.2.0

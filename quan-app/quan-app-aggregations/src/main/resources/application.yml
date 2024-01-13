@@ -113,7 +113,7 @@ quan:
   site:
     domain:
       title: JavaQuan
-      url: https://quan.icu
+      url: https://javaquan.cn
   app:
     feign:
       core:
