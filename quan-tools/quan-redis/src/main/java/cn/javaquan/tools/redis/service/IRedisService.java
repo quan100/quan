@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangquan
@@ -32,6 +33,8 @@ public interface IRedisService {
     <T> Boolean setNx(String key, T value);
 
     <T> Boolean setNx(String key, T value, long timeout);
+
+    <T> Boolean setNx(String key, T value, long timeout, TimeUnit unit);
 
     Long incr(String key);
 

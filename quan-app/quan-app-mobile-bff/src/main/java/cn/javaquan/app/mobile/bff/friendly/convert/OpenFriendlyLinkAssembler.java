@@ -1,5 +1,7 @@
 package cn.javaquan.app.mobile.bff.friendly.convert;
 
+import cn.javaquan.app.common.module.friendly.FriendlyLinkAddCommand;
+import cn.javaquan.app.common.module.friendly.FriendlyLinkApplyCommand;
 import cn.javaquan.app.common.module.friendly.FriendlyLinkDTO;
 import cn.javaquan.app.common.module.friendly.FriendlyLinkVO;
 import cn.javaquan.app.common.util.LocalDateUtils;
@@ -37,4 +39,8 @@ public interface OpenFriendlyLinkAssembler {
         }
         return null;
     }
+
+    @Mapping(target = "status", constant = "1")
+    @Mapping(target = "emailPublic", constant = "false")
+    FriendlyLinkAddCommand toFriendlyLinkAddCommand(FriendlyLinkApplyCommand cmd);
 }

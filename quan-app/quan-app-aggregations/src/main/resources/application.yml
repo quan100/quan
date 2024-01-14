@@ -110,6 +110,10 @@ quan:
   tools:
     geo:
       db_path: ${user.home}/data/quan/geo/IP2LOCATION-LITE-DB11.BIN
+    limiter:
+      enabled: true
+      redis:
+        enabled: true
   site:
     domain:
       title: JavaQuan

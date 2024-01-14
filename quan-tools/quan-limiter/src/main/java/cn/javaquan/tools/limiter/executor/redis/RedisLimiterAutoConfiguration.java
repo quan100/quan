@@ -1,8 +1,7 @@
-package cn.javaquan.tools.limiter.executor.redisson;
+package cn.javaquan.tools.limiter.executor.redis;
 
 import cn.javaquan.tools.limiter.autoconfigure.LimiterProperties;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
+import cn.javaquan.tools.redis.service.IRedisService;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.AnyNestedCondition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -11,40 +10,38 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.lang.Nullable;
 
 /**
- * 基于 Redisson 实现的限制器配置
+ * 基于 Redis 实现的限制器配置
  *
  * @author javaquan
  * @since 2.2.0
  */
 @AutoConfiguration
 @EnableConfigurationProperties(LimiterProperties.class)
-public class RedissonLimiterAutoConfiguration {
+public class RedisLimiterAutoConfiguration {
 
 
     @Configuration(proxyBeanMethods = false)
-    @Conditional(RedissonLimiterCondition.class)
-    protected static class RedissonLimiterConfiguration {
+    @Conditional(RedisLimiterCondition.class)
+    protected static class RedisLimiterConfiguration {
 
         @Bean
-        @Order(100)
-        @ConditionalOnClass(Redisson.class)
-        public RedissonLimiterExecutor redissonLimiterExecutor(@Nullable RedissonClient redissonClient) {
-            return new RedissonLimiterExecutor(redissonClient);
+        @ConditionalOnClass(IRedisService.class)
+        public RedisLimiterExecutor redissonLimiterExecutor(@Nullable IRedisService redisService) {
+            return new RedisLimiterExecutor(redisService);
         }
 
     }
 
-    static class RedissonLimiterCondition extends AnyNestedCondition {
+    static class RedisLimiterCondition extends AnyNestedCondition {
 
-        RedissonLimiterCondition() {
+        RedisLimiterCondition() {
             super(ConfigurationPhase.PARSE_CONFIGURATION);
         }
 
-        @ConditionalOnProperty(prefix = "quan.tools.limiter.redisson", name = "enabled", havingValue = "true")
+        @ConditionalOnProperty(prefix = "quan.tools.limiter.redis", name = "enabled", havingValue = "true")
         static class EnabledProperty {
 
         }

@@ -73,6 +73,11 @@ public class RedisServiceImpl implements IRedisService {
         return opsForValue().setIfAbsent(key, valueToString(value), timeout, TimeUnit.SECONDS);
     }
 
+    @Override
+    public <T> Boolean setNx(String key, T value, long timeout, TimeUnit unit) {
+        return opsForValue().setIfAbsent(key, valueToString(value), timeout, unit);
+    }
+
     public Long incr(String key) {
         return incrBy(key, 1);
     }

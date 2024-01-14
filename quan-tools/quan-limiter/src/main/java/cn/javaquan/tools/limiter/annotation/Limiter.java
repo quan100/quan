@@ -5,7 +5,6 @@ import cn.javaquan.tools.limiter.DefaultParamsResolver;
 import cn.javaquan.tools.limiter.autoconfigure.LimiterProperties;
 import cn.javaquan.tools.limiter.exception.LimiterException;
 import cn.javaquan.tools.limiter.executor.LimiterExecutor;
-import cn.javaquan.tools.limiter.executor.redisson.RedissonLimiterExecutor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -35,8 +34,6 @@ public @interface Limiter {
     String name() default "";
 
     /**
-     * 默认使用 {@link RedissonLimiterExecutor} 执行器
-     *
      * @return 执行器的具体实现类
      */
     Class<? extends LimiterExecutor> executor() default LimiterExecutor.class;

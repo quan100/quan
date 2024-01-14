@@ -9,4 +9,5 @@ dependencies {
     api 'commons-codec:commons-codec'
     // https://mvnrepository.com/artifact/com.google.guava/guava
 //    implementation 'com.google.guava:guava'
+    api project(':quan-tools:quan-redis')
 }

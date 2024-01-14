@@ -1,2 +1,3 @@
 cn.javaquan.tools.limiter.autoconfigure.LimiterAutoConfiguration
 cn.javaquan.tools.limiter.executor.redisson.RedissonLimiterAutoConfiguration
+cn.javaquan.tools.limiter.executor.redis.RedisLimiterAutoConfiguration

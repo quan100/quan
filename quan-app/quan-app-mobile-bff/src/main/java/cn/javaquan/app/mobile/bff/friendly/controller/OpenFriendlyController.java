@@ -1,20 +1,18 @@
 package cn.javaquan.app.mobile.bff.friendly.controller;
 
 import cn.javaquan.app.common.convert.PageResultAssembler;
-import cn.javaquan.app.common.module.friendly.FriendlyLinkDTO;
-import cn.javaquan.app.common.module.friendly.FriendlyLinkQuery;
-import cn.javaquan.app.common.module.friendly.FriendlyLinkVO;
+import cn.javaquan.app.common.module.friendly.*;
 import cn.javaquan.app.common.util.RunUtil;
+import cn.javaquan.app.mobile.bff.friendly.convert.OpenFriendlyLinkAssembler;
+import cn.javaquan.app.mobile.bff.friendly.feign.OpenFriendlyLinkServiceFeign;
 import cn.javaquan.common.base.message.BasePage;
 import cn.javaquan.common.base.message.PageResult;
 import cn.javaquan.common.base.message.Result;
-import cn.javaquan.app.mobile.bff.friendly.convert.OpenFriendlyLinkAssembler;
-import cn.javaquan.app.mobile.bff.friendly.feign.OpenFriendlyLinkServiceFeign;
+import cn.javaquan.tools.limiter.annotation.Limiter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 /**
@@ -50,19 +48,16 @@ public class OpenFriendlyController {
     }
 
     /**
-     * 获取列表详情
+     * 申请友链
      *
-     * @param id
+     * @param cmd
      * @return
      */
-    @GetMapping("queryById")
-    public FriendlyLinkVO queryById(@RequestParam Long id) {
-        Result<FriendlyLinkDTO> result = friendlyLinkServiceFeign.details(id);
-        FriendlyLinkDTO friendlyLinkDTO = result.getData();
-        if (friendlyLinkDTO.getStatus() == 0) {
-            return null;
-        }
-        return OpenFriendlyLinkAssembler.INSTANCE.toFriendlyLinkVo(friendlyLinkDTO);
+    @Limiter(params = "#cmd.email", leaseTime = 300000, automaticReleaseLock = false)
+    @PostMapping("apply")
+    public Result<Boolean> save(@RequestBody @Valid FriendlyLinkApplyCommand cmd) {
+        FriendlyLinkAddCommand addCommand = OpenFriendlyLinkAssembler.INSTANCE.toFriendlyLinkAddCommand(cmd);
+        return friendlyLinkServiceFeign.save(addCommand);
     }
 
 }
