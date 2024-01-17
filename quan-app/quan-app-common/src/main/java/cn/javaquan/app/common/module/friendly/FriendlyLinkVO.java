@@ -81,4 +81,8 @@ public class FriendlyLinkVO implements Serializable {
      */
     private Integer status;
 
+    /**
+     * 前端样式配置
+     */
+    private String style;
 }

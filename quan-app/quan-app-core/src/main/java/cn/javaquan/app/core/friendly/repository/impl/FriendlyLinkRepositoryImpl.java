@@ -5,12 +5,12 @@ import cn.javaquan.app.core.convert.PageResultAssembler;
 import cn.javaquan.app.core.friendly.entity.FriendlyLinkPO;
 import cn.javaquan.app.core.friendly.mapper.FriendlyLinkMapper;
 import cn.javaquan.app.core.friendly.repository.FriendlyLinkRepository;
+import cn.javaquan.common.base.message.BasePage;
+import cn.javaquan.common.base.message.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import cn.javaquan.common.base.message.BasePage;
-import cn.javaquan.common.base.message.PageResult;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,6 +27,8 @@ public class FriendlyLinkRepositoryImpl extends ServiceImpl<FriendlyLinkMapper, 
     public PageResult<FriendlyLinkPO> page(FriendlyLinkPO po, BasePage basePage) {
         Page<FriendlyLinkPO> page = PageAssembler.INSTANCE.toPage(basePage);
         LambdaQueryWrapper<FriendlyLinkPO> queryWrapper = Wrappers.lambdaQuery(po);
+        queryWrapper.orderByAsc(FriendlyLinkPO::getSort);
+        queryWrapper.orderByDesc(FriendlyLinkPO::getUpdateTime);
         page = this.page(page, queryWrapper);
         return PageResultAssembler.INSTANCE.toPageResult(page);
     }

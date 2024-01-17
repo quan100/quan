@@ -95,4 +95,9 @@ public class FriendlyLinkPO extends Model<FriendlyLinkPO> {
     @TableLogic
     private Boolean delFlag;
 
+    /**
+     * 前端样式配置
+     */
+    private String style;
+
 }
