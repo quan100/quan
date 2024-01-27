@@ -67,6 +67,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
         );
 
         queryWrapper.like(Validate.isNotBlank(title), ArticlePO::getTitle, title);
+        queryWrapper.orderByDesc(ArticlePO::getTopping);
         queryWrapper.orderByAsc(ArticlePO::getSort);
         queryWrapper.orderByDesc(ArticlePO::getCreateTime, ArticlePO::getUpdateTime);
         page = this.page(page, queryWrapper);
@@ -90,6 +91,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
         queryWrapper.in(ArticlePO::getArticleId, articleIds);
         queryWrapper.eq(ArticlePO::getDelFlag, CommonConstant.FALSE);
         queryWrapper.eq(ArticlePO::getStatus, 0);
+        queryWrapper.orderByDesc(ArticlePO::getTopping);
         queryWrapper.orderByAsc(ArticlePO::getSort);
         queryWrapper.orderByDesc(ArticlePO::getCreateTime);
         return this.list(queryWrapper);
