@@ -52,6 +52,11 @@ public class FriendlyLinkDTO implements Serializable {
     private String remarks;
 
     /**
+     * 描述信息
+     */
+    private String description;
+
+    /**
      * 排序
      */
     private Integer sort;

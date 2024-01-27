@@ -42,14 +42,9 @@ public class FriendlyLinkVO implements Serializable {
     private String email;
 
     /**
-     * 联系邮箱是否公开
+     * 描述信息
      */
-    private Boolean emailPublic;
-
-    /**
-     * 备注
-     */
-    private String remarks;
+    private String description;
 
     /**
      * 排序
@@ -65,21 +60,6 @@ public class FriendlyLinkVO implements Serializable {
      *
      */
     private Date updateTime;
-
-    /**
-     *
-     */
-    private String createUser;
-
-    /**
-     *
-     */
-    private String updateUser;
-
-    /**
-     * 状态，0：正常，1：审核中，2：审核不通过
-     */
-    private Integer status;
 
     /**
      * 前端样式配置

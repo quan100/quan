@@ -43,9 +43,8 @@ public class FriendlyLinkApplyCommand implements Serializable {
     private String email;
 
     /**
-     * 备注
+     * 描述信息
      */
     @NotBlank(message = "站点介绍不可为空")
-    private String remarks;
-
+    private String description;
 }

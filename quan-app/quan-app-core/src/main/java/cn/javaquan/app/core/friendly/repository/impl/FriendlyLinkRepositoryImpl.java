@@ -28,7 +28,7 @@ public class FriendlyLinkRepositoryImpl extends ServiceImpl<FriendlyLinkMapper, 
         Page<FriendlyLinkPO> page = PageAssembler.INSTANCE.toPage(basePage);
         LambdaQueryWrapper<FriendlyLinkPO> queryWrapper = Wrappers.lambdaQuery(po);
         queryWrapper.orderByAsc(FriendlyLinkPO::getSort);
-        queryWrapper.orderByDesc(FriendlyLinkPO::getUpdateTime);
+        queryWrapper.orderByDesc(FriendlyLinkPO::getCreateTime);
         page = this.page(page, queryWrapper);
         return PageResultAssembler.INSTANCE.toPageResult(page);
     }

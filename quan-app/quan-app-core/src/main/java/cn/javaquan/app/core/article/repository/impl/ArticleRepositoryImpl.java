@@ -132,7 +132,7 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
         queryWrapper.like(Validate.isNotBlank(query.getSource()), "article.source", query.getSource());
         queryWrapper.orderByDesc("article.topping");
         queryWrapper.orderByAsc("article.sort");
-        queryWrapper.orderByDesc("article.create_time", "article.update_time");
+        queryWrapper.orderByDesc("article.create_time");
 
         Page<ArticleByCategoryDTO> pageResult = articleMapper.byCategory(page, queryWrapper);
         return PageResultAssembler.INSTANCE.toPageResult(pageResult);

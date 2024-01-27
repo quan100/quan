@@ -46,7 +46,10 @@ CREATE TABLE `article` (
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `brief_content` varchar(255) DEFAULT NULL COMMENT '文章缩略文',
   `category_id` varchar(32) DEFAULT NULL COMMENT '文章分类ID',
-  PRIMARY KEY (`id`) USING BTREE
+  `topping` bit(1) DEFAULT b'0' COMMENT '是否置顶',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_article_id` (`article_id`) USING BTREE COMMENT '文章业务主键',
+  KEY `idx_category_id` (`category_id`) USING BTREE COMMENT '分类业务主键'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章';
 
 -- ----------------------------
@@ -65,7 +68,8 @@ CREATE TABLE `article_category` (
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `color` varchar(16) DEFAULT NULL COMMENT '字体颜色',
   `sort` int(8) DEFAULT '0' COMMENT '分类排序',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_category_id` (`category_id`) USING BTREE COMMENT '分类业务主键'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类';
 
 -- ----------------------------
@@ -77,7 +81,9 @@ CREATE TABLE `article_category_config` (
   `article_id` varchar(32) DEFAULT NULL COMMENT '文章ID',
   `category_id` varchar(32) DEFAULT NULL COMMENT '分类ID',
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_article_id` (`article_id`) USING BTREE COMMENT '文章业务主键',
+  KEY `idx_category_id` (`category_id`) USING BTREE COMMENT '分类业务主键'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类配置';
 
 -- ----------------------------
@@ -91,7 +97,8 @@ CREATE TABLE `article_content` (
   `brief_content` varchar(1024) DEFAULT NULL COMMENT '文章缩略文',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_article_id` (`article_id`) USING BTREE COMMENT '文章业务主键'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章内容';
 
 -- ----------------------------
@@ -108,7 +115,8 @@ CREATE TABLE `article_tag` (
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   `sort` int(8) DEFAULT '0' COMMENT '标签排序',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_tag_id` (`tag_id`) USING BTREE COMMENT '标签业务主键'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章标签';
 
 -- ----------------------------
@@ -120,7 +128,9 @@ CREATE TABLE `article_tag_config` (
   `article_id` varchar(32) DEFAULT NULL COMMENT '文章ID',
   `tag_id` varchar(32) DEFAULT NULL COMMENT '标签ID',
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_article_id` (`article_id`) USING BTREE COMMENT '文章业务主键',
+  KEY `idx_tag_id` (`tag_id`) USING BTREE COMMENT '标签业务主键'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章标签配置';
 
 -- ----------------------------
@@ -188,6 +198,7 @@ CREATE TABLE `chat_user_friend` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户好友信息关联表';
 
+
 -- ----------------------------
 -- Table structure for chat_user_friend_group
 -- ----------------------------
@@ -239,7 +250,7 @@ CREATE TABLE `chat_user_info` (
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Table structure for dictionary
@@ -257,7 +268,7 @@ CREATE TABLE `dictionary` (
   `type` varchar(8) DEFAULT NULL COMMENT '类型',
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for friendly_link
@@ -278,6 +289,8 @@ CREATE TABLE `friendly_link` (
   `update_user` varchar(32) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL COMMENT '状态，0：正常，1：审核中，2：审核不通过',
   `del_flag` bit(1) DEFAULT b'0' COMMENT '删除状态，0：正常，1：删除',
+  `style` varchar(128) DEFAULT NULL COMMENT '样式配置',
+  `description` varchar(255) DEFAULT NULL COMMENT '站点描述',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='友情链接';
 

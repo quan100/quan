@@ -60,6 +60,11 @@ public class FriendlyLinkPO extends Model<FriendlyLinkPO> {
     private String remarks;
 
     /**
+     * 描述信息
+     */
+    private String description;
+
+    /**
      * 排序
      */
     private Integer sort;
