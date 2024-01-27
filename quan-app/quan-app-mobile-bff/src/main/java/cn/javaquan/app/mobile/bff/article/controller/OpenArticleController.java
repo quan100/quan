@@ -46,6 +46,7 @@ public class OpenArticleController {
             Result<ArticleContentDTO> contentResult = articleContentService.details(articleVo.getArticleId());
             if (contentResult.isData()) {
                 articleVo.setContent(contentResult.getData().getContent());
+                articleVo.setContentCode(contentResult.getData().getContentCode());
             }
         }
         return Result.success(articleVo);

@@ -134,8 +134,17 @@ public class ArticleVO implements Serializable {
 
     /**
      * 文章内容
+     * <p>
+     * 编辑器的原始内容
      */
     private Object content;
+
+    /**
+     * 内容代码
+     * <p>
+     * 编辑器生成的代码内容
+     */
+    private String contentCode;
 
     /**
      * 分类ID
