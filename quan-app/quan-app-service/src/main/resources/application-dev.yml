@@ -50,3 +50,8 @@ feign:
     config:
       default:
         loggerLevel: FULL # 日志级别
+
+alibaba:
+  dingtalk:
+    appkey: ENC(R6rWECOqT1iSFLRlg/RI5XAk6jRjl9UsbXPhz5NEZLQ=)
+    appSecret: ENC(+3ojnSVAyeQpsNFbY19E1f1NpltzLjyKZZmxu87mYitq5bupTxx90/uOGDJkebQOm2ew8uTL0iRbOEV6rkK2HYV2Cx+A04uLysYof0PvYd8=)

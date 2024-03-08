@@ -80,6 +80,11 @@ management:
       base-path: /
 
 quan:
+  tools:
+    limiter:
+      enabled: true
+      redis:
+        enabled: true
   app:
     feign:
       core:

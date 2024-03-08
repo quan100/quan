@@ -52,11 +52,13 @@ minio:
 feign:
   circuitbreaker:
     enabled: true
-  client:
-    config:
+
+# 配置Feign调用超时时间
+resilience4j:
+  timelimiter:
+    configs:
       default:
-        connectTimeout: 20000
-        readTimeout: 40000
+        timeoutDuration: 4s
 
 #####  eureka
 eureka:
@@ -82,6 +84,14 @@ quan:
   tools:
     geo:
       db_path: ${user.home}/data/quan/geo/IP2LOCATION-LITE-DB11.BIN
+    limiter:
+      enabled: true
+      redis:
+        enabled: true
+  site:
+    domain:
+      title: JavaQuan
+      url: https://javaquan.cn
   app:
     feign:
       core:

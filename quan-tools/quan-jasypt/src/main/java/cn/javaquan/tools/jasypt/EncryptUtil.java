@@ -10,6 +10,8 @@ import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
  */
 public class EncryptUtil {
 
+    private final static String DEFAULT_PREFIX = "ENC";
+
     static StandardPBEStringEncryptor standardPBEStringEncryptor;
 
     /**
@@ -40,6 +42,19 @@ public class EncryptUtil {
      * @return
      */
     public static String decrypt(String decryptStr) {
-        return standardPBEStringEncryptor.decrypt(decryptStr);
+        return decrypt(decryptStr, DEFAULT_PREFIX);
+    }
+
+    /**
+     * 解密
+     *
+     * @param decryptStr
+     * @return
+     */
+    public static String decrypt(String decryptStr, String prefix) {
+        if (decryptStr.startsWith(prefix)) {
+            return standardPBEStringEncryptor.decrypt(decryptStr);
+        }
+        return decryptStr;
     }
 }

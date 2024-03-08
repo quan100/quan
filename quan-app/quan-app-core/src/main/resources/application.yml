@@ -84,11 +84,13 @@ mybatis-plus:
 feign:
   circuitbreaker:
     enabled: true
-  client:
-    config:
+
+# 配置Feign调用超时时间
+resilience4j:
+  timelimiter:
+    configs:
       default:
-        connectTimeout: 20000
-        readTimeout: 40000
+        timeoutDuration: 4s
 
 #####  eureka
 eureka:
@@ -111,9 +113,15 @@ management:
       base-path: /
 
 quan:
+  tools:
+    limiter:
+      enabled: true
+      redis:
+        enabled: true
   site:
     domain:
-      url: https://quan.icu
+      title: JavaQuan
+      url: https://javaquan.cn
       default-bound-uid: 3
       default-bound-role: 5
       default-bound-enabled: true

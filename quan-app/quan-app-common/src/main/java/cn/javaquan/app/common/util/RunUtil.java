@@ -2,9 +2,8 @@ package cn.javaquan.app.common.util;
 
 import cn.javaquan.app.common.constant.ErrorCodeEnum;
 import cn.javaquan.app.common.util.function.Run;
-import cn.javaquan.app.common.constant.ErrorCodeEnum;
-import cn.javaquan.app.common.util.function.Run;
 import cn.javaquan.common.base.message.Result;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -12,6 +11,7 @@ import java.util.function.Supplier;
 /**
  * @author wangquan
  */
+@Slf4j
 public class RunUtil {
 
     /**
@@ -20,9 +20,14 @@ public class RunUtil {
      * @param doRun 是否执行
      * @param func  执行的函数
      */
-    public static void doRun(boolean doRun, Run func) {
+    public static void doRun(boolean doRun, boolean isThrow, Run func) {
         if (doRun) {
-            func.apply();
+            try {
+                func.apply();
+            } catch (Exception e) {
+                log.error("运行异常", e);
+                Validate.isFalse(isThrow, ErrorCodeEnum.OPERATION_ERROR);
+            }
         }
     }
 
