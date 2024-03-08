@@ -20,6 +20,16 @@ public class RunUtil {
      * @param doRun 是否执行
      * @param func  执行的函数
      */
+    public static void doRun(boolean doRun, Run func) {
+        doRun(doRun, true, func);
+    }
+
+    /**
+     * 当{@code doRun}校验通过后执行函数，否则不进行任何操作
+     *
+     * @param doRun 是否执行
+     * @param func  执行的函数
+     */
     public static void doRun(boolean doRun, boolean isThrow, Run func) {
         if (doRun) {
             try {
