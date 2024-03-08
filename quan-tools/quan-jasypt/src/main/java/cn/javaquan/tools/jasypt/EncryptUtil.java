@@ -2,6 +2,9 @@ package cn.javaquan.tools.jasypt;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 配置加密工具类
  *
@@ -11,6 +14,7 @@ import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 public class EncryptUtil {
 
     private final static String DEFAULT_PREFIX = "ENC";
+    private static final Pattern DEFAULT_PATTERN = Pattern.compile("(?<=\\()[^)]+");
 
     static StandardPBEStringEncryptor standardPBEStringEncryptor;
 
@@ -49,10 +53,16 @@ public class EncryptUtil {
      * 解密
      *
      * @param decryptStr
+     * @param prefix
      * @return
      */
-    public static String decrypt(String decryptStr, String prefix) {
+    private static String decrypt(String decryptStr, String prefix) {
         if (decryptStr.startsWith(prefix)) {
+            decryptStr = decryptStr.replace(prefix, "");
+            Matcher matcher = DEFAULT_PATTERN.matcher(decryptStr);
+            if (matcher.find()) {
+                decryptStr = matcher.group();
+            }
             return standardPBEStringEncryptor.decrypt(decryptStr);
         }
         return decryptStr;
