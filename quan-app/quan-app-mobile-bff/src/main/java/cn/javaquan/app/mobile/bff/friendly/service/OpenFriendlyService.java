@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -96,7 +97,7 @@ public class OpenFriendlyService {
             msgCommand.setTo(EncryptUtil.decrypt(msgCommand.getTo()));
             List<String> atMobiles = msgCommand.getAtMobiles();
             if (Validate.isNotEmpty(atMobiles)) {
-                atMobiles.forEach(EncryptUtil::decrypt);
+                msgCommand.setAtMobiles(atMobiles.stream().map(EncryptUtil::decrypt).collect(Collectors.toList()));
             }
             jmsUtil.send(TopicEnum.DING_MSG_TOPIC, msgCommand);
         });
