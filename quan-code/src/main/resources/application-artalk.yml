@@ -1,0 +1,75 @@
+# Mybatis配置
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
+  type-aliases-package: cn.javaquan.code.**.entity.**
+  configuration:
+    map-underscore-to-camel-case: true
+
+# mysql
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/artalk?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  web:
+    resources:
+      static-locations: classpath:/static/,classpath:/views/
+
+# 代码生成器，配置信息
+generator:
+  # group id
+  mainPath: cn.javaquan
+
+  # 包名
+  packageName: cn.javaquan.app
+  # 模块名，当设置为空时，默认取表前缀
+  moduleName:
+  # 领域模块，若配置，则相关URL增加该前缀
+  prefixCore: /core/
+  prefixService: /service/
+
+  # feign接口前缀
+  prefixFeignUrl: quan.app.feign
+
+  # 作者
+  author: JavaQuan
+  # Email
+  email: javaquan@qq.com
+  # 版本
+  version: 1.0.0
+
+  # 表前缀(类名不会包含表前缀)
+  tablePrefix:
+  # 模板类型(/resources/template的子目录名称)
+  templateType: quan-app
+
+  ### 类型转换，配置信息 ###
+  tinyintType: Integer
+  smallintType: Integer
+  mediumintType: Integer
+  intType: Integer
+  integerType: Integer
+  bigintType: Long
+  floatType: Float
+  doubleType: Double
+  decimalType: BigDecimal
+  bitType: Boolean
+  charType: String
+  varcharType: String
+  tinytextType: String
+  textType: String
+  mediumtextType: String
+  longtextType: String
+  dateType: Date
+  datetimeType: Date
+  timestampType: Date
+  jsonType: String
+
+### ./ 类型转换，配置信息 ###
+
+
