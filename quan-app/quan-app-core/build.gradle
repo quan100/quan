@@ -1,6 +1,7 @@
 plugins {
     id "java-library"
     id "org.springframework.boot.conventions"
+    id 'org.springframework.boot' version "${springBootVersion}"
 }
 
 description = 'Quan App Core'
