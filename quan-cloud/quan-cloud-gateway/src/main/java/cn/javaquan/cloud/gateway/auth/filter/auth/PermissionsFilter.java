@@ -11,11 +11,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 按钮权限过滤器
+ * 按钮权限过滤器.
  * <p>
  * 该权限将校验用户是否拥有按钮权限
  *
  * @author wangquan
+ * @since 1.0.0
  */
 public class PermissionsFilter extends UserFilter {
 
@@ -42,18 +43,17 @@ public class PermissionsFilter extends UserFilter {
     }
 
     /**
-     * 校验角色
-     *
+     * 校验角色.
      * @param accessorInfo 认证用户角色信息
-     * @param permRoles    权限角色（当角色授权时配置）
-     * @return
+     * @param permRoles 权限角色（当角色授权时配置）
+     * @return true：校验通过，false：校验失败
      */
     public boolean validRole(AccessorInfo accessorInfo, List<String> permRoles) {
         // 所有角色必须配置授权，否则禁止访问需登录的接口
         if (CollectionUtils.isEmpty(permRoles)) {
             return false;
         }
-        List<Map<String, Object>> roles = accessorInfo.getRoles();
+        List<Map<String, Object>> roles = (List<Map<String, Object>>) accessorInfo.getRoles();
 
         if (CollectionUtils.isEmpty(roles)) {
             return false;
@@ -68,4 +68,5 @@ public class PermissionsFilter extends UserFilter {
         }
         return false;
     }
+
 }

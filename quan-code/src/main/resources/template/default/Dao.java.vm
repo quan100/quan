@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 
  * @author ${author}
  * @email ${email}
- * @date ${datetime}
+ * @since 1.0.0
  */
 @Mapper
 public interface ${className}Dao extends BaseMapper<${className}Entity> {

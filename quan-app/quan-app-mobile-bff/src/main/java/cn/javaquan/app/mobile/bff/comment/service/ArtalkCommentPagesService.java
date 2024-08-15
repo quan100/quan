@@ -8,35 +8,33 @@ import cn.javaquan.app.mobile.bff.comment.feign.ArtalkCommentPagesServiceFeign;
 import cn.javaquan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
 /**
+ * artalk 评论数据查询业务实现.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @Slf4j
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/open/friendly/link/")
+@Component
 public class ArtalkCommentPagesService {
 
     private final ArtalkCommentPagesServiceFeign artalkCommentPagesServiceFeign;
 
     /**
-     * 查询页面统计数据
-     *
-     * @param keys
-     * @return
+     * 查询页面统计数据.
+     * @param keys 页面唯一键
+     * @return 统计数据
      */
     public Result<List<OpenArtalkCommentPagesVO>> statistics(List<String> keys) {
         Result<List<ArtalkCommentPagesDTO>> result = artalkCommentPagesServiceFeign.statistics(keys);
         return RunUtil.doRun(result, () -> {
-            return Result.success(ArtalkCommentPagesAssembler.INSTANCE.toOpenArtalkCommentPagesVOList(result.getData()));
+            return Result
+                .success(ArtalkCommentPagesAssembler.INSTANCE.toOpenArtalkCommentPagesVOList(result.getData()));
         });
     }
 

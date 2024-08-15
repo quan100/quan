@@ -11,17 +11,28 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 
 /**
- * 限制器注解 AOP 切面处理
+ * 限制器注解 AOP 切面处理.
  *
  * @author javaquan
  * @since 2.2.0
  */
 public class LimiterAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
 
+    /**
+     * advice.
+     */
     private final Advice advice;
 
+    /**
+     * pointcut.
+     */
     private final Pointcut pointcut = AnnotationMatchingPointcut.forMethodAnnotation(Limiter.class);
 
+    /**
+     * 构造方法注入参数.
+     * @param limiterInterceptor 限制器拦截器
+     * @param order order
+     */
     public LimiterAnnotationAdvisor(@NonNull LimiterInterceptor limiterInterceptor, int order) {
         this.advice = limiterInterceptor;
         setOrder(order);
@@ -43,4 +54,5 @@ public class LimiterAnnotationAdvisor extends AbstractPointcutAdvisor implements
             ((BeanFactoryAware) this.advice).setBeanFactory(beanFactory);
         }
     }
+
 }

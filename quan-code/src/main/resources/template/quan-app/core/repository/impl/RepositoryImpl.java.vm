@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
  * ${comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @Repository
 public class ${className}RepositoryImpl extends ServiceImpl<${className}Mapper, ${className}PO> implements ${className}Repository {

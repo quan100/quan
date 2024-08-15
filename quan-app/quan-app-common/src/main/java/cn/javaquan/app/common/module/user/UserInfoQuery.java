@@ -5,17 +5,20 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 /**
+ * 用户信息查询参数.
+ *
  * @author wangquan
- * @date 2020/4/16 22:12
+ * @since 1.0.0
  */
 @Data
 public class UserInfoQuery {
 
     /**
-     * token
+     * token.
      */
     private transient String token;
 
     @NotBlank(message = "userId不可为空")
     private String userId;
+
 }

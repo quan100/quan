@@ -2,7 +2,12 @@ package cn.javaquan.app.service.system.service;
 
 import cn.javaquan.app.common.constant.RoleTypeEnum;
 import cn.javaquan.app.common.module.auth.AuthQuery;
-import cn.javaquan.app.common.module.system.*;
+import cn.javaquan.app.common.module.system.SysPermissionDTO;
+import cn.javaquan.app.common.module.system.SysRoleDTO;
+import cn.javaquan.app.common.module.system.SysRolePermissionQuery;
+import cn.javaquan.app.common.module.system.SysUserRoleDTO;
+import cn.javaquan.app.common.module.system.UserPermissionDTO;
+import cn.javaquan.app.common.module.system.UserPermissionTreeDTO;
 import cn.javaquan.app.common.module.system.convert.SystemAssembler;
 import cn.javaquan.app.common.module.user.RolePermissionDTO;
 import cn.javaquan.app.common.util.ArraysUtil;
@@ -17,28 +22,36 @@ import cn.javaquan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 访问系统获取权限处理服务
+ * 访问系统获取权限处理服务.
  *
  * @author wangquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Component
 public class PermissionService {
 
     private final SysRoleRepositoryFeign sysRoleRepository;
+
     private final SysRolePermissionRepositoryFeign sysRolePermissionRepository;
+
     private final SysPermissionRepositoryFeign sysPermissionRepository;
+
     private final SysUserRoleRepositoryFeign sysUserRoleRepository;
 
     /**
-     * 获取进入系统权限列表
-     *
-     * @param query
-     * @return
+     * 获取进入系统权限列表.
+     * @param query 查询参数
+     * @return 权限列表
      */
     public List<UserPermissionTreeDTO> getUserPermission(AuthQuery query) {
         if (query.isLogin()) {
@@ -48,15 +61,14 @@ public class PermissionService {
     }
 
     /**
-     * 获取匿名用户权限列表
-     * 匿名用户只允许获取开放角色权限
-     *
-     * @param query
-     * @return
+     * 获取匿名用户权限列表 匿名用户只允许获取开放角色权限.
+     * @param query 查询参数
+     * @return 权限列表
      */
     public List<UserPermissionTreeDTO> getAnonymousPermission(AuthQuery query) {
         // 获取开放角色
-        Result<SysRoleDTO> result = sysRoleRepository.getRole(SystemAssembler.INSTANCE.toSysRoleQuery(RoleTypeEnum.OPEN.getCode(), query.getAppType(), 0));
+        Result<SysRoleDTO> result = sysRoleRepository
+            .getRole(SystemAssembler.INSTANCE.toSysRoleQuery(RoleTypeEnum.OPEN.getCode(), query.getAppType(), 0));
         if (!result.isData()) {
             return Collections.emptyList();
         }
@@ -64,10 +76,9 @@ public class PermissionService {
     }
 
     /**
-     * 获取登录用户权限列表
-     *
-     * @param query
-     * @return
+     * 获取登录用户权限列表.
+     * @param query 查询参数
+     * @return 权限列表
      */
     public List<UserPermissionTreeDTO> getLoginPermission(AuthQuery query) {
         List<Long> permRoleIds = queryUserRoleId(query.getAuthId());
@@ -75,10 +86,9 @@ public class PermissionService {
     }
 
     /**
-     * 获取用户角色
-     *
-     * @param userId
-     * @return
+     * 获取用户角色.
+     * @param userId 用户id
+     * @return 用户角色列表
      */
     public List<SysRoleDTO> queryUserRole(String userId) {
         List<Long> roleIds = this.queryUserRoleId(userId);
@@ -93,10 +103,9 @@ public class PermissionService {
     }
 
     /**
-     * 获取登录用户角色ID
-     *
-     * @param userId
-     * @return
+     * 获取登录用户角色ID.
+     * @param userId 用户id
+     * @return 用户角色id列表
      */
     private List<Long> queryUserRoleId(String userId) {
         Result<List<SysUserRoleDTO>> result = sysUserRoleRepository.getUserRole(userId);
@@ -108,12 +117,18 @@ public class PermissionService {
         // 获取用户角色
         List<Long> roleIds = sysUserRoleDTOS.stream().map(SysUserRoleDTO::getRoleId).collect(Collectors.toList());
         // 获取角色
-        Result<List<SysRoleDTO>> sysRolePos = sysRoleRepository.getRoles(SystemAssembler.INSTANCE.toSysRoleQuery(roleIds));
+        Result<List<SysRoleDTO>> sysRolePos = sysRoleRepository
+            .getRoles(SystemAssembler.INSTANCE.toSysRoleQuery(roleIds));
         List<Long> sysRolePoIds;
         if (!sysRolePos.isData()) {
             return Collections.emptyList();
-        } else {
-            sysRolePoIds = sysRolePos.getData().stream().filter(sysRolePo -> sysRolePo.getStatus() == 0 && !sysRolePo.getDelFlag()).map(SysRoleDTO::getId).collect(Collectors.toList());
+        }
+        else {
+            sysRolePoIds = sysRolePos.getData()
+                .stream()
+                .filter(sysRolePo -> sysRolePo.getStatus() == 0 && !sysRolePo.getDelFlag())
+                .map(SysRoleDTO::getId)
+                .collect(Collectors.toList());
         }
 
         // 取交集，过滤无效角色
@@ -125,23 +140,25 @@ public class PermissionService {
     }
 
     /**
-     * 获取角色菜单权限
-     *
+     * 获取角色菜单权限.
      * @param roleIds 角色ID列表
-     * @return
+     * @return 权限列表
      */
     private List<UserPermissionTreeDTO> queryRoleMenuPermission(List<Long> roleIds) {
         if (Validate.isEmpty(roleIds)) {
             return Collections.emptyList();
         }
-        Result<List<SysPermissionDTO>> result = sysPermissionRepository.getRolePermission(SystemAssembler.INSTANCE.toSysRolePermissionQuery(null, roleIds));
+        Result<List<SysPermissionDTO>> result = sysPermissionRepository
+            .getRolePermission(SystemAssembler.INSTANCE.toSysRolePermissionQuery(null, roleIds));
         if (!result.isData()) {
             return Collections.emptyList();
         }
         List<SysPermissionDTO> sysPermissionDTOS = result.getData();
 
-        Map<Integer, List<SysPermissionDTO>> sysPermissionPoTypeGroup = sysPermissionDTOS.stream().collect(Collectors.groupingBy(SysPermissionDTO::getType));
-        List<SysPermissionDTO> menuPerms = ArraysUtil.merge(sysPermissionPoTypeGroup.get(1), sysPermissionPoTypeGroup.get(0));
+        Map<Integer, List<SysPermissionDTO>> sysPermissionPoTypeGroup = sysPermissionDTOS.stream()
+            .collect(Collectors.groupingBy(SysPermissionDTO::getType));
+        List<SysPermissionDTO> menuPerms = ArraysUtil.merge(sysPermissionPoTypeGroup.get(1),
+                sysPermissionPoTypeGroup.get(0));
 
         if (Validate.isEmpty(menuPerms)) {
             return Collections.emptyList();
@@ -151,36 +168,37 @@ public class PermissionService {
         if (sysPermissionPoTypeGroup.containsKey(2)) {
             List<SysPermissionDTO> permList = sysPermissionPoTypeGroup.get(2);
             permGroup = permList.stream().collect(Collectors.groupingBy(SysPermissionDTO::getParentId));
-        } else {
+        }
+        else {
             permGroup = new HashMap<>();
         }
 
         // 过滤按钮权限
         List<UserPermissionTreeDTO> userPermissionDtos = menuPerms.stream().map(sysPermissionPo -> {
-            UserPermissionTreeDTO userPermissionDto = PermissionAssembler.INSTANCE.toUserPermissionTreeDTO(sysPermissionPo);
+            UserPermissionTreeDTO userPermissionDto = PermissionAssembler.INSTANCE
+                .toUserPermissionTreeDTO(sysPermissionPo);
 
-            userPermissionDto.setPermissions(PermissionAssembler.INSTANCE.toRolePermissionDtoList(permGroup.get(sysPermissionPo.getId())));
+            userPermissionDto.setPermissions(
+                    PermissionAssembler.INSTANCE.toRolePermissionDtoList(permGroup.get(sysPermissionPo.getId())));
             return userPermissionDto;
         }).sorted(Comparator.comparing(UserPermissionDTO::getSort)).collect(Collectors.toList());
         return TreeUtil.asTreeNodes(userPermissionDtos);
     }
 
     /**
-     * 获取角色按钮权限
-     *
+     * 获取角色按钮权限.
      * @param roleIds 角色ID
-     * @return
+     * @return 角色权限列表
      */
     public List<RolePermissionDTO> queryRolePermission(List<Long> roleIds) {
         return queryRolePermission(2, roleIds);
     }
 
     /**
-     * 获取角色按钮权限
-     *
-     * @param type    权限类型，0：一级菜单，1：菜单，2：按钮
+     * 获取角色按钮权限.
+     * @param type 权限类型，0：一级菜单，1：菜单，2：按钮
      * @param roleIds 角色ID
-     * @return
+     * @return 角色权限列表
      */
     public List<RolePermissionDTO> queryRolePermission(Integer type, List<Long> roleIds) {
         SysRolePermissionQuery query = SystemAssembler.INSTANCE.toSysRolePermissionQuery(null, roleIds);
@@ -202,5 +220,5 @@ public class PermissionService {
         }).collect(Collectors.toList());
         return rolePermissionDtos;
     }
-}
 
+}

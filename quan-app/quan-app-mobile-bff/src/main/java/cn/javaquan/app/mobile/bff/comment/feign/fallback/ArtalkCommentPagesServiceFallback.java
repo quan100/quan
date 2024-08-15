@@ -14,8 +14,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author JavaQuan
- * @version 1.0.0
+ * artalk 评论数据查询服务 Feign 熔断.
+ *
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -60,4 +62,5 @@ public class ArtalkCommentPagesServiceFallback implements FallbackFactory<Artalk
             }
         };
     }
+
 }

@@ -31,15 +31,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 用户第三方账户
+ * 用户第三方账户.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:53:59
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class SysUserTripartiteAccountRepositoryImpl extends ServiceImpl<SysUserTripartiteAccountMapper, SysUserTripartiteAccountPO> implements SysUserTripartiteAccountRepository {
+public class SysUserTripartiteAccountRepositoryImpl
+        extends ServiceImpl<SysUserTripartiteAccountMapper, SysUserTripartiteAccountPO>
+        implements SysUserTripartiteAccountRepository {
 
     private final SysUserAccountRepository sysUserAccountRepository;
 
@@ -121,7 +122,6 @@ public class SysUserTripartiteAccountRepositoryImpl extends ServiceImpl<SysUserT
         CacheUtil.del(RedisKey.userThirdAccountKey(cmd.getThirdId(), cmd.getThirdType()));
     }
 
-
     @Override
     public SysUserTripartiteAccountPO getTripartiteUserAccount(String userId, String thirdType) {
         LambdaQueryWrapper<SysUserTripartiteAccountPO> queryWrapper = Wrappers.lambdaQuery();
@@ -132,10 +132,9 @@ public class SysUserTripartiteAccountRepositoryImpl extends ServiceImpl<SysUserT
     }
 
     /**
-     * 根据账号查询信息
-     *
-     * @param userIds
-     * @return
+     * 根据账号查询信息.
+     * @param userIds 用户id列表
+     * @return 查询结果
      */
     public List<SysUserTripartiteAccountPO> getByUserIds(List<String> userIds) {
         LambdaQueryWrapper<SysUserTripartiteAccountPO> queryWrapper = Wrappers.lambdaQuery();
@@ -145,10 +144,9 @@ public class SysUserTripartiteAccountRepositoryImpl extends ServiceImpl<SysUserT
     }
 
     /**
-     * 根据账号查询信息
-     *
-     * @param userId
-     * @return
+     * 根据账号查询信息.
+     * @param userId 用户id
+     * @return 查询结果
      */
     public SysUserTripartiteAccountPO getByUserId(String userId) {
         LambdaQueryWrapper<SysUserTripartiteAccountPO> queryWrapper = Wrappers.lambdaQuery();
@@ -157,19 +155,25 @@ public class SysUserTripartiteAccountRepositoryImpl extends ServiceImpl<SysUserT
         return this.getOne(queryWrapper);
     }
 
+    /**
+     * 验证用户是否存在.
+     * @param userId 用户id
+     */
     private void verifyUserAccount(String userId) {
-        if (Validate.isNotBlank(userId)) {
-            SysUserAccountPO sysUserInfoPO = sysUserAccountRepository.getUserAccount(SystemAssembler.INSTANCE.toSysUserAccountQuery(null, userId));
-            Validate.isNotNull(sysUserInfoPO, ErrorCodeEnum.PM_USER_INFO_NOT_EXIST_ERR);
+        if (Validate.isBlank(userId)) {
+            return;
         }
+        SysUserAccountPO sysUserInfo = sysUserAccountRepository
+            .getUserAccount(SystemAssembler.INSTANCE.toSysUserAccountQuery(null, userId));
+        Validate.isNotNull(sysUserInfo, ErrorCodeEnum.PM_USER_INFO_NOT_EXIST_ERR);
     }
 
     /**
-     * 验证账号是否存在
-     *
-     * @param thirdId
-     * @param newThirdId
-     * @param thirdType
+     * 验证账号是否存在.
+     * @param thirdId 第三方账号id
+     * @param newThirdId 新的第三方账号id
+     * @param thirdType 第三方账号类型
+     * @param newThirdType 新的第三方账号类型
      */
     private void verifyAccountExists(String thirdId, String newThirdId, String thirdType, String newThirdType) {
         if (thirdId.equals(newThirdId) && thirdType.equals(newThirdType)) {
@@ -179,21 +183,19 @@ public class SysUserTripartiteAccountRepositoryImpl extends ServiceImpl<SysUserT
     }
 
     /**
-     * 验证账号是否存在
-     *
-     * @param thirdId
-     * @param thirdType
+     * 验证账号是否存在.
+     * @param thirdId 第三方账号id
+     * @param thirdType 第三方账号类型
      */
     private void verifyAccountExists(String thirdId, String thirdType) {
         Validate.isFalse(countByAccount(thirdId, thirdType) > 0, ErrorCodeEnum.PM_THIRD_ID_EXIST_ERR);
     }
 
     /**
-     * 根据账号查询数量
-     *
-     * @param thirdId
-     * @param thirdType
-     * @return
+     * 根据账号查询数量.
+     * @param thirdId 第三方账号id
+     * @param thirdType 第三方账号类型
+     * @return 第三方账号数量
      */
     public int countByAccount(String thirdId, String thirdType) {
         LambdaQueryWrapper<SysUserTripartiteAccountPO> queryWrapper = Wrappers.lambdaQuery();
@@ -202,4 +204,5 @@ public class SysUserTripartiteAccountRepositoryImpl extends ServiceImpl<SysUserT
         queryWrapper.eq(SysUserTripartiteAccountPO::getDelFlag, CommonConstant.FALSE);
         return this.count(queryWrapper);
     }
+
 }

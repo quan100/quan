@@ -1,5 +1,10 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.deployed"
+}
+
 description = 'Quan Tools Limit'
-apply plugin: "kotlin"
 
 dependencies {
     api 'org.projectlombok:lombok'

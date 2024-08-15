@@ -11,21 +11,20 @@ import cn.javaquan.app.core.article.entity.ArticlePO;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * 文章
+ * 文章.
  *
  * @author wangquan
- * @version 1.0.0
- * @date 2023-01-03 21:31:47
+ * @since 1.0.0
  */
 public interface ArticleMapper extends BaseMapper<ArticlePO> {
 
     /**
-     * 后台管理用户中心查询用户优惠券
-     *
-     * @param page
-     * @param wrapper
-     * @return
+     * 后台管理用户中心查询用户优惠券.
+     * @param page 分页参数
+     * @param wrapper 查询参数
+     * @return 查询结果
      */
-    Page<ArticleByCategoryDTO> byCategory(IPage<ArticleByCategoryDTO> page, @Param(Constants.WRAPPER) Wrapper<OpenArticleQuery> wrapper);
+    Page<ArticleByCategoryDTO> byCategory(IPage<ArticleByCategoryDTO> page,
+            @Param(Constants.WRAPPER) Wrapper<OpenArticleQuery> wrapper);
 
 }

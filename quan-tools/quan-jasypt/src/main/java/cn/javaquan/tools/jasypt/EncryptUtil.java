@@ -6,20 +6,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 配置加密工具类
+ * 配置加密工具类.
  *
  * @author javaquan
  * @since 2.2.0
  */
 public class EncryptUtil {
 
-    private final static String DEFAULT_PREFIX = "ENC";
+    private static final String DEFAULT_PREFIX = "ENC";
+
     private static final Pattern DEFAULT_PATTERN = Pattern.compile("(?<=\\()[^)]+");
 
     static StandardPBEStringEncryptor standardPBEStringEncryptor;
 
     /**
-     * @param password  加密密码
+     * 构造方法.
+     * @param password 加密密码.
      * @param algorithm 加密算法
      */
     public EncryptUtil(String password, String algorithm) {
@@ -30,31 +32,28 @@ public class EncryptUtil {
     }
 
     /**
-     * 加密
-     *
-     * @param encryptStr
-     * @return
+     * 加密.
+     * @param encryptStr 待加密的字符串
+     * @return 加密后的字符串
      */
     public static String encrypt(String encryptStr) {
         return standardPBEStringEncryptor.encrypt(encryptStr);
     }
 
     /**
-     * 解密
-     *
-     * @param decryptStr
-     * @return
+     * 解密.
+     * @param decryptStr 待解密的字符串
+     * @return 解密后的字符串
      */
     public static String decrypt(String decryptStr) {
         return decrypt(decryptStr, DEFAULT_PREFIX);
     }
 
     /**
-     * 解密
-     *
-     * @param decryptStr
-     * @param prefix
-     * @return
+     * 解密.
+     * @param decryptStr 待解密的字符串
+     * @param prefix 需要剔除的字符串前缀
+     * @return 解密后的字符串
      */
     private static String decrypt(String decryptStr, String prefix) {
         if (decryptStr.startsWith(prefix)) {
@@ -67,4 +66,5 @@ public class EncryptUtil {
         }
         return decryptStr;
     }
+
 }

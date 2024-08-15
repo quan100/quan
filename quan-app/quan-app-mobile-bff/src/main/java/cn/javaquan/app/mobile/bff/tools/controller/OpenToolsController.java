@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
+ * 在线工具接口.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -28,18 +28,18 @@ public class OpenToolsController {
     private final OpenToolsRepositoryFeign toolsRepositoryFeign;
 
     /**
-     * 获取工具列表
-     *
-     * @return
+     * 获取在线工具配置数据.
+     * @param query 查询条件
+     * @return 在线工具配置数据
      */
-    @GetMapping(value = "page")
+    @GetMapping("page")
     public Result<PageResult<OpenToolsVO>> getList(OpenToolsQuery query) {
         ToolsQuery toolsQuery = OpenToolsAssembler.INSTANCE.toToolsQuery(query);
         toolsQuery.setListType(1);
         toolsQuery.setStatus(0);
         Result<PageResult<ToolsDTO>> result = toolsRepositoryFeign.page(toolsQuery);
 
-        PageResult<OpenToolsVO> page = PageResultAssembler.INSTANCE.toPageResult(result.getData());
+        PageResult<OpenToolsVO> page = PageResultAssembler.INSTANCE.toIgnoreDataPageResult(result.getData());
         page.setRecords(OpenToolsAssembler.INSTANCE.toOpenToolsVOList(result.getData().getRecords()));
         return Result.success(page);
     }

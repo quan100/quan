@@ -14,8 +14,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author JavaQuan
- * @version 1.0.0
+ * Artalk 评论数据接口用于创建服务降级的备选实现.
+ * <p>
+ * 当远程调用失败时，会触发该工厂创建备选实现来处理异常情况.
+ *
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -60,4 +64,5 @@ public class ArtalkCommentPagesRepositoryFallback implements FallbackFactory<Art
             }
         };
     }
+
 }

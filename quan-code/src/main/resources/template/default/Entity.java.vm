@@ -14,7 +14,7 @@ import java.util.Date;
  * 
  * @author ${author}
  * @email ${email}
- * @date ${datetime}
+ * @since 1.0.0
  */
 @TableName("${tableName}")
 public class ${className}Entity implements Serializable {

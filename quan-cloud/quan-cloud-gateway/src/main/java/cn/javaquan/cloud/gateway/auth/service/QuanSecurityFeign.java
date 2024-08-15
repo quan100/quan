@@ -9,19 +9,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * 权限验证服务.
+ *
  * @author wangquan
- * @date 2020/3/11 16:24
+ * @since 1.0.0
  */
-@FeignClient(name = "${quan.app.security.name}", url = "${quan.app.security.url:}", fallbackFactory = QuanSecurityFallback.class)
+@FeignClient(name = "${quan.app.security.name}", url = "${quan.app.security.url:}",
+        fallbackFactory = QuanSecurityFallback.class)
 public interface QuanSecurityFeign {
 
     /**
-     * 权限验证
-     *
-     * @param req
-     * @return
+     * 权限验证.
+     * @param req 请求参数
+     * @return 验证结果
      */
     @ResponseBody
-    @PostMapping(value = "/auth/validate")
+    @PostMapping("/auth/validate")
     AuthenticateResponse validate(@RequestBody AuthenticateRequest req);
+
 }

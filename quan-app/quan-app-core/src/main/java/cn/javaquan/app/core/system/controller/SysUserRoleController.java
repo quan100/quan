@@ -9,17 +9,22 @@ import cn.javaquan.common.base.message.Result;
 import cn.javaquan.app.core.system.convert.SysUserRoleAssembler;
 import cn.javaquan.app.core.system.entity.SysUserRolePO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * 用户角色配置
+ * 用户角色配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -29,105 +34,97 @@ public class SysUserRoleController {
     private final SysUserRoleRepository sysUserRoleRepository;
 
     /**
-     * 查询列表
-     *
-     * @param query
-     * @return
+     * 查询列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("page")
-    public Result<PageResult> page(SysUserRoleQuery query) {
+    public Result<PageResult<SysUserRolePO>> page(SysUserRoleQuery query) {
         SysUserRolePO po = SysUserRoleAssembler.INSTANCE.toQueryPO(query);
         return Result.success(sysUserRoleRepository.page(po, query));
     }
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     @GetMapping("details")
-    public Result details(@RequestParam Long id) {
+    public Result<SysUserRolePO> details(@RequestParam Long id) {
         return Result.success(sysUserRoleRepository.getById(id));
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 更新操作是否成功
      */
     @PutMapping("update")
-    public Result update(@RequestBody SysUserRoleUpdateCommand cmd) {
+    public Result<Boolean> update(@RequestBody SysUserRoleUpdateCommand cmd) {
         SysUserRolePO po = SysUserRoleAssembler.INSTANCE.toUpdatePO(cmd);
         return Result.success(sysUserRoleRepository.updateById(po));
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 新增操作是否成功
      */
     @PostMapping("save")
-    public Result save(@RequestBody SysUserRoleAddCommand cmd) {
+    public Result<Boolean> save(@RequestBody SysUserRoleAddCommand cmd) {
         SysUserRolePO po = SysUserRoleAssembler.INSTANCE.toAddPO(cmd);
         return Result.success(sysUserRoleRepository.save(po));
     }
 
     /**
-     * 批量新增
-     *
-     * @param cmds
-     * @return
+     * 批量新增.
+     * @param cmds 新增参数
+     * @return 新增操作是否成功
      */
     @PostMapping("saveBatch")
-    public Result saveBatch(@RequestBody List<SysUserRoleAddCommand> cmds) {
+    public Result<Boolean> saveBatch(@RequestBody List<SysUserRoleAddCommand> cmds) {
         List<SysUserRolePO> pos = SysUserRoleAssembler.INSTANCE.toAddPOS(cmds);
         return Result.success(sysUserRoleRepository.saveBatch(pos));
     }
 
     /**
-     * 删除
-     *
-     * @param ids
-     * @return
+     * 删除.
+     * @param ids 主键
+     * @return 操作是否成功
      */
     @DeleteMapping("deleteByIds")
-    public Result deleteByIds(@RequestBody List<Long> ids) {
+    public Result<Boolean> deleteByIds(@RequestBody List<Long> ids) {
         return Result.success(sysUserRoleRepository.removeByIds(ids));
     }
 
     /**
-     * 根据用户ID查询
-     *
-     * @param userId
-     * @return
+     * 根据用户ID查询.
+     * @param userId 用户ID
+     * @return 查询结果
      */
     @GetMapping("userRole")
-    public Result getUserRole(@RequestParam String userId) {
+    public Result<List<SysUserRolePO>> getUserRole(@RequestParam String userId) {
         return Result.success(sysUserRoleRepository.getUserRole(userId));
     }
 
     /**
-     * 根据角色ID查询数量
-     *
-     * @param roleIds
-     * @return
+     * 根据角色ID查询数量.
+     * @param roleIds 角色ID
+     * @return 查询结果
      */
     @GetMapping("count")
-    public Result getCount(List<Long> roleIds) {
+    public Result<Integer> getCount(List<Long> roleIds) {
         return Result.success(sysUserRoleRepository.getCount(roleIds));
     }
 
     /**
-     * 删除
-     *
-     * @param roleIds
-     * @return
+     * 删除.
+     * @param roleIds 角色ID
+     * @return 删除结果
      */
     @DeleteMapping("delByRoleId")
-    public Result delByRoleId(@RequestBody List<Long> roleIds) {
+    public Result<Boolean> delByRoleId(@RequestBody List<Long> roleIds) {
         return Result.success(sysUserRoleRepository.delByRoleId(roleIds));
     }
+
 }

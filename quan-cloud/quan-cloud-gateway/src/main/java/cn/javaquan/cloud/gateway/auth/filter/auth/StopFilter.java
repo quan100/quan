@@ -1,18 +1,17 @@
 package cn.javaquan.cloud.gateway.auth.filter.auth;
 
-
 import cn.javaquan.cloud.gateway.auth.constant.AccessorTypeEnum;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.cloud.gateway.auth.filter.AbstractAuthFilter;
 import org.springframework.http.HttpStatus;
 
 /**
- * 无权过滤器
+ * 无权过滤器.
  * <p>
  * 使用该过滤器，将直接阻止任何入站访问
  *
  * @author wangquan
- * @date 2020/3/12 17:05
+ * @since 1.0.0
  */
 public class StopFilter extends AbstractAuthFilter {
 
@@ -27,4 +26,5 @@ public class StopFilter extends AbstractAuthFilter {
         // 任何用户
         return AccessorTypeEnum.ALL.getType();
     }
+
 }

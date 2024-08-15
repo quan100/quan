@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
+ * 权限资源服务.
+ *
  * @author wangquan
- * @date 2020/3/11 18:33
+ * @since 1.0.0
  */
 @Component
 public class AuthSourceFallback implements FallbackFactory<AuthSourceFeign> {
@@ -24,4 +26,5 @@ public class AuthSourceFallback implements FallbackFactory<AuthSourceFeign> {
             }
         };
     }
+
 }

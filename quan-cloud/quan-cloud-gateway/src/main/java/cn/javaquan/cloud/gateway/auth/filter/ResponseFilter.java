@@ -21,9 +21,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * API响应参数处理器
+ * API响应参数处理器.
  *
  * @author wangquan
+ * @since 1.0.0
  */
 @Component
 public class ResponseFilter implements GlobalFilter, Ordered {
@@ -35,12 +36,14 @@ public class ResponseFilter implements GlobalFilter, Ordered {
             public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
                 if (shouldFilter(getStatusCode()) && body instanceof Flux) {
                     CachedBodyOutputMessage outputMessage = new CachedBodyOutputMessage(exchange, getHeaders());
-                    return BodyInserters.fromPublisher(ClientResponse
-                                    .create(getStatusCode()).body(Flux.from(body)).build()
-                                    .bodyToMono(String.class)
-                                    .flatMap(bodyStr -> Mono.just(writeResponse(bodyStr))), String.class)
-                            .insert(outputMessage, new BodyInserterContext())
-                            .then(Mono.defer(() -> getDelegate().writeWith(outputMessage.getBody())));
+                    return BodyInserters
+                        .fromPublisher(ClientResponse.create(getStatusCode())
+                            .body(Flux.from(body))
+                            .build()
+                            .bodyToMono(String.class)
+                            .flatMap(bodyStr -> Mono.just(writeResponse(bodyStr))), String.class)
+                        .insert(outputMessage, new BodyInserterContext())
+                        .then(Mono.defer(() -> getDelegate().writeWith(outputMessage.getBody())));
                 }
                 return super.writeWith(body);
             }
@@ -53,6 +56,11 @@ public class ResponseFilter implements GlobalFilter, Ordered {
         return AuthFilter.AUTH_FILTER_ORDER + 1;
     }
 
+    /**
+     * 响应结果处理.
+     * @param body 响应结果
+     * @return 处理后的响应结果
+     */
     private String writeResponse(String body) {
         if (StringUtils.isBlank(body)) {
             return body;
@@ -71,7 +79,13 @@ public class ResponseFilter implements GlobalFilter, Ordered {
         return Result.success(body).toJSONString();
     }
 
+    /**
+     * 是否需要过滤.
+     * @param status 响应状态
+     * @return 是否需要过滤
+     */
     private boolean shouldFilter(HttpStatus status) {
         return HttpStatus.OK.equals(status);
     }
+
 }

@@ -9,9 +9,10 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 /**
- * 好友消息处理器抽象类
+ * 好友消息处理器抽象类.
  *
  * @author javaquan
+ * @since 1.0.0
  */
 public abstract class AbstractMessageHandler implements IMessageHandler {
 
@@ -21,8 +22,7 @@ public abstract class AbstractMessageHandler implements IMessageHandler {
     }
 
     /**
-     * 向指定通道发送文本消息
-     *
+     * 向指定通道发送文本消息.
      * @param channel 通道
      * @param message 文本消息
      */
@@ -31,10 +31,9 @@ public abstract class AbstractMessageHandler implements IMessageHandler {
     }
 
     /**
-     * 向指定通道发送模版消息
-     *
+     * 向指定通道发送模版消息.
      * @param channel 通道
-     * @param event   固定模版消息
+     * @param event 固定模版消息
      */
     protected void sendMessage(Channel channel, ChatMessage event) {
         String message = JsonUtils.toJSONString(event);
@@ -42,8 +41,7 @@ public abstract class AbstractMessageHandler implements IMessageHandler {
     }
 
     /**
-     * 向指定通道发送文本消息
-     *
+     * 向指定通道发送文本消息.
      * @param messageTemplate 客户端发送的消息体
      * @return true: 消息已发送；false: 消息未发送
      */
@@ -56,4 +54,5 @@ public abstract class AbstractMessageHandler implements IMessageHandler {
         sendMessage(channel, ChatMessage.toMessageEvent(messageTemplate));
         return true;
     }
+
 }

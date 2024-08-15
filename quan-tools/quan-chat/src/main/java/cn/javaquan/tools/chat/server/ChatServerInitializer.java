@@ -16,14 +16,22 @@ import io.netty.handler.timeout.IdleStateHandler;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 初始化服务配置
+ * 初始化服务配置.
  *
  * @author javaquan
+ * @since 1.0.0
  */
 public class ChatServerInitializer extends ChannelInitializer<Channel> {
+
     private final ChannelGroup group;
+
     private final ChatProperties properties;
 
+    /**
+     * 初始化聊天服务配置.
+     * @param group 通道组
+     * @param properties 聊天服务配置
+     */
     public ChatServerInitializer(ChannelGroup group, ChatProperties properties) {
         this.group = group;
         this.properties = properties;
@@ -34,12 +42,14 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(new HttpServerCodec());
         pipeline.addLast(new ChunkedWriteHandler());
-        pipeline.addLast(new HttpObjectAggregator(properties.getMaxContentLength()));
-        pipeline.addLast(new IdleStateHandler(properties.getReaderIdleTime(), 0, 0, TimeUnit.SECONDS));
+        pipeline.addLast(new HttpObjectAggregator(this.properties.getMaxContentLength()));
+        pipeline.addLast(new IdleStateHandler(this.properties.getReaderIdleTime(), 0, 0, TimeUnit.SECONDS));
 
-        pipeline.addLast(new ClientInboundHandler(group, properties.getWebsocketPath()));
+        pipeline.addLast(new ClientInboundHandler(this.group, this.properties.getWebsocketPath()));
         pipeline.addLast(new TextWebSocketFrameHandler());
 
-        pipeline.addLast(new WebSocketServerProtocolHandler(properties.getWebsocketPath(), null, true, properties.getMaxFrameSize()));
+        pipeline.addLast(new WebSocketServerProtocolHandler(this.properties.getWebsocketPath(), null, true,
+                this.properties.getMaxFrameSize()));
     }
+
 }

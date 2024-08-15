@@ -9,10 +9,10 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseCookie;
 
 /**
- * 非匿名权限过滤器
+ * 非匿名权限过滤器.
  *
  * @author wangquan
- * @date 2020/3/11 16:00
+ * @since 1.0.0
  */
 public class NonAnonymousFilter extends AbstractAuthFilter {
 
@@ -33,8 +33,8 @@ public class NonAnonymousFilter extends AbstractAuthFilter {
         // 如果jwt非空 保存身份信息到cookie
         if (!StringUtils.isEmpty(authRes.getToken())) {
             ResponseCookie cookie = ResponseCookie.from(AuthConstant.COOKIE_ACCESS_TOKEN, authRes.getToken())
-                    .maxAge(2592000)
-                    .build();
+                .maxAge(2592000)
+                .build();
             getResponse().addCookie(cookie);
         }
         return Result.success();
@@ -45,4 +45,5 @@ public class NonAnonymousFilter extends AbstractAuthFilter {
         // 带身份
         return AccessorTypeEnum.NON_ANON.getType();
     }
+
 }

@@ -13,15 +13,15 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 用户第三方账户
+ * 用户第三方账户.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
-public class SysUserTripartiteAccountRepositoryFallback implements FallbackFactory<SysUserTripartiteAccountRepositoryFeign> {
+public class SysUserTripartiteAccountRepositoryFallback
+        implements FallbackFactory<SysUserTripartiteAccountRepositoryFeign> {
 
     @Override
     public SysUserTripartiteAccountRepositoryFeign create(Throwable throwable) {
@@ -68,4 +68,5 @@ public class SysUserTripartiteAccountRepositoryFallback implements FallbackFacto
 
         };
     }
+
 }

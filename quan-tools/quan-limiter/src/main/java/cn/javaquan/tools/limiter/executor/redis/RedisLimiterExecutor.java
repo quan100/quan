@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 基于 Redis 实现的限制器执行器
+ * 基于 Redis 实现的限制器执行器.
  *
  * @author javaquan
  * @since 2.2.0
@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit;
 public class RedisLimiterExecutor extends AbstractLimiterExecutor<String> {
 
     private final IRedisService redisService;
-    private final static long INTERVAL_TIME = 100;
+
+    private static final long INTERVAL_TIME = 100;
 
     @Override
     public LimiterPostProcessor<String> execute(String token, long waitTime, long leaseTime) throws Exception {
@@ -49,4 +50,5 @@ public class RedisLimiterExecutor extends AbstractLimiterExecutor<String> {
 
         return getLock(token, waitTime - INTERVAL_TIME, leaseTime);
     }
+
 }

@@ -1,8 +1,8 @@
 plugins {
-    id 'org.springframework.boot' version "${springBootVersion}"
+    id "java-library"
+    id "org.springframework.boot.conventions"
 }
 description = 'Quan Cloud Gateway'
-apply plugin: "kotlin"
 
 dependencies {
     api 'org.springframework.cloud:spring-cloud-starter-gateway'

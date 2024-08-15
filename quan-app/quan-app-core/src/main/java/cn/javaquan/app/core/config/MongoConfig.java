@@ -4,10 +4,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 /**
- * mybatis-plus配置
+ * Mongo db 配置.
  *
  * @author wangquan
- * @date 2021/12/29 00:29
+ * @since 1.0.0
  */
 @EnableMongoRepositories("cn.javaquan.app.core.**.mapper*")
 @Configuration

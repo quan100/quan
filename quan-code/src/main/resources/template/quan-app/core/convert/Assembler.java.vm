@@ -14,50 +14,53 @@ import java.util.List;
  * ${comments}参数转换
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @Mapper
 public interface ${className}Assembler {
 
+    /**
+ * 返回给定映射器类型的实例.
+     */
     ${className}Assembler INSTANCE = Mappers.getMapper(${className}Assembler.class);
 
     /**
      * 转换为查询参数
      *
-     * @param query
-     * @return
+     * @param query 待转换的参数
+     * @return ${className}PO
      */
     ${className}PO toQueryPO(${className}Query query);
 
     /**
-     * 转换为更新参数
+     * 转换为更新参数.
      * <p>
      * 更新自动配置更新时间。
      * 更新时不处理删除状态，删除状态交由删除功能处理。
      *
      * @param cmd
-     * @return
+     * @return ${className}PO
      */
     @Mapping(target = "delFlag", ignore = true)
     ${className}PO toUpdatePO(${className}UpdateCommand cmd);
 
     /**
-     * 转换为新增参数
+     * 转换为新增参数.
      * <p>
      * 新增时删除状态默认为正常。
      *
      * @param cmd
-     * @return
+     * @return ${className}PO
      */
     @Mapping(target = "delFlag", constant = "false")
     ${className}PO toAddPO(${className}AddCommand cmd);
 
     /**
-     * 转换为新增参数
+     * 转换为新增参数.
      *
      * @param cmds
-     * @return
+     * @return List<${className}PO>
      */
     List<${className}PO> toAddPOS(List<${className}AddCommand> cmds);
 }

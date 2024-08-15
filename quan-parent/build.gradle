@@ -1,0 +1,39 @@
+plugins {
+    id "org.springframework.boot.bom"
+    id "org.springframework.boot.conventions"
+}
+
+description = "Quan Parent"
+
+bom {
+    upgrade {
+        policy = "same-major-version"
+        gitHub {
+            issueLabels = ["type: task"]
+        }
+    }
+    library("Spring Boot Dependencies", "2.7.18") {
+        group("org.springframework.boot") {
+            imports = [
+                    "spring-boot-dependencies"
+            ]
+        }
+    }
+    library("Spring Cloud Dependencies", "2021.0.8") {
+        group("org.springframework.cloud") {
+            imports = [
+                    "spring-cloud-dependencies"
+            ]
+        }
+    }
+}
+
+dependencies {
+    api(enforcedPlatform(project(":quan-dependencies")))
+    api 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    // Internal module so enforced platform dependencies are OK
+    suppressedValidationErrors.add('enforced-platform')
+}

@@ -8,14 +8,22 @@ import cn.javaquan.app.service.comment.artalk.service.ArtalkCommentPagesService;
 import cn.javaquan.common.base.message.PageResult;
 import cn.javaquan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * @author JavaQuan
- * @version 1.0.0
+ * artalk 评论数据业务接口.
+ *
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -25,10 +33,9 @@ public class ArtalkCommentPagesController {
     private final ArtalkCommentPagesService artalkCommentPagesService;
 
     /**
-     * 查询列表
-     *
-     * @param query
-     * @return
+     * 查询列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("page")
     public Result<PageResult<ArtalkCommentPagesDTO>> page(ArtalkCommentPagesQuery query) {
@@ -36,10 +43,9 @@ public class ArtalkCommentPagesController {
     }
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     @GetMapping("details")
     public Result<ArtalkCommentPagesDTO> details(@RequestParam Long id) {
@@ -47,10 +53,9 @@ public class ArtalkCommentPagesController {
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 操作是否成功
      */
     @PutMapping("update")
     public Result<Boolean> update(@RequestBody ArtalkCommentPagesUpdateCommand cmd) {
@@ -58,10 +63,9 @@ public class ArtalkCommentPagesController {
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 操作是否成功
      */
     @PostMapping("save")
     public Result<Boolean> save(@RequestBody ArtalkCommentPagesAddCommand cmd) {
@@ -69,10 +73,9 @@ public class ArtalkCommentPagesController {
     }
 
     /**
-     * 批量新增
-     *
-     * @param cmds
-     * @return
+     * 批量新增.
+     * @param cmds 新增参数
+     * @return 新增结果
      */
     @PostMapping("saveBatch")
     public Result<Boolean> saveBatch(@RequestBody List<ArtalkCommentPagesAddCommand> cmds) {
@@ -80,10 +83,9 @@ public class ArtalkCommentPagesController {
     }
 
     /**
-     * 删除
-     *
-     * @param ids
-     * @return
+     * 删除.
+     * @param ids 主键
+     * @return 操作是否成功
      */
     @DeleteMapping("deleteByIds")
     public Result<Boolean> deleteByIds(@RequestBody List<Long> ids) {
@@ -91,10 +93,9 @@ public class ArtalkCommentPagesController {
     }
 
     /**
-     * 查询页面统计数据
-     *
-     * @param keys
-     * @return
+     * 查询页面统计数据.
+     * @param keys 页面唯一键
+     * @return 统计数据
      */
     @GetMapping("statistics")
     public Result<List<ArtalkCommentPagesDTO>> statistics(@RequestParam List<String> keys) {

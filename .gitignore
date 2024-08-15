@@ -9,7 +9,9 @@ hs_err_pid*
 .idea
 */target
 
-**/build
+build
+!/**/src/**/bin
+!/**/src/**/build
 target
 
 # 前端

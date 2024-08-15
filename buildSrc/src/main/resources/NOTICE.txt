@@ -1,0 +1,6 @@
+Quan ${version}
+Copyright (c) javaquan.cn.
+
+This product is licensed to you under the MIT License.
+You may not use this product except in compliance with
+the License.

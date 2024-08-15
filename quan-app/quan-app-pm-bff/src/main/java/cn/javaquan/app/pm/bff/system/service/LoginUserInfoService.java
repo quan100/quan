@@ -15,27 +15,34 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * 用户信息表
+ * 用户信息表.
  *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-08-24 23:47:27
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Component
 public class LoginUserInfoService {
 
+    /**
+     * 获取当前登录用户信息.
+     * @param authEntity 用户认证信息
+     * @return 用户信息
+     */
     public Result<UserInfoDTO> currentUser(AuthEntity authEntity) {
         UserInfoDTO userInfoDto = ((JSONObject) authEntity.getData()).toJavaObject(UserInfoDTO.class);
         List<UserRoleDTO> roleDtos = JSON.parseArray(JSON.toJSONString(authEntity.getRoles()), UserRoleDTO.class);
 
         List<String> paths = roleDtos.stream()
-                .flatMap(userRoleDto -> userRoleDto.getPermissions().stream())
-                .map(RolePermissionDTO::getPath).filter(Objects::nonNull).distinct()
-                .map(path -> {
-                    String[] pathParams = path.split("\\?");
-                    return pathParams[0];
-                }).collect(Collectors.toList());
+            .flatMap(userRoleDto -> userRoleDto.getPermissions().stream())
+            .map(RolePermissionDTO::getPath)
+            .filter(Objects::nonNull)
+            .distinct()
+            .map(path -> {
+                String[] pathParams = path.split("\\?");
+                return pathParams[0];
+            })
+            .collect(Collectors.toList());
 
         userInfoDto.setRoles(roleDtos);
         userInfoDto.setPaths(paths);
@@ -43,4 +50,3 @@ public class LoginUserInfoService {
     }
 
 }
-

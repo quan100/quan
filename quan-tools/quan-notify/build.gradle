@@ -1,5 +1,10 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.deployed"
+}
+
 description = 'quan-notify'
-apply plugin: "kotlin"
 
 dependencies {
     api 'org.springframework.cloud:spring-cloud-starter-openfeign'

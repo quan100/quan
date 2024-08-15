@@ -8,26 +8,26 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 /**
- * @author JavaQuan
- * @version 1.0.0
+ * artalk 评论数据接口.
+ *
+ * @author javaquan
+ * @since 1.0.0
  */
 public interface ArtalkCommentPagesRepository extends IService<ArtalkCommentPagesPO> {
 
     /**
-     * 分页查询
-     *
-     * @param po
-     * @param basePage
-     * @return
+     * 分页查询.
+     * @param po 查询参数
+     * @param basePage 分页参数
+     * @return 查询结果
      */
     PageResult<ArtalkCommentPagesPO> page(ArtalkCommentPagesPO po, BasePage basePage);
 
     /**
-     * 查询页面统计数据
-     *
-     * @param keys
-     * @return
+     * 查询页面统计数据.
+     * @param keys 页面唯一键
+     * @return 统计数据
      */
     List<ArtalkCommentPagesPO> statistics(List<String> keys);
-}
 
+}

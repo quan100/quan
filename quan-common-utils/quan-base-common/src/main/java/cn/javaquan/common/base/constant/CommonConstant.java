@@ -1,19 +1,27 @@
 package cn.javaquan.common.base.constant;
 
 /**
- * 基础常量
+ * 基础常量.
  *
  * @author wangquan
+ * @since 1.0.0
  */
-public class CommonConstant {
+public final class CommonConstant {
 
     /**
-     * 是
+     * 私有构造方法.
+     */
+    private CommonConstant() {
+    }
+
+    /**
+     * 是.
      */
     public static final boolean TRUE = true;
 
     /**
-     * 否
+     * 否.
      */
     public static final boolean FALSE = false;
+
 }

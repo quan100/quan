@@ -10,10 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 默认的权限加载
- * 若未开启加载配置，则不生效
+ * 默认的权限加载 若未开启加载配置，则不生效.
  *
  * @author wangquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 public class DefaultAuthSourceImpl implements IAuthSource {
@@ -25,8 +25,9 @@ public class DefaultAuthSourceImpl implements IAuthSource {
         Result<List<String>> result = null;
         try {
             result = authSourceFeign.getAuth(PermEnum.USER.getType());
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
             return Collections.emptyList();
         }
         if (result.isData()) {
@@ -34,4 +35,5 @@ public class DefaultAuthSourceImpl implements IAuthSource {
         }
         return Collections.emptyList();
     }
+
 }

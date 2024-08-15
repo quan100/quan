@@ -19,8 +19,10 @@ import org.springframework.util.StringUtils;
 import java.util.UUID;
 
 /**
+ * 权限认证服务实现.
+ *
  * @author wangquan
- * @date 2020/3/10 00:50
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Service
@@ -28,12 +30,6 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
     private final IRedisService redisService;
 
-    /**
-     * token 认证
-     *
-     * @param request
-     * @return
-     */
     @Override
     public AuthenticateResponse authenticate(AuthenticateRequest request) {
 
@@ -47,7 +43,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
         // 获取jwt中的信息
         Claims claims = AuthUtil.getClaims(request.getToken());
-        String audience = claims != null ? claims.getAudience() : "";
+        String audience = (claims != null) ? claims.getAudience() : "";
 
         // 认证用户 从缓存拿数据 如果拿不到 则重新登录
         if (AudienceEnum.AUTH_USER.eq(audience)) {
@@ -56,7 +52,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
             String auth = redisService.get(CacheConstants.TOKEN_PREFIX + request.getToken());
 
             // redis中没有对应信息
-            if (StringUtils.isEmpty(auth)) {
+            if (!StringUtils.hasText(auth)) {
                 return response;
             }
 
@@ -80,9 +76,10 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         }
 
         String identity;
-        if (!StringUtils.isEmpty(audience)) {
+        if (StringUtils.hasText(audience)) {
             identity = (String) claims.get(AuthUtil.claimsName);
-        } else {
+        }
+        else {
             identity = UUID.randomUUID().toString().replace("-", "");
             String token = AuthUtil.generateToken(AudienceEnum.ANON_USER.getType(), identity);
             response.setToken(token);
@@ -94,12 +91,6 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         return response;
     }
 
-    /**
-     * 获取token
-     *
-     * @param authEntity
-     * @return
-     */
     @Override
     public String getToken(AuthEntity authEntity) {
         // 生成token
@@ -126,15 +117,9 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         return token;
     }
 
-    /**
-     * 清除token
-     *
-     * @param token
-     * @return
-     */
     @Override
     public void cleanToken(String token) {
-        if (StringUtils.isEmpty(token)) {
+        if (!StringUtils.hasText(token)) {
             return;
         }
         // 无用户信息
@@ -152,7 +137,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         String userStr = redisService.get(CacheConstants.TOKEN_PREFIX + token);
 
         // 当前没有登录信息
-        if (StringUtils.isEmpty(userStr)) {
+        if (!StringUtils.hasText(userStr)) {
             return;
         }
 

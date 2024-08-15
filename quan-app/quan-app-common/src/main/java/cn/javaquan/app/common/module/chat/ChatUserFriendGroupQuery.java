@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户好友分组表
+ * 用户好友分组表.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 @Data
 public class ChatUserFriendGroupQuery extends BasePage implements Serializable {
@@ -18,57 +18,57 @@ public class ChatUserFriendGroupQuery extends BasePage implements Serializable {
     private static final long serialVersionUID = 742833405930788595L;
 
     /**
-     * 主键
+     * 主键.
      */
     private Long id;
 
     /**
-     * 分组ID
+     * 分组ID.
      */
     private String groupId;
 
     /**
-     * 分组名称
+     * 分组名称.
      */
     private String groupName;
 
     /**
-     * 用户ID
+     * 用户ID.
      */
     private String userId;
 
     /**
-     *
+     * 状态.
      */
     private String status;
 
     /**
-     * 是否免打扰
+     * 是否免打扰.
      */
     private Boolean disturb;
 
     /**
-     * 是否置顶
+     * 是否置顶.
      */
     private Boolean topping;
 
     /**
-     * 排序
+     * 排序.
      */
     private Integer order;
 
     /**
-     * 创建时间
+     * 创建时间.
      */
     private Date createTime;
 
     /**
-     * 更新时间
+     * 更新时间.
      */
     private Date updateTime;
 
     /**
-     * 删除状态
+     * 删除状态.
      */
     private Boolean delFlag;
 

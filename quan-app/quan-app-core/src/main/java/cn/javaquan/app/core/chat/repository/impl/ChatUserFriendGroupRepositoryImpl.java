@@ -16,13 +16,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户好友分组表
+ * 用户好友分组表.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class ChatUserFriendGroupRepositoryImpl extends ServiceImpl<ChatUserFriendGroupMapper, ChatUserFriendGroupPO> implements ChatUserFriendGroupRepository {
+public class ChatUserFriendGroupRepositoryImpl extends ServiceImpl<ChatUserFriendGroupMapper, ChatUserFriendGroupPO>
+        implements ChatUserFriendGroupRepository {
 
     @Override
     public PageResult<ChatUserFriendGroupPO> page(ChatUserFriendGroupPO po, BasePage basePage) {

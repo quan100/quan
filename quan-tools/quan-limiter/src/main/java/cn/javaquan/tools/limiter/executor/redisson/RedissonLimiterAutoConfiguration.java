@@ -12,10 +12,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.lang.Nullable;
 
 /**
- * 基于 Redisson 实现的限制器配置
+ * 基于 Redisson 实现的限制器配置.
  *
  * @author javaquan
  * @since 2.2.0
@@ -24,15 +23,22 @@ import org.springframework.lang.Nullable;
 @EnableConfigurationProperties(LimiterProperties.class)
 public class RedissonLimiterAutoConfiguration {
 
-
+    /**
+     * Redisson 限制器配置.
+     */
     @Configuration(proxyBeanMethods = false)
     @Conditional(RedissonLimiterCondition.class)
     protected static class RedissonLimiterConfiguration {
 
+        /**
+         * Redisson 限制器执行器.
+         * @param redissonClient redisson 客户端
+         * @return redissonLimiterExecutor
+         */
         @Bean
         @Order(100)
         @ConditionalOnClass(Redisson.class)
-        public RedissonLimiterExecutor redissonLimiterExecutor(@Nullable RedissonClient redissonClient) {
+        public RedissonLimiterExecutor redissonLimiterExecutor(RedissonClient redissonClient) {
             return new RedissonLimiterExecutor(redissonClient);
         }
 

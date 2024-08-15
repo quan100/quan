@@ -17,8 +17,8 @@ import java.util.List;
  * ${comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @FeignClient(value = "${${prefixFeignUrl}.service.name}", url = "${${prefixFeignUrl}.service.url:}", fallbackFactory = ${className}ServiceFallback.class)
 public interface ${className}ServiceFeign {
@@ -26,8 +26,8 @@ public interface ${className}ServiceFeign {
     /**
      * 查询列表
      *
-     * @param query
-     * @return
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("${prefixService}${moduleName}${controllerAddress}page")
     Result<PageResult<${className}DTO>> page(@SpringQueryMap ${className}Query query);
@@ -44,8 +44,8 @@ public interface ${className}ServiceFeign {
     /**
      * 根据主键更新
      *
-     * @param cmd
-     * @return
+     * @param cmd 更新指令参数
+     * @return 操作是否成功
      */
     @PutMapping("${prefixService}${moduleName}${controllerAddress}update")
     Result<Boolean> update(@RequestBody ${className}UpdateCommand cmd);
@@ -53,8 +53,8 @@ public interface ${className}ServiceFeign {
     /**
      * 新增
      *
-     * @param cmd
-     * @return
+     * @param cmd 新增指令参数
+     * @return 操作是否成功
      */
     @PostMapping("${prefixService}${moduleName}${controllerAddress}save")
     Result<Boolean> save(@RequestBody ${className}AddCommand cmd);
@@ -62,8 +62,8 @@ public interface ${className}ServiceFeign {
     /**
      * 批量新增
      *
-     * @param cmds
-     * @return
+     * @param cmds 新增参数
+     * @return 新增结果
      */
     @PostMapping("${prefixService}${moduleName}${controllerAddress}saveBatch")
     Result<Boolean> saveBatch(@RequestBody List<${className}AddCommand> cmds);

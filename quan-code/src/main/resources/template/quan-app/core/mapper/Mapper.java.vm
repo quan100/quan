@@ -7,8 +7,8 @@ import ${package}.core.${moduleName}.entity.${className}PO;
  * ${comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 public interface ${className}Mapper extends BaseMapper<${className}PO> {
 

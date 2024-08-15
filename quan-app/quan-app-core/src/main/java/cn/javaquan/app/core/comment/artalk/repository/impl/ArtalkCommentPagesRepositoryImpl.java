@@ -17,12 +17,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author JavaQuan
- * @version 1.0.0
+ * Artalk 评论数据业务层实现.
+ *
+ * @author javaquan
+ * @since 1.0.0
  */
 @DS("artalk")
 @Repository
-public class ArtalkCommentPagesRepositoryImpl extends ServiceImpl<ArtalkCommentPagesMapper, ArtalkCommentPagesPO> implements ArtalkCommentPagesRepository {
+public class ArtalkCommentPagesRepositoryImpl extends ServiceImpl<ArtalkCommentPagesMapper, ArtalkCommentPagesPO>
+        implements ArtalkCommentPagesRepository {
 
     @Override
     public PageResult<ArtalkCommentPagesPO> page(ArtalkCommentPagesPO po, BasePage basePage) {
@@ -35,7 +38,7 @@ public class ArtalkCommentPagesRepositoryImpl extends ServiceImpl<ArtalkCommentP
     @Override
     public List<ArtalkCommentPagesPO> statistics(List<String> keys) {
         LambdaQueryWrapper<ArtalkCommentPagesPO> queryWrapper = Wrappers.lambdaQuery(ArtalkCommentPagesPO.class)
-                .in(ArtalkCommentPagesPO::getKey, keys);
+            .in(ArtalkCommentPagesPO::getKey, keys);
         return this.list(queryWrapper);
     }
 

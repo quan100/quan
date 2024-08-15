@@ -1,5 +1,9 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+}
+
 description = 'Quan Code'
-apply plugin: "kotlin"
 
 dependencies {
     api 'org.springframework.boot:spring-boot-starter-web'
@@ -8,7 +12,9 @@ dependencies {
     api 'com.alibaba:druid'
     api 'commons-lang:commons-lang'
     api 'commons-io:commons-io'
-    api 'commons-configuration:commons-configuration'
+    api('commons-configuration:commons-configuration') {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+    }
     api 'com.alibaba:fastjson'
     api 'org.apache.velocity:velocity:1.7'
 

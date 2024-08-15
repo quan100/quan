@@ -8,12 +8,12 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 
 /**
- * 用户权限过滤器
+ * 用户权限过滤器.
  * <p>
  * 该权限要求用户必须登录
  *
  * @author wangquan
- * @date 2020/3/11 16:04
+ * @since 1.0.0
  */
 public class UserFilter extends AbstractAuthFilter {
 
@@ -44,4 +44,5 @@ public class UserFilter extends AbstractAuthFilter {
         // 登录用户
         return AccessorTypeEnum.AUTHENTICATED.getType();
     }
+
 }

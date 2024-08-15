@@ -18,8 +18,8 @@ import java.math.BigDecimal;
  * ${table.comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -29,7 +29,7 @@ public class ${className}PO extends Model<${className}PO> {
 
 #foreach ($column in $columns)
     /**
-     * $column.comments
+ * $column.comments
      */
 #if($column.columnName == $pk.columnName)
     @TableId(value = "id", type = IdType.AUTO)

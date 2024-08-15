@@ -12,11 +12,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 用户信息表
+ * 用户信息表.
  *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-08-24 23:47:27
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Component
@@ -24,19 +23,27 @@ public class UserInfoService {
 
     private final PermissionService permissionService;
 
+    // public UserInfoDTO getInfo(AuthEntity authEntity) {
+    // UserInfoDTO userInfoDto = ((JSONObject)
+    // authEntity.getData()).toJavaObject(UserInfoDTO.class);
+    // List<UserRoleDTO> roleDtos =
+    // JSONUtil.toList(JSON.toJSONString(authEntity.getRoles()), UserRoleDTO.class);
+    //
+    // Map<String, RolePermissionDTO> rolePerm = roleDtos.stream().flatMap(userRoleDto ->
+    // userRoleDto.getPermissions().stream())
+    // .collect(Collectors.toMap(RolePermissionDTO::getPermissionId, dto -> dto, (d1, d2)
+    // -> d1));
+    //
+    // userInfoDto.setRoles(roleDtos);
+    // userInfoDto.setRolePerm(rolePerm);
+    // return userInfoDto;
+    // }
 
-//    public UserInfoDTO getInfo(AuthEntity authEntity) {
-//        UserInfoDTO userInfoDto = ((JSONObject) authEntity.getData()).toJavaObject(UserInfoDTO.class);
-//        List<UserRoleDTO> roleDtos = JSONUtil.toList(JSON.toJSONString(authEntity.getRoles()), UserRoleDTO.class);
-//
-//        Map<String, RolePermissionDTO> rolePerm = roleDtos.stream().flatMap(userRoleDto -> userRoleDto.getPermissions().stream())
-//                .collect(Collectors.toMap(RolePermissionDTO::getPermissionId, dto -> dto, (d1, d2) -> d1));
-//
-//        userInfoDto.setRoles(roleDtos);
-//        userInfoDto.setRolePerm(rolePerm);
-//        return userInfoDto;
-//    }
-
+    /**
+     * 获取用户角色.
+     * @param userId 用户id
+     * @return 用户角色列表
+     */
     public List<UserRoleDTO> getUserRole(String userId) {
         List<SysRoleDTO> sysRoleDTOS = permissionService.queryUserRole(userId);
         if (Validate.isEmpty(sysRoleDTOS)) {
@@ -54,4 +61,3 @@ public class UserInfoService {
     }
 
 }
-

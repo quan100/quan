@@ -1,18 +1,20 @@
 package cn.javaquan.security.common;
 
 /**
+ * 权限信息常量.
+ *
  * @author wangquan
- * @date 2020/3/11 18:33
+ * @since 1.0.0
  */
 public class AuthConstant {
 
     /**
-     * token
+     * token.
      */
     public static final String ACCESS_TOKEN = "Authorization";
 
     /**
-     * 保存身份信息到cookie
+     * 保存身份信息到cookie.
      */
     public static final String COOKIE_ACCESS_TOKEN = "quan-id";
 

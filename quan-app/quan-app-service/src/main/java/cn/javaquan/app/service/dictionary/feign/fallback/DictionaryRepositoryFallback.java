@@ -14,11 +14,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 字典
+ * 字典.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -73,4 +72,5 @@ public class DictionaryRepositoryFallback implements FallbackFactory<DictionaryR
             }
         };
     }
+
 }

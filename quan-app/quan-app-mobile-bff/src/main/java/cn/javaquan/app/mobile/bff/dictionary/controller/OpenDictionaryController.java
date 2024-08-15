@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
+ * 字典接口.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -23,10 +23,9 @@ public class OpenDictionaryController {
     private final OpenDictionaryServiceFeign dictionaryServiceFeign;
 
     /**
-     * 根据字典编码获取字典值
-     *
-     * @param code
-     * @return
+     * 根据字典编码获取字典值.
+     * @param code 字典编码
+     * @return 字典值
      */
     @GetMapping("value")
     public Result<Object> queryValue(@RequestParam String code) {

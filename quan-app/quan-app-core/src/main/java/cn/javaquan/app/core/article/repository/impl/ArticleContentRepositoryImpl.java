@@ -10,18 +10,17 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * <p>
- * 文章内容  服务实现类
- * </p>
+ * 文章内容 服务实现类.
  *
  * @author wangquan
- * @since 2023-01-03 21:31:47
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
 public class ArticleContentRepositoryImpl implements ArticleContentRepository {
 
     private final MongoTemplate mongoTemplate;
+
     private final ArticleContentMapper articleContentMapper;
 
     @Override
@@ -46,4 +45,5 @@ public class ArticleContentRepositoryImpl implements ArticleContentRepository {
         mongoTemplate.save(po);
         return true;
     }
+
 }

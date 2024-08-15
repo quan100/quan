@@ -11,8 +11,8 @@ import java.util.Date;
  * ${table.comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @Data
 public class ${className}VO implements Serializable {
@@ -21,7 +21,7 @@ public class ${className}VO implements Serializable {
 
 #foreach ($column in $columns)
     /**
-     * $column.comments
+ * $column.comments
      */
     private $column.attrType $column.attrname;
 

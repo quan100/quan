@@ -1,7 +1,11 @@
 package cn.javaquan.app.core.article.repository.impl;
 
 import cn.javaquan.app.common.constant.ErrorCodeEnum;
-import cn.javaquan.app.common.module.article.*;
+import cn.javaquan.app.common.module.article.ArticleAddCommand;
+import cn.javaquan.app.common.module.article.ArticleByCategoryDTO;
+import cn.javaquan.app.common.module.article.ArticleDTO;
+import cn.javaquan.app.common.module.article.ArticleUpdateCommand;
+import cn.javaquan.app.common.module.article.OpenArticleQuery;
 import cn.javaquan.app.common.util.RunUtil;
 import cn.javaquan.app.common.util.Validate;
 import cn.javaquan.app.core.article.convert.ArticleAssembler;
@@ -30,19 +34,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <p>
- * 文章  服务实现类
- * </p>
+ * 文章 服务实现类.
  *
  * @author wangquan
- * @since 2023-01-03 21:31:47
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
 public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO> implements ArticleRepository {
 
     private final ArticleMapper articleMapper;
+
     private final ArticleTagRepository articleTagRepository;
+
     private final ArticleTagConfigRepository articleTagConfigRepository;
 
     @Override
@@ -51,20 +55,9 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
         String title = po.getTitle();
         po.setTitle(null);
         LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery(po);
-        queryWrapper.select(
-                ArticlePO::getId,
-                ArticlePO::getArticleId,
-                ArticlePO::getUserId,
-                ArticlePO::getTitle,
-                ArticlePO::getAuthor,
-                ArticlePO::getType,
-                ArticlePO::getPublishType,
-                ArticlePO::getStatus,
-                ArticlePO::getSort,
-                ArticlePO::getBriefContent,
-                ArticlePO::getCreateTime,
-                ArticlePO::getUpdateTime
-        );
+        queryWrapper.select(ArticlePO::getId, ArticlePO::getArticleId, ArticlePO::getUserId, ArticlePO::getTitle,
+                ArticlePO::getAuthor, ArticlePO::getType, ArticlePO::getPublishType, ArticlePO::getStatus,
+                ArticlePO::getSort, ArticlePO::getBriefContent, ArticlePO::getCreateTime, ArticlePO::getUpdateTime);
 
         queryWrapper.like(Validate.isNotBlank(title), ArticlePO::getTitle, title);
         queryWrapper.orderByDesc(ArticlePO::getTopping);
@@ -97,12 +90,6 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
         return this.list(queryWrapper);
     }
 
-    /**
-     * 获取站点地图
-     * 文章部分跳转页面URL
-     *
-     * @return
-     */
     @Override
     public List<ArticlePO> getSitemaps() {
         LambdaQueryWrapper<ArticlePO> queryWrapper = Wrappers.lambdaQuery();
@@ -171,9 +158,11 @@ public class ArticleRepositoryImpl extends ServiceImpl<ArticleMapper, ArticlePO>
             return null;
         }
         ArticleDTO articleDTO = ArticleAssembler.INSTANCE.toArticleDTO(articlePO);
-        List<ArticleTagConfigPO> articleTagConfigPOS = articleTagConfigRepository.queryByArticleId(articlePO.getArticleId());
+        List<ArticleTagConfigPO> articleTagConfigPOS = articleTagConfigRepository
+            .queryByArticleId(articlePO.getArticleId());
         if (Validate.isNotEmpty(articleTagConfigPOS)) {
-            articleDTO.setTagIdList(articleTagConfigPOS.stream().map(ArticleTagConfigPO::getTagId).collect(Collectors.toList()));
+            articleDTO.setTagIdList(
+                    articleTagConfigPOS.stream().map(ArticleTagConfigPO::getTagId).collect(Collectors.toList()));
         }
         return articleDTO;
     }

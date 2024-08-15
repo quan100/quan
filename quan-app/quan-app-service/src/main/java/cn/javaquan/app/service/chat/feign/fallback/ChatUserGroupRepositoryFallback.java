@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 用户群组表
+ * 用户群组表.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -62,4 +62,5 @@ public class ChatUserGroupRepositoryFallback implements FallbackFactory<ChatUser
             }
         };
     }
+
 }

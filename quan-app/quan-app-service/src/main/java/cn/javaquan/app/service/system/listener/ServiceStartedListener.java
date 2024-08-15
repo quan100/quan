@@ -7,6 +7,12 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * 服务启动监听器.
+ *
+ * @author javaquan
+ * @since 1.0.0
+ */
 @RequiredArgsConstructor
 @Component
 public class ServiceStartedListener implements ApplicationListener<ApplicationStartedEvent> {
@@ -15,6 +21,14 @@ public class ServiceStartedListener implements ApplicationListener<ApplicationSt
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
-        jmsUtil.send(TopicEnum.ROLE_AUTHORIZATION, true);
+        sendRoleAuthorizationInitialize();
     }
+
+    /**
+     * 初始化角色权限配置，用于鉴权.
+     */
+    private void sendRoleAuthorizationInitialize() {
+        this.jmsUtil.send(TopicEnum.ROLE_AUTHORIZATION, true);
+    }
+
 }

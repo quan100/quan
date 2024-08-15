@@ -6,17 +6,22 @@ import cn.javaquan.app.common.module.article.ArticleContentUpdateCommand;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.app.service.article.service.ArticleContentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * 文章内容
+ * 文章内容.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -26,10 +31,9 @@ public class ArticleContentController {
     private final ArticleContentService articleContentService;
 
     /**
-     * 根据ID查询
-     *
-     * @param articleId
-     * @return
+     * 根据ID查询.
+     * @param articleId 文章id
+     * @return 查询结果
      */
     @GetMapping("details")
     public Result<ArticleContentDTO> details(@RequestParam String articleId) {
@@ -37,10 +41,9 @@ public class ArticleContentController {
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 操作是否成功
      */
     @PutMapping("update")
     public Result<Boolean> update(@RequestBody ArticleContentUpdateCommand cmd) {
@@ -48,10 +51,9 @@ public class ArticleContentController {
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 操作是否成功
      */
     @PostMapping("save")
     public Result<Boolean> save(@RequestBody ArticleContentAddCommand cmd) {
@@ -59,10 +61,9 @@ public class ArticleContentController {
     }
 
     /**
-     * 删除
-     *
-     * @param articleIds
-     * @return
+     * 删除.
+     * @param articleIds 文章id
+     * @return 操作是否成功
      */
     @DeleteMapping("deleteByIds")
     public Result<Boolean> deleteByIds(@RequestBody List<String> articleIds) {

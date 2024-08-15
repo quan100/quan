@@ -15,28 +15,32 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 获取微博热搜
+ * 获取微博热搜.
  *
  * @author wangquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Service(IHotSearchService.KEY + "toutiao")
 public class TouTiaoHotSearchServiceImpl extends AbstractHotSearchService implements IHotSearchService {
+
     private final TouTiaoHotSearchFeign hotSearchFeign;
 
     @Override
-    public List getNews(String newsType) {
+    public List<NewsVo> getNews(String newsType) {
         return refresh(newsType, 1);
     }
 
     @Override
-    public List refresh(String newsType, Integer offset) {
+    public List<NewsVo> refresh(String newsType, Integer offset) {
         TouTiao touTiao = hotSearchFeign.getNews();
         if (!touTiao.success()) {
             return Collections.emptyList();
         }
-        List<NewsVo> topData = NewsVoMapping.INSTANCE.toTouTiaoTopNewsVoList(TouTiaoHotSearchFeign.SEARCH_URL, touTiao.getFixed_top_data());
-        List<NewsVo> contentData = NewsVoMapping.INSTANCE.toTouTiaoNewsVoList(TouTiaoHotSearchFeign.SEARCH_URL, touTiao.getData());
+        List<NewsVo> topData = NewsVoMapping.INSTANCE.toTouTiaoTopNewsVoList(TouTiaoHotSearchFeign.SEARCH_URL,
+                touTiao.getFixed_top_data());
+        List<NewsVo> contentData = NewsVoMapping.INSTANCE.toTouTiaoNewsVoList(TouTiaoHotSearchFeign.SEARCH_URL,
+                touTiao.getData());
         List<NewsVo> newsVoList = new ArrayList<>();
         if (Validate.isNotEmpty(topData)) {
             newsVoList.addAll(topData);
@@ -47,4 +51,5 @@ public class TouTiaoHotSearchServiceImpl extends AbstractHotSearchService implem
         cache(newsType, offset, newsVoList, true);
         return newsVoList;
     }
+
 }

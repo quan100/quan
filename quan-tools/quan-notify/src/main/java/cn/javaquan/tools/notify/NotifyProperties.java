@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
  * Configuration properties for notify support.
  *
  * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Data
@@ -17,30 +18,30 @@ import org.springframework.util.StringUtils;
 public class NotifyProperties implements InitializingBean {
 
     /**
-     * 是否打印堆栈信息
+     * 是否打印堆栈信息.
      */
     private boolean printStackTrace;
 
     /**
-     * 是否开启消息通知推送
+     * 是否开启消息通知推送.
      * <p>
      * 当开启通知时，需实现 {@link ISystemExceptionNotification} 接口，并注册到 Spring 容器中。
      */
     private boolean enabled;
 
     /**
-     * 使用 Webhook 地址，向钉钉群推送消息
+     * 使用 Webhook 地址，向钉钉群推送消息.
      */
     private String exceptionWebhook;
 
     /**
-     * 通知信息标签配置
+     * 通知信息标签配置.
      */
     private String tag;
 
     private void determineDefaultExceptionWebhook() {
         if (isEnabled()) {
-            if (!StringUtils.hasText(exceptionWebhook)) {
+            if (!StringUtils.hasText(this.exceptionWebhook)) {
                 log.warn("exceptionWebhook must not be empty");
             }
         }
@@ -50,4 +51,5 @@ public class NotifyProperties implements InitializingBean {
     public void afterPropertiesSet() {
         determineDefaultExceptionWebhook();
     }
+
 }

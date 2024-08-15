@@ -16,8 +16,8 @@ import java.util.List;
  * ${comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @Slf4j
 @Component

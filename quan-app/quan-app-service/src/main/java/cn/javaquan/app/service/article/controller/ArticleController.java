@@ -1,23 +1,34 @@
 package cn.javaquan.app.service.article.controller;
 
-import cn.javaquan.app.common.module.article.*;
+import cn.javaquan.app.common.module.article.ArticleAddCommand;
+import cn.javaquan.app.common.module.article.ArticleByCategoryDTO;
+import cn.javaquan.app.common.module.article.ArticleDTO;
+import cn.javaquan.app.common.module.article.ArticleQuery;
+import cn.javaquan.app.common.module.article.ArticleUpdateCommand;
+import cn.javaquan.app.common.module.article.HotArticleQuery;
+import cn.javaquan.app.common.module.article.OpenArticleQuery;
 import cn.javaquan.common.base.message.PageResult;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.app.service.article.feign.ArticleRepositoryFeign;
 import cn.javaquan.app.service.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
 
-
 /**
- * 文章
+ * 文章.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -25,13 +36,13 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+
     private final ArticleRepositoryFeign articleRepositoryFeign;
 
     /**
-     * 查询列表
-     *
-     * @param query
-     * @return
+     * 查询列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("page")
     public Result<PageResult<ArticleDTO>> page(ArticleQuery query) {
@@ -39,10 +50,9 @@ public class ArticleController {
     }
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     @GetMapping("details")
     public Result<ArticleDTO> details(@RequestParam Long id) {
@@ -50,10 +60,9 @@ public class ArticleController {
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 操作是否成功
      */
     @PutMapping("update")
     public Result<Boolean> update(@RequestBody ArticleUpdateCommand cmd) {
@@ -61,10 +70,9 @@ public class ArticleController {
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 操作是否成功
      */
     @PostMapping("save")
     public Result<Boolean> save(@RequestBody ArticleAddCommand cmd) {
@@ -72,10 +80,9 @@ public class ArticleController {
     }
 
     /**
-     * 批量新增
-     *
-     * @param cmds
-     * @return
+     * 批量新增.
+     * @param cmds 新增参数
+     * @return 新增结果
      */
     @PostMapping("saveBatch")
     public Result<Boolean> saveBatch(@RequestBody List<ArticleAddCommand> cmds) {
@@ -83,10 +90,9 @@ public class ArticleController {
     }
 
     /**
-     * 删除
-     *
-     * @param ids
-     * @return
+     * 删除.
+     * @param ids 主键
+     * @return 操作是否成功
      */
     @DeleteMapping("deleteByIds")
     public Result<Boolean> deleteByIds(@RequestBody List<Long> ids) {
@@ -94,10 +100,9 @@ public class ArticleController {
     }
 
     /**
-     * 根据文章ID查询
-     *
-     * @param articleId
-     * @return
+     * 根据文章ID查询.
+     * @param articleId 文章id
+     * @return 文章内容
      */
     @GetMapping("article")
     public Result<ArticleByCategoryDTO> getArticle(@RequestParam String articleId) {
@@ -105,10 +110,8 @@ public class ArticleController {
     }
 
     /**
-     * 获取站点地图
-     * 文章跳转页面数据
-     *
-     * @return
+     * 获取站点地图 文章跳转页面数据.
+     * @return 站点地图配置数据
      */
     @GetMapping("sitemaps")
     public Result<List<ArticleDTO>> getSitemaps() {
@@ -116,10 +119,9 @@ public class ArticleController {
     }
 
     /**
-     * 查询分类下最新文章列表
-     *
-     * @param query
-     * @return
+     * 查询分类下最新文章列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("hotCategoryArticle")
     public Result<List<ArticleDTO>> hotCategoryArticle(@Valid HotArticleQuery query) {
@@ -127,13 +129,13 @@ public class ArticleController {
     }
 
     /**
-     * 根据分类查询文章
-     *
-     * @param query
-     * @return
+     * 根据分类查询文章.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("byCategory")
     public Result<PageResult<ArticleByCategoryDTO>> byCategory(@Valid OpenArticleQuery query) {
         return articleService.byCategory(query);
     }
+
 }

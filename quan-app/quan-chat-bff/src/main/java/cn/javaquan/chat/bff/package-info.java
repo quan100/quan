@@ -1,5 +1,5 @@
 /**
- * 基于 Layim 实现的demo
+ * 基于 Layim 实现的demo.
  * <p>
  * /// TODO 待扩展
  */

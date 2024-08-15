@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 基于 Redisson 实现的限制器执行器
+ * 基于 Redisson 实现的限制器执行器.
  *
  * @author javaquan
  * @since 2.2.0
@@ -32,10 +32,12 @@ public class RedissonLimiterExecutor extends AbstractLimiterExecutor<RLock> {
         if (instance.isHeldByCurrentThread()) {
             try {
                 return instance.forceUnlockAsync().get();
-            } catch (ExecutionException | InterruptedException e) {
+            }
+            catch (ExecutionException | InterruptedException ex) {
                 return false;
             }
         }
         return false;
     }
+
 }

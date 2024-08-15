@@ -8,22 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 文章内容
+ * 文章内容.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
-@FeignClient(value = "${quan.app.feign.service.name}", url = "${quan.app.feign.service.url:}", fallbackFactory = ArticleContentServiceFallback.class)
+@FeignClient(value = "${quan.app.feign.service.name}", url = "${quan.app.feign.service.url:}",
+        fallbackFactory = ArticleContentServiceFallback.class)
 public interface ArticleContentServiceFeign {
 
     /**
-     * 根据ID查询
-     *
-     * @param articleId
-     * @return
+     * 根据ID查询.
+     * @param articleId 文章id
+     * @return 文章内容
      */
     @GetMapping("/service/article/content/details")
-    Result<ArticleContentDTO> details(@RequestParam(value = "articleId") String articleId);
+    Result<ArticleContentDTO> details(@RequestParam String articleId);
 
 }

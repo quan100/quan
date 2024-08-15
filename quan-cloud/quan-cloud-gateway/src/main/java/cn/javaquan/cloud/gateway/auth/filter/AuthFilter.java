@@ -3,6 +3,7 @@ package cn.javaquan.cloud.gateway.auth.filter;
 import cn.javaquan.cloud.gateway.auth.service.QuanSecurityFeign;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.cloud.gateway.auth.util.ResponseUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -12,16 +13,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import javax.annotation.Resource;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * 权限过滤器
+ * 权限过滤器.
  *
  * @author wangquan
- * @date 2020/3/11 23:32
+ * @since 1.0.0
  */
+@RequiredArgsConstructor
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {
 
@@ -30,11 +31,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
      */
     public static final int AUTH_FILTER_ORDER = -10;
 
-    @Resource
-    private QuanSecurityFeign service;
+    private final QuanSecurityFeign quanSecurityFeign;
 
-    @Resource
-    private AuthFilterFactory filterFactory;
+    private final AuthFilterFactory filterFactory;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -48,11 +47,11 @@ public class AuthFilter implements GlobalFilter, Ordered {
         List<AbstractAuthFilter> abstractAuthFilters = filterFactory.getFilter(auths[0]);
         List<String> roles = filterFactory.getRole(auths);
 
-        for (Iterator<AbstractAuthFilter> it = abstractAuthFilters.iterator(); it.hasNext(); ) {
+        for (Iterator<AbstractAuthFilter> it = abstractAuthFilters.iterator(); it.hasNext();) {
             AbstractAuthFilter abstractAuthFilter = it.next();
 
             abstractAuthFilter.setExchange(exchange);
-            abstractAuthFilter.setService(service);
+            abstractAuthFilter.setService(quanSecurityFeign);
             Result result = abstractAuthFilter.doFilter(roles);
             if (!result.isSuccess()) {
                 response.setRawStatusCode(result.getCode());
@@ -66,4 +65,5 @@ public class AuthFilter implements GlobalFilter, Ordered {
     public int getOrder() {
         return AUTH_FILTER_ORDER;
     }
+
 }

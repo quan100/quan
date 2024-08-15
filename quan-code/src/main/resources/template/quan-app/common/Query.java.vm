@@ -12,8 +12,8 @@ import java.util.Date;
  * ${table.comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @Data
 public class ${className}Query extends BasePage implements Serializable {
@@ -22,7 +22,7 @@ public class ${className}Query extends BasePage implements Serializable {
 
 #foreach ($column in $columns)
     /**
-     * $column.comments
+ * $column.comments
      */
     private $column.attrType $column.attrname;
 

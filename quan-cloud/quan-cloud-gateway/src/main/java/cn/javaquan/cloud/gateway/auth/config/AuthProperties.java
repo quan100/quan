@@ -8,16 +8,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author: wangquan
- * @date: 19-1-9 16:08
- * @description:
+ * 用户认证配置.
+ *
+ * @author wangquan
+ * @since 1.0.0
  */
 @Data
 @ConfigurationProperties(prefix = "quan.security.authorization")
 public class AuthProperties {
 
+    /**
+     * 权限配置.
+     */
     private LinkedList<String> auth;
 
-    private List<String> ip = new ArrayList();
+    /**
+     * IP白名单.
+     */
+    private List<String> ip = new ArrayList<>();
 
 }

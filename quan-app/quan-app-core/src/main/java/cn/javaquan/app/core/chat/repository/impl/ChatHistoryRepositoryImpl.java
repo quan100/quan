@@ -14,13 +14,14 @@ import cn.javaquan.app.core.chat.repository.ChatHistoryRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * 聊天记录表
+ * 聊天记录表.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class ChatHistoryRepositoryImpl extends ServiceImpl<ChatHistoryMapper, ChatHistoryPO> implements ChatHistoryRepository {
+public class ChatHistoryRepositoryImpl extends ServiceImpl<ChatHistoryMapper, ChatHistoryPO>
+        implements ChatHistoryRepository {
 
     @Override
     public PageResult<ChatHistoryPO> page(ChatHistoryPO po, BasePage basePage) {

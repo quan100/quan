@@ -11,11 +11,10 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 文章
+ * 文章.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -50,4 +49,5 @@ public class ArticleServiceFallback implements FallbackFactory<ArticleServiceFei
             }
         };
     }
+
 }

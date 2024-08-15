@@ -1,8 +1,9 @@
 plugins {
-    id 'org.springframework.boot' version "${springBootVersion}"
+    id "java-library"
+    id "org.springframework.boot.conventions"
 }
+
 description = 'Quan Security Server'
-apply plugin: "kotlin"
 
 dependencies {
     api 'org.springframework.boot:spring-boot-starter-web'

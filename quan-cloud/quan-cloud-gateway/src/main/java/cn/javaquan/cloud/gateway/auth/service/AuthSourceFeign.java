@@ -9,18 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
+ * 权限资源服务.
+ *
  * @author wangquan
- * @date 2020/3/11 16:24
+ * @since 1.0.0
  */
-@FeignClient(name = "${quan.app.auth-source.name:default-auth-source}", url = "${quan.app.auth-source.url:}", fallbackFactory = AuthSourceFallback.class)
+@FeignClient(name = "${quan.app.auth-source.name:default-auth-source}", url = "${quan.app.auth-source.url:}",
+        fallbackFactory = AuthSourceFallback.class)
 public interface AuthSourceFeign {
 
     /**
-     * 获取权限资源
-     *
+     * 获取权限资源.
      * @param defaultAuth 默认权限
-     * @return
+     * @return 权限资源
      */
-    @GetMapping(value = "${quan.app.auth-source.path}")
+    @GetMapping("${quan.app.auth-source.path}")
     Result<List<String>> getAuth(@RequestParam String defaultAuth);
+
 }

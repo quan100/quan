@@ -1,0 +1,8 @@
+^\Q/*\E$
+^\Q * Copyright \E2022-20\d\d\Q the original author or authors.\E$
+^\Q *\E$
+^\Q * Licensed under the MIT License;\E$
+^\Q * you may not use this file except in compliance with the License.\E$
+^\Q *\E$
+^$
+^.*$

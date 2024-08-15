@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 钉钉API配置
+ * 钉钉API配置.
  *
  * @author javaquan
  * @since 2.2.0
@@ -16,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(DingtalkProperties.class)
 public class DingtalkAutoConfiguration {
 
+    /**
+     * 钉钉API配置.
+     */
     @Configuration(proxyBeanMethods = false)
     protected static class DingtalkConfiguration {
 
@@ -28,6 +31,7 @@ public class DingtalkAutoConfiguration {
         DingRobotService dingRobotService() {
             return new DingRobotService();
         }
+
     }
 
 }

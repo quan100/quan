@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 验证码工具配置
+ * 验证码工具配置.
  *
  * @author javaquan
  * @since 2.2.0
@@ -17,8 +17,11 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(CaptchaProperties.class)
 public class CaptchaAutoConfiguration {
 
+    /**
+     * 验证码工具配置.
+     */
     @Configuration(proxyBeanMethods = false)
-    @ConditionalOnClass({IRedisService.class})
+    @ConditionalOnClass({ IRedisService.class })
     protected static class CaptchaConfiguration {
 
         @Bean

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * 限制器注解方法拦截器
+ * 限制器注解方法拦截器.
  *
  * @author javaquan
  * @since 2.2.0
@@ -31,7 +31,9 @@ import java.util.stream.Stream;
 public class LimiterInterceptor implements MethodInterceptor {
 
     private final LimiterParamsResolver limiterParamsResolver;
+
     private final LimiterProperties properties;
+
     private final LimiterExecutorInvocation executorInvocation;
 
     @Override
@@ -49,11 +51,10 @@ public class LimiterInterceptor implements MethodInterceptor {
     }
 
     /**
-     * 创建令牌
-     *
-     * @param name       令牌名称
+     * 创建令牌.
+     * @param name 令牌名称
      * @param tokenParam 令牌参数值，拼接到令牌后面
-     * @param invocation
+     * @param invocation invocation
      * @return 令牌
      */
     private String createToken(String name, String tokenParam, MethodInvocation invocation) {
@@ -73,9 +74,8 @@ public class LimiterInterceptor implements MethodInterceptor {
     }
 
     /**
-     * 创建令牌
-     *
-     * @param prefix     默认生成令牌的前缀
+     * 创建令牌.
+     * @param prefix 默认生成令牌的前缀
      * @param tokenParam 令牌参数值，拼接到令牌后面
      * @return 令牌
      */
@@ -84,26 +84,28 @@ public class LimiterInterceptor implements MethodInterceptor {
     }
 
     /**
-     * 调用限制器执行方法
-     *
+     * 调用限制器执行方法.
      * @param defaultToken 生成的默认的令牌
-     * @param tokenParam   令牌参数值
-     * @param tokenParams  数组类型的令牌参数值，根据数组元素数量生成多个令牌
-     * @param limiter      限制器注解
-     * @param invocation
-     * @return
-     * @throws Throwable
+     * @param tokenParam 令牌参数值
+     * @param tokenParams 数组类型的令牌参数值，根据数组元素数量生成多个令牌
+     * @param limiter 限制器注解
+     * @param invocation invocation
+     * @return 返回数据
+     * @throws Throwable throwable
      */
-    public Object limiterInvoke(String defaultToken, String tokenParam, List<String> tokenParams, Limiter limiter, MethodInvocation invocation) throws Throwable {
-        List<LimiterPostProcessor> limiterPostProcessors = null;
+    public Object limiterInvoke(String defaultToken, String tokenParam, List<String> tokenParams, Limiter limiter,
+            MethodInvocation invocation) throws Throwable {
+        List<LimiterPostProcessor<?>> limiterPostProcessors = null;
         try {
             if (CollectionUtils.isEmpty(tokenParams)) {
                 limiterPostProcessors = Collections.singletonList(invoke(defaultToken, limiter, tokenParam));
-            } else {
+            }
+            else {
                 limiterPostProcessors = limiterProcessor(defaultToken, limiter, tokenParams);
             }
             return invocation.proceed();
-        } finally {
+        }
+        finally {
             if (limiter.automaticReleaseLock() && !CollectionUtils.isEmpty(limiterPostProcessors)) {
                 limiterPostProcessors.forEach(LimiterPostProcessor::release);
             }
@@ -111,16 +113,16 @@ public class LimiterInterceptor implements MethodInterceptor {
     }
 
     /**
-     * 限制器处理程序
+     * 限制器处理程序.
      * <p>
      * 批量的令牌执行权限，当令牌数量超出 {@link Limiter#arrayParamsThreshold()} 时，超出部分将忽略。
-     *
      * @param defaultToken 默认生成的令牌
-     * @param limiter      限制器注解
-     * @param tokenParams  一组令牌参数
-     * @return
+     * @param limiter 限制器注解
+     * @param tokenParams 一组令牌参数
+     * @return 后置处理器
      */
-    private List<LimiterPostProcessor> limiterProcessor(String defaultToken, Limiter limiter, List<String> tokenParams) {
+    private List<LimiterPostProcessor<?>> limiterProcessor(String defaultToken, Limiter limiter,
+            List<String> tokenParams) {
         Stream<String> stream = tokenParams.stream();
         int threshold = limiter.arrayParamsThreshold();
         if (threshold >= 0) {
@@ -129,23 +131,25 @@ public class LimiterInterceptor implements MethodInterceptor {
             }
             stream = stream.limit(threshold);
         }
-        return stream.map(tokenParam ->
-                invoke(createToken(defaultToken, tokenParam), limiter, tokenParams)
-        ).filter(Objects::nonNull).collect(Collectors.toList());
+        return stream.map(tokenParam -> invoke(createToken(defaultToken, tokenParam), limiter, tokenParams))
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
     }
 
     /**
-     * 限制器处理程序
-     *
-     * @param token   申请执行权限的令牌
+     * 限制器处理程序.
+     * @param token 申请执行权限的令牌
      * @param limiter 限制器注解
-     * @return
+     * @param tokenParams 令牌参数
+     * @return 后置处理器
      */
-    private LimiterPostProcessor invoke(String token, Limiter limiter, Object tokenParams) {
-        LimiterPostProcessor postProcessor;
+    private LimiterPostProcessor<?> invoke(String token, Limiter limiter, Object tokenParams) {
+        LimiterPostProcessor<?> postProcessor;
         try {
-            postProcessor = executorInvocation.invoke(token, limiter.leaseTime(), limiter.waitTime(), limiter.executor());
-        } catch (Exception e) {
+            postProcessor = executorInvocation.invoke(token, limiter.leaseTime(), limiter.waitTime(),
+                    limiter.executor());
+        }
+        catch (Exception ex) {
             return null;
         }
         if (!postProcessor.getExecute()) {

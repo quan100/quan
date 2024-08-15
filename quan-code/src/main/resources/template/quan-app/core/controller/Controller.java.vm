@@ -18,8 +18,8 @@ import java.util.List;
  * ${comments}
  *
  * @author ${author}
- * @version ${version}
- * @date ${datetime}
+ * @since ${version}
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -31,8 +31,8 @@ public class ${className}Controller {
     /**
      * 查询列表
      *
-     * @param query
-     * @return
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("page")
     public Result<PageResult> page(${className}Query query) {
@@ -54,8 +54,8 @@ public class ${className}Controller {
     /**
      * 根据主键更新
      *
-     * @param cmd
-     * @return
+     * @param cmd 更新指令参数
+     * @return 操作是否成功
      */
     @PutMapping("update")
     public Result update(@RequestBody ${className}UpdateCommand cmd) {
@@ -66,8 +66,8 @@ public class ${className}Controller {
     /**
      * 新增
      *
-     * @param cmd
-     * @return
+     * @param cmd 新增指令参数
+     * @return 操作是否成功
      */
     @PostMapping("save")
     public Result save(@RequestBody ${className}AddCommand cmd) {
@@ -78,8 +78,8 @@ public class ${className}Controller {
     /**
      * 批量新增
      *
-     * @param cmds
-     * @return
+     * @param cmds 新增参数
+     * @return 新增结果
      */
     @PostMapping("saveBatch")
     public Result saveBatch(@RequestBody List<${className}AddCommand> cmds) {

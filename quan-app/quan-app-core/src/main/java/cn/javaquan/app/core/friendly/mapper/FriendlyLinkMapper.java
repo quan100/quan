@@ -4,11 +4,10 @@ import cn.javaquan.app.core.friendly.entity.FriendlyLinkPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * 友情链接
+ * 友情链接.
  *
  * @author wangquan
- * @version 1.0.0
- * @date 2023-01-03 21:31:46
+ * @since 1.0.0
  */
 public interface FriendlyLinkMapper extends BaseMapper<FriendlyLinkPO> {
 

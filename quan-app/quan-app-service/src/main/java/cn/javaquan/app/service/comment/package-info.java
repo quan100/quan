@@ -1,4 +1,4 @@
 /**
- * 评论模块
+ * 评论模块.
  */
 package cn.javaquan.app.service.comment;

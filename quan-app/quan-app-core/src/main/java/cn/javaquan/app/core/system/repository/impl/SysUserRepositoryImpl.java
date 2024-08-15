@@ -22,24 +22,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 用户信息
+ * 用户信息.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Component
 public class SysUserRepositoryImpl implements SysUserRepository {
 
     private final SysUserAccountRepository sysUserAccountRepository;
+
     private final SysUserInfoRepository sysUserInfoRepository;
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     public SysUserVO details(Long id) {
         SysUserInfoPO sysUserInfo = sysUserInfoRepository.getById(id);
@@ -50,24 +49,23 @@ public class SysUserRepositoryImpl implements SysUserRepository {
         SysUserAccountPO sysUserAccount = null;
         SysUserTripartiteAccountPO sysUserTripartiteAccount = null;
 
-
         String userId = sysUserInfo.getUserId();
         if (Validate.isNotBlank(userId)) {
-//            SysUserAccountQuery sysUserAccountQuery = SysUserAccountQuery.userId(userId);
-//            sysUserAccount = sysUserAccountRepository.getUserAccount(sysUserAccountQuery);
-            // sysUserTripartiteAccount = sysUserTripartiteAccountRepository.getTripartiteUserAccount(userId);
+            // SysUserAccountQuery sysUserAccountQuery =
+            // SysUserAccountQuery.userId(userId);
+            // sysUserAccount =
+            // sysUserAccountRepository.getUserAccount(sysUserAccountQuery);
+            // sysUserTripartiteAccount =
+            // sysUserTripartiteAccountRepository.getTripartiteUserAccount(userId);
         }
 
-        return SysUserAssembler.INSTANCE.toSysUserVO(
-                sysUserInfo, sysUserAccount, sysUserTripartiteAccount
-        );
+        return SysUserAssembler.INSTANCE.toSysUserVO(sysUserInfo, sysUserAccount, sysUserTripartiteAccount);
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 更新操作是否成功
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean update(SysUserUpdateCommand cmd) {
@@ -75,18 +73,19 @@ public class SysUserRepositoryImpl implements SysUserRepository {
         SysUserInfoPO infoPO = sysUserInfoRepository.getById(info.getId());
         Validate.isNotNull(infoPO, ErrorCodeEnum.DATA_NOT_EXIST_ERROR);
 
-//        RunUtil.doRun(sysUserInfoRepository.updateById(info), () -> {
-//            sysUserAccountRepository.updateUserAccount(infoPO.getUserId(), cmd.getAccount());
-//            sysUserTripartiteAccountRepository.updateTripartiteAccount(infoPO.getUserId(), cmd.getTripartiteAccount());
-//        });
+        // RunUtil.doRun(sysUserInfoRepository.updateById(info), () -> {
+        // sysUserAccountRepository.updateUserAccount(infoPO.getUserId(),
+        // cmd.getAccount());
+        // sysUserTripartiteAccountRepository.updateTripartiteAccount(infoPO.getUserId(),
+        // cmd.getTripartiteAccount());
+        // });
         return true;
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 新增操作是否成功
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean save(SysUserAddCommand cmd) {
@@ -95,26 +94,27 @@ public class SysUserRepositoryImpl implements SysUserRepository {
         info.setUserId(userId);
 
         RunUtil.doRun(sysUserInfoRepository.save(info), () -> {
-//            SysUserAccountAddCommand account = cmd.getAccount();
-//            if (null != account) {
-//                account.setUserId(userId);
-//                sysUserAccountRepository.addUserAccount(account);
-//            }
-//
-//            SysUserTripartiteAccountPO tripartiteAccount = SysUserTripartiteAccountAssembler.INSTANCE.toAddPO(cmd.getTripartiteAccount());
-//            if (null != tripartiteAccount) {
-//                tripartiteAccount.setUserId(userId);
-//                Validate.isTrue(sysUserTripartiteAccountRepository.save(tripartiteAccount), "账号绑定信息添加失败");
-//            }
+            // SysUserAccountAddCommand account = cmd.getAccount();
+            // if (null != account) {
+            // account.setUserId(userId);
+            // sysUserAccountRepository.addUserAccount(account);
+            // }
+            //
+            // SysUserTripartiteAccountPO tripartiteAccount =
+            // SysUserTripartiteAccountAssembler.INSTANCE.toAddPO(cmd.getTripartiteAccount());
+            // if (null != tripartiteAccount) {
+            // tripartiteAccount.setUserId(userId);
+            // Validate.isTrue(sysUserTripartiteAccountRepository.save(tripartiteAccount),
+            // "账号绑定信息添加失败");
+            // }
         });
         return true;
     }
 
     /**
-     * 删除
-     *
-     * @param ids
-     * @return
+     * 删除.
+     * @param ids 主键
+     * @return 操作是否成功
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteByIds(List<Long> ids) {
@@ -126,12 +126,14 @@ public class SysUserRepositoryImpl implements SysUserRepository {
 
         return sysUserInfoRepository.removeByIds(ids);
 
-//        List<String> userIds = userInfoPOS.stream().map(SysUserInfoPO::getUserId).collect(Collectors.toList());
-//
-//        return RunUtil.doRun(sysUserInfoRepository.removeByIds(ids), () -> {
-//            return RunUtil.doRun(sysUserAccountRepository.removeByUserIds(userIds), () -> {
-//                return sysUserTripartiteAccountRepository.removeByUserIds(userIds);
-//            });
-//        });
+        // List<String> userIds =
+        // userInfoPOS.stream().map(SysUserInfoPO::getUserId).collect(Collectors.toList());
+        //
+        // return RunUtil.doRun(sysUserInfoRepository.removeByIds(ids), () -> {
+        // return RunUtil.doRun(sysUserAccountRepository.removeByUserIds(userIds), () -> {
+        // return sysUserTripartiteAccountRepository.removeByUserIds(userIds);
+        // });
+        // });
     }
+
 }

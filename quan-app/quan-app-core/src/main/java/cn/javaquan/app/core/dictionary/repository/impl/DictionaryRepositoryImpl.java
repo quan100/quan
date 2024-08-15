@@ -20,29 +20,23 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 字典配置
- * </p>
+ * 字典配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class DictionaryRepositoryImpl extends ServiceImpl<DictionaryMapper, DictionaryPO> implements DictionaryRepository {
+public class DictionaryRepositoryImpl extends ServiceImpl<DictionaryMapper, DictionaryPO>
+        implements DictionaryRepository {
 
     @Override
     public PageResult<DictionaryPO> page(DictionaryPO po, BasePage basePage) {
         Page<DictionaryPO> page = PageAssembler.INSTANCE.toPage(basePage);
-        LambdaQueryWrapper<DictionaryPO> queryWrapper = Wrappers.lambdaQuery(po).eq(DictionaryPO::getDelFlag, CommonConstant.FALSE);
-        queryWrapper.select(
-                DictionaryPO::getId,
-                DictionaryPO::getName,
-                DictionaryPO::getOpen,
-                DictionaryPO::getCode,
-                DictionaryPO::getUpdateTime,
-                DictionaryPO::getType
-        );
+        LambdaQueryWrapper<DictionaryPO> queryWrapper = Wrappers.lambdaQuery(po)
+            .eq(DictionaryPO::getDelFlag, CommonConstant.FALSE);
+        queryWrapper.select(DictionaryPO::getId, DictionaryPO::getName, DictionaryPO::getOpen, DictionaryPO::getCode,
+                DictionaryPO::getUpdateTime, DictionaryPO::getType);
         queryWrapper.orderByDesc(DictionaryPO::getUpdateTime);
         page = this.page(page, queryWrapper);
         return PageResultAssembler.INSTANCE.toPageResult(page);
@@ -78,4 +72,5 @@ public class DictionaryRepositoryImpl extends ServiceImpl<DictionaryMapper, Dict
         queryWrapper.eq(DictionaryPO::getDelFlag, CommonConstant.FALSE);
         return this.list(queryWrapper);
     }
+
 }

@@ -17,11 +17,10 @@ import cn.javaquan.app.core.tools.mapper.ToolsMapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * 工具
+ * 工具.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
 public class ToolsRepositoryImpl extends ServiceImpl<ToolsMapper, ToolsPO> implements ToolsRepository {

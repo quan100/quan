@@ -1,15 +1,14 @@
 package cn.javaquan.cloud.gateway.auth.filter.auth;
 
-
 import cn.javaquan.cloud.gateway.auth.constant.AccessorTypeEnum;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.cloud.gateway.auth.filter.AbstractAuthFilter;
 
 /**
- * 匿名权限过滤器
+ * 匿名权限过滤器.
  *
  * @author wangquan
- * @date 2020/3/11 15:58
+ * @since 1.0.0
  */
 public class AnonymousFilter extends AbstractAuthFilter {
 
@@ -23,4 +22,5 @@ public class AnonymousFilter extends AbstractAuthFilter {
         // 匿名用户
         return AccessorTypeEnum.ANON.getType();
     }
+
 }

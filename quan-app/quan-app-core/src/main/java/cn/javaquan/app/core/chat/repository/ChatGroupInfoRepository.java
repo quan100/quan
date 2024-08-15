@@ -6,21 +6,19 @@ import cn.javaquan.common.base.message.PageResult;
 import cn.javaquan.app.core.chat.entity.ChatGroupInfoPO;
 
 /**
- * 群组信息
+ * 群组信息.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 public interface ChatGroupInfoRepository extends IService<ChatGroupInfoPO> {
 
     /**
-     * 分页查询
-     *
-     * @param po
-     * @param basePage
-     * @return
+     * 分页查询.
+     * @param po 查询参数
+     * @param basePage 分页参数
+     * @return 查询结果
      */
     PageResult<ChatGroupInfoPO> page(ChatGroupInfoPO po, BasePage basePage);
 
 }
-

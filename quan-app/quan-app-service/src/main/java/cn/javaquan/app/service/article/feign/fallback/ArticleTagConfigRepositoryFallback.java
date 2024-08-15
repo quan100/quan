@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 文章标签配置
+ * 文章标签配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -57,4 +56,5 @@ public class ArticleTagConfigRepositoryFallback implements FallbackFactory<Artic
             }
         };
     }
+
 }

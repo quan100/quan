@@ -7,23 +7,21 @@ import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import lombok.SneakyThrows;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * 自定义钉钉机器人消息推送
+ * 自定义钉钉机器人消息推送.
  *
  * @author javaquan
- **/
+ * @since 1.0.0
+ */
+@Slf4j
 public class DingRobotService {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(DingRobotService.class);
-
     /**
-     * text 类型消息推送
-     *
-     * @param cmd
-     * @return
+     * text 类型消息推送.
+     * @param cmd 钉钉机器人发送消息指令参数
+     * @return true:推送成功，false:推送失败
      */
     @SneakyThrows
     public boolean sendText(DingRobotTextMsgCommand cmd) {
@@ -47,8 +45,9 @@ public class DingRobotService {
         OapiRobotSendResponse response = client.execute(request);
         if (response.getErrcode() == 0) {
             return true;
-        } else {
-            LOGGER.warn(response.getErrmsg());
+        }
+        else {
+            log.warn(response.getErrmsg());
             return false;
         }
     }

@@ -1,3 +1,54 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "org.jetbrains.kotlin.jvm") {
+                useVersion "${kotlinVersion}"
+            }
+            if (requested.id.id == "org.jetbrains.kotlin.plugin.spring") {
+                useVersion "${kotlinVersion}"
+            }
+        }
+    }
+}
+
+plugins {
+    id "com.gradle.enterprise" version "3.12.5"
+    id "io.spring.ge.conventions" version "0.0.13"
+}
+
+rootProject.name="quan"
+
+settings.gradle.projectsLoaded {
+    gradleEnterprise {
+        buildScan {
+            def toolchainVersion = settings.gradle.rootProject.findProperty('toolchainVersion')
+            if (toolchainVersion != null) {
+                value('Toolchain version', toolchainVersion)
+                tag("JDK-$toolchainVersion")
+            }
+            def buildDir = settings.gradle.rootProject.getBuildDir()
+            buildDir.mkdirs()
+            new File(buildDir, "build-scan-uri.txt").text = "build scan not generated"
+            buildScanPublished { scan ->
+                buildDir.mkdirs()
+                new File(buildDir, "build-scan-uri.txt").text = "<${scan.buildScanUri}|build scan>\n"
+            }
+        }
+    }
+}
+
+include "quan-dependencies"
+include "quan-parent"
+
 include "quan-common-utils:quan-base-common"
 include "quan-common-utils:quan-config-common"
 include "quan-cloud:quan-cloud-eureka"
@@ -8,7 +59,6 @@ include "quan-security:quan-security-common:quan-security-conf-common"
 include "quan-security:quan-security-server"
 
 include "quan-code"
-include "quan-dependencies"
 
 file("${rootDir}/quan-tools").eachDirMatch(~/quan-.*/) {
     include "quan-tools:${it.name}"
@@ -16,5 +66,3 @@ file("${rootDir}/quan-tools").eachDirMatch(~/quan-.*/) {
 file("${rootDir}/quan-app").eachDirMatch(~/quan-.*/) {
     include "quan-app:${it.name}"
 }
-
-rootProject.name = "quan"

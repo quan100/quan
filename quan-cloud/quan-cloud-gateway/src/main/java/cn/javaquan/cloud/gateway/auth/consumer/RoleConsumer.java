@@ -8,9 +8,10 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 /**
- * 角色授权消息监听
+ * 角色授权消息监听.
  *
  * @author wangquan
+ * @since 1.0.0
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -19,6 +20,12 @@ public class RoleConsumer {
 
     private final AuthFilterFactory authFilterFactory;
 
+    /**
+     * 角色授权消息监听.
+     * <p>
+     * 当角色发生变化时，刷新网关权限
+     * @param updateRole 角色是否更新
+     */
     @JmsListener(destination = TopicEnum.ROLE_AUTHORIZATION)
     public void roleAuthorizationListener(Boolean updateRole) {
         log.info("****** 接收刷新网关权限指令 ******");
@@ -27,4 +34,5 @@ public class RoleConsumer {
             log.info("****** 刷新网关权限完成 ******");
         }
     }
+
 }

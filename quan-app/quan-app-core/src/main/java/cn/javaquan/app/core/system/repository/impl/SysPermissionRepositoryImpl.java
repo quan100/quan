@@ -25,14 +25,15 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 系统资源权限配置
+ * 系统资源权限配置.
  *
  * @author wangquan
- * @since 2020-12-27 17:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper, SysPermissionPO> implements SysPermissionRepository {
+public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper, SysPermissionPO>
+        implements SysPermissionRepository {
 
     private final SysRolePermissionRepository sysRolePermissionRepository;
 
@@ -44,12 +45,6 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
         return PageResultAssembler.INSTANCE.toPageResult(page);
     }
 
-    /**
-     * 获取角色有效权限列表
-     *
-     * @param query type类型，0：一级菜单，1：菜单，2：按钮；默认查询全部
-     * @return
-     */
     @Override
     public List<SysPermissionPO> getRolePermission(SysRolePermissionQuery query) {
         List<Long> permissionIds = sysRolePermissionRepository.getRolePermissionIds(query);
@@ -68,10 +63,9 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
     }
 
     /**
-     * 子权限查询
-     *
-     * @param query
-     * @return
+     * 子权限查询.
+     * @param query 查询参数
+     * @return 查询参数
      */
     @Override
     public PageResult<SysPermissionPO> getSubsetPermissions(SubsetPermissionsQuery query) {
@@ -87,10 +81,10 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
     }
 
     /**
-     * 根据上级权限ID查询
-     *
-     * @param parentId
-     * @return
+     * 根据上级权限ID查询.
+     * @param parentId 上级权限ID
+     * @param type 权限类型
+     * @return 上级权限数据列表
      */
     public List<SysPermissionTreeDTO> getSubsetPermissions(Long parentId, List<Integer> type) {
         LambdaQueryWrapper<SysPermissionPO> queryWrapper = Wrappers.lambdaQuery();
@@ -105,7 +99,8 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
     public PageResult<SysPermissionTreeDTO> getTreePermissions(SubsetPermissionsQuery query) {
         PageResult<SysPermissionPO> treePermissionsPage = getSubsetPermissions(query);
         List<SysPermissionPO> treePermissionsPO = treePermissionsPage.getRecords();
-        List<SysPermissionTreeDTO> treePermissionsDTO = SysPermissionAssembler.INSTANCE.toSysPermissionTreeDtoList(treePermissionsPO);
+        List<SysPermissionTreeDTO> treePermissionsDTO = SysPermissionAssembler.INSTANCE
+            .toSysPermissionTreeDtoList(treePermissionsPO);
         if (Validate.isNotEmpty(treePermissionsDTO)) {
             treePermissionsDTO.stream().forEach(permissionDTO -> {
                 permissionDTO.setChildren(getTreePermissions(permissionDTO.getId(), query.getType()));
@@ -117,10 +112,10 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
     }
 
     /**
-     * 获取树形权限
-     *
+     * 获取树形权限.
      * @param parentId 上级ID
-     * @return
+     * @param type 权限类型
+     * @return 权限列表
      */
     public List<SysPermissionTreeDTO> getTreePermissions(Long parentId, List<Integer> type) {
         List<SysPermissionTreeDTO> treePermissionsDTOList = getSubsetPermissions(parentId, type);
@@ -144,4 +139,5 @@ public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper
         }
         return sysPermissionPos;
     }
+
 }

@@ -25,10 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 角色配置
+ * 角色配置.
  *
  * @author wangquan
- * @since 2020-12-27 17:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
@@ -74,4 +74,5 @@ public class SysRoleRepositoryImpl extends ServiceImpl<SysRoleMapper, SysRolePO>
             return sysRolePermissionRepository.delRolePermission(sysRolePermissionEvent);
         });
     }
+
 }

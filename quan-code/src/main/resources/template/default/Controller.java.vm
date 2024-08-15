@@ -23,7 +23,7 @@ import ${mainPath}.common.utils.R;
  *
  * @author ${author}
  * @email ${email}
- * @date ${datetime}
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping("${moduleName}/${pathName}")

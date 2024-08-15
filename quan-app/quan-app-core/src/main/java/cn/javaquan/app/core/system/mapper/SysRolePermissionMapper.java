@@ -7,14 +7,17 @@ import cn.javaquan.app.core.system.entity.SysRolePermissionPO;
 import java.util.List;
 
 /**
- * 角色权限配置
+ * 角色权限配置.
  *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-12-27 17:50:38
+ * @since 1.0.0
  */
 public interface SysRolePermissionMapper extends BaseMapper<SysRolePermissionPO> {
 
+    /**
+     * 角色权限列表.
+     * @return 角色权限列表
+     */
     List<PermissionRoleDTO> permissionRoleList();
 
 }

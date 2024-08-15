@@ -1,5 +1,10 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.deployed"
+}
+
 description = 'Quan Tools File'
-apply plugin: "kotlin"
 
 dependencies {
     api("io.minio:minio:8.5.5")

@@ -7,11 +7,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
+ * 跨域配置.
+ *
  * @author wangquan
+ * @since 1.0.0
  */
 @Configuration
 public class CorsFilterConfigurer {
 
+    /**
+     * 跨域过滤器.
+     * @return 跨域过滤器
+     */
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
@@ -23,4 +30,5 @@ public class CorsFilterConfigurer {
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }
+
 }

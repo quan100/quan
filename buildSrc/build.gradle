@@ -1,22 +1,80 @@
-repositories {
-	mavenLocal()
-	maven {
-		url = uri('https://maven.aliyun.com/repository/public')
-		// allowInsecureProtocol = true
-	}
-	gradlePluginPortal()
+plugins {
+    id "java-gradle-plugin"
+    id "io.spring.javaformat" version "${javaFormatVersion}"
+    id "checkstyle"
 }
 
-ext {
-	def propertiesFile = new File(new File("$projectDir").parentFile, "gradle.properties")
-	propertiesFile.withInputStream {
-		def properties = new Properties()
-		properties.load(it)
-		set("kotlinVersion", properties["kotlinVersion"])
-	}
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://maven.aliyun.com/repository/public')
+        // allowInsecureProtocol = true
+    }
+    maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    maven { url 'https://maven.aliyun.com/repository/google' }
+    maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+    mavenCentral()
+    gradlePluginPortal()
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def versions = [:]
+new File(projectDir.parentFile, "gradle.properties").withInputStream {
+    def properties = new Properties()
+    properties.load(it)
+    ["jackson", "kotlin", "maven", "springFramework"].each {
+        versions[it] = properties[it + "Version"]
+    }
+}
+ext.set("versions", versions)
 
 dependencies {
-	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-	implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:${kotlinVersion}")
+    checkstyle "io.spring.javaformat:spring-javaformat-checkstyle:${javaFormatVersion}"
+
+    implementation(platform("org.springframework:spring-framework-bom:${versions.springFramework}"))
+    implementation("com.fasterxml.jackson.core:jackson-databind:${versions.jackson}")
+    implementation("com.gradle:gradle-enterprise-gradle-plugin:3.12.1")
+    implementation("com.tngtech.archunit:archunit:1.3.0")
+
+    implementation("io.spring.javaformat:spring-javaformat-gradle-plugin:${javaFormatVersion}")
+    implementation("org.apache.maven:maven-embedder:${versions.maven}")
+    implementation("org.asciidoctor:asciidoctor-gradle-jvm:3.3.2")
+
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}")
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:${versions.kotlin}")
+
+    implementation("org.springframework:spring-context")
+    implementation("org.springframework:spring-core")
+    implementation("org.springframework:spring-web")
+}
+
+checkstyle {
+	toolVersion = 9.3
+}
+
+gradlePlugin {
+    plugins {
+        bomPlugin {
+            id = "org.springframework.boot.bom"
+            implementationClass = "org.springframework.boot.build.bom.BomPlugin"
+        }
+        conventionsPlugin {
+            id = "org.springframework.boot.conventions"
+            implementationClass = "org.springframework.boot.build.ConventionsPlugin"
+        }
+        deployedPlugin {
+            id = "org.springframework.boot.deployed"
+            implementationClass = "org.springframework.boot.build.DeployedPlugin"
+        }
+        optionalDependenciesPlugin {
+            id = "org.springframework.boot.optional-dependencies"
+            implementationClass = "org.springframework.boot.build.optional.OptionalDependenciesPlugin"
+        }
+        annotationProcessorPlugin {
+            id = "cn.javaquan.quan.annotationProcessor"
+            implementationClass = "cn.javaquan.quan.build.AnnotationProcessorPlugin"
+        }
+    }
 }

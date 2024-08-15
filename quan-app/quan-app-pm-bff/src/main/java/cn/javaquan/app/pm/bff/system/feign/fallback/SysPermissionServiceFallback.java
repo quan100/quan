@@ -1,6 +1,10 @@
 package cn.javaquan.app.pm.bff.system.feign.fallback;
 
-import cn.javaquan.app.common.module.system.*;
+import cn.javaquan.app.common.module.system.SubsetPermissionsQuery;
+import cn.javaquan.app.common.module.system.SysPermissionAddCommand;
+import cn.javaquan.app.common.module.system.SysPermissionQuery;
+import cn.javaquan.app.common.module.system.SysPermissionTreeDTO;
+import cn.javaquan.app.common.module.system.SysPermissionUpdateCommand;
 import cn.javaquan.app.pm.bff.system.feign.SysPermissionServiceFeign;
 import cn.javaquan.common.base.message.PageResult;
 import cn.javaquan.common.base.message.Result;
@@ -12,11 +16,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 系统资源权限配置
+ * 系统资源权限配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -66,4 +69,5 @@ public class SysPermissionServiceFallback implements FallbackFactory<SysPermissi
             }
         };
     }
+
 }

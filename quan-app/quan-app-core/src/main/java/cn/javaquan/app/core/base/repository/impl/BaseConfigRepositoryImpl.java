@@ -14,14 +14,14 @@ import cn.javaquan.app.core.convert.PageResultAssembler;
 import org.springframework.stereotype.Repository;
 
 /**
- * 系统通用配置
+ * 系统通用配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:38:39
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class BaseConfigRepositoryImpl extends ServiceImpl<BaseConfigMapper, BaseConfigPO> implements BaseConfigRepository {
+public class BaseConfigRepositoryImpl extends ServiceImpl<BaseConfigMapper, BaseConfigPO>
+        implements BaseConfigRepository {
 
     @Override
     public PageResult<BaseConfigPO> page(BaseConfigPO po, BasePage basePage) {

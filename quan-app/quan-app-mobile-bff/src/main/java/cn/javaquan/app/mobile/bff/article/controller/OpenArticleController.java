@@ -1,6 +1,16 @@
 package cn.javaquan.app.mobile.bff.article.controller;
 
-import cn.javaquan.app.common.module.article.*;
+import cn.javaquan.app.common.module.article.ArticleByCategoryDTO;
+import cn.javaquan.app.common.module.article.ArticleCategoryDTO;
+import cn.javaquan.app.common.module.article.ArticleCategoryQuery;
+import cn.javaquan.app.common.module.article.ArticleCategoryVO;
+import cn.javaquan.app.common.module.article.ArticleContentDTO;
+import cn.javaquan.app.common.module.article.ArticleContentVO;
+import cn.javaquan.app.common.module.article.ArticleTagDTO;
+import cn.javaquan.app.common.module.article.ArticleTagQuery;
+import cn.javaquan.app.common.module.article.ArticleTagVO;
+import cn.javaquan.app.common.module.article.ArticleVO;
+import cn.javaquan.app.common.module.article.OpenArticleQuery;
 import cn.javaquan.app.mobile.bff.article.convert.OpenArticleAssembler;
 import cn.javaquan.app.mobile.bff.article.feign.ArticleCategoryServiceFeign;
 import cn.javaquan.app.mobile.bff.article.feign.ArticleContentServiceFeign;
@@ -16,11 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-
 /**
+ * 博客文章接口.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -28,15 +38,17 @@ import javax.validation.Valid;
 public class OpenArticleController {
 
     private final ArticleServiceFeign articleService;
+
     private final ArticleContentServiceFeign articleContentService;
+
     private final ArticleCategoryServiceFeign articleCategoryService;
+
     private final ArticleTagServiceFeign articleTagService;
 
     /**
-     * 获取详情
-     *
-     * @param articleId
-     * @return
+     * 获取详情.
+     * @param articleId 文章id
+     * @return 文章详情
      */
     @GetMapping("/details")
     public Result<ArticleVO> details(@RequestParam String articleId) {
@@ -53,10 +65,9 @@ public class OpenArticleController {
     }
 
     /**
-     * 获取内容
-     *
-     * @param articleId
-     * @return
+     * 获取内容.
+     * @param articleId 文章id
+     * @return 文章内容
      */
     @GetMapping("/content")
     public Result<ArticleContentVO> content(@RequestParam String articleId) {
@@ -66,10 +77,9 @@ public class OpenArticleController {
     }
 
     /**
-     * 获取分类
-     *
-     * @param query
-     * @return
+     * 获取分类.
+     * @param query 查询参数
+     * @return 分类列表
      */
     @GetMapping("/category")
     public Result<PageResult<ArticleCategoryVO>> category(ArticleCategoryQuery query) {
@@ -78,10 +88,9 @@ public class OpenArticleController {
     }
 
     /**
-     * 获取标签
-     *
-     * @param query
-     * @return
+     * 获取标签.
+     * @param query 查询参数
+     * @return 标签列表
      */
     @GetMapping("/tag")
     public Result<PageResult<ArticleTagVO>> tag(ArticleTagQuery query) {
@@ -90,10 +99,9 @@ public class OpenArticleController {
     }
 
     /**
-     * 查询文章列表
-     *
-     * @param query
-     * @return
+     * 查询文章列表.
+     * @param query 查询参数
+     * @return 文章列表
      */
     @GetMapping
     public Result<PageResult<ArticleByCategoryDTO>> getArticle(@Valid OpenArticleQuery query) {

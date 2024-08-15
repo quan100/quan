@@ -1,8 +1,9 @@
 plugins {
-    id 'org.springframework.boot' version "${springBootVersion}"
+    id "java-library"
+    id "org.springframework.boot.conventions"
 }
+
 description = 'Quan App Core'
-apply plugin: "kotlin"
 
 dependencies {
     api 'com.baomidou:mybatis-plus-boot-starter'

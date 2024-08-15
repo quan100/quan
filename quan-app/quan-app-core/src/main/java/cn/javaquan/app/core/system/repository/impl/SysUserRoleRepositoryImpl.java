@@ -22,14 +22,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 用户角色配置
+ * 用户角色配置.
  *
  * @author wangquan
- * @since 2020-12-27 17:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class SysUserRoleRepositoryImpl extends ServiceImpl<SysUserRoleMapper, SysUserRolePO> implements SysUserRoleRepository {
+public class SysUserRoleRepositoryImpl extends ServiceImpl<SysUserRoleMapper, SysUserRolePO>
+        implements SysUserRoleRepository {
 
     @Override
     public PageResult<SysUserRolePO> page(SysUserRolePO po, BasePage basePage) {
@@ -70,18 +71,23 @@ public class SysUserRoleRepositoryImpl extends ServiceImpl<SysUserRoleMapper, Sy
         List<SysUserRolePO> sysUserRolePOS = this.getUserRole(userId);
 
         // 需要新增的数据
-        List<SysUserRolePO> insertData = roleIds.stream().filter(roleId -> (sysUserRolePOS.parallelStream().noneMatch(sysUserRolePO -> sysUserRolePO.getRoleId().equals(roleId))))
-                .map(roleId -> {
-                    return SysUserRoleAssembler.INSTANCE.toAddPO(roleId, userId);
-                })
-                .collect(Collectors.toList());
+        List<SysUserRolePO> insertData = roleIds.stream()
+            .filter(roleId -> (sysUserRolePOS.parallelStream()
+                .noneMatch(sysUserRolePO -> sysUserRolePO.getRoleId().equals(roleId))))
+            .map(roleId -> {
+                return SysUserRoleAssembler.INSTANCE.toAddPO(roleId, userId);
+            })
+            .collect(Collectors.toList());
         // 需要删除的数据
-        List<Long> removeData = sysUserRolePOS.stream().filter(sysUserRolePO -> (roleIds.parallelStream().noneMatch(roleId -> sysUserRolePO.getRoleId().equals(roleId))))
-                .map(SysUserRolePO::getId)
-                .collect(Collectors.toList());
+        List<Long> removeData = sysUserRolePOS.stream()
+            .filter(sysUserRolePO -> (roleIds.parallelStream()
+                .noneMatch(roleId -> sysUserRolePO.getRoleId().equals(roleId))))
+            .map(SysUserRolePO::getId)
+            .collect(Collectors.toList());
 
         RunUtil.doRun(Validate.isNotEmpty(insertData) ? this.saveOrUpdateBatch(insertData) : true, () -> {
             return Validate.isNotEmpty(removeData) ? this.removeByIds(removeData) : true;
         });
     }
+
 }

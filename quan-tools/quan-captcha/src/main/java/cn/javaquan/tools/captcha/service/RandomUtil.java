@@ -3,18 +3,24 @@ package cn.javaquan.tools.captcha.service;
 import java.util.SplittableRandom;
 
 /**
- * 随机数生成工具类
+ * 随机数生成工具类.
  *
  * @author javaquan
+ * @since 1.0.0
  */
-public class RandomUtil {
+public final class RandomUtil {
 
     /**
-     * 根据给定的字符串随机
-     *
-     * @param characters
-     * @param randomNumberBound
-     * @return
+     * 私有构造方法.
+     */
+    private RandomUtil() {
+    }
+
+    /**
+     * 根据给定的字符串随机.
+     * @param characters 字符串
+     * @param randomNumberBound 随机数范围
+     * @return 随机字符串
      */
     public static String generate(String characters, int randomNumberBound) {
         SplittableRandom random = new SplittableRandom();
@@ -25,4 +31,5 @@ public class RandomUtil {
         }
         return sb.toString();
     }
+
 }

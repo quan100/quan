@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
+ * 新闻查询接口.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -23,13 +23,15 @@ public class OpenNewsController {
     private final NewsService newsService;
 
     /**
-     * 根据
-     *
-     * @param code
-     * @return
+     * 根据新闻类型编码查询.
+     * @param code 新闻编码
+     * @param refresh 是否刷新
+     * @param offset 偏移量
+     * @return 新闻数据
      */
     @GetMapping("value")
-    public List getNews(@RequestParam String code, @RequestParam Boolean refresh, @RequestParam(required = false, defaultValue = "1") Integer offset) {
+    public List<?> getNews(@RequestParam String code, @RequestParam Boolean refresh,
+            @RequestParam(required = false, defaultValue = "1") Integer offset) {
         if (refresh) {
             return newsService.refresh(code, offset);
         }

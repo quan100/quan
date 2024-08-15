@@ -11,14 +11,16 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
- * 默认的参数解析器，支持 SpEL 表达式。
- * 可以通过实现 {@link LimiterParamsResolver} 接口，并注入到 Spring 容器中，覆盖默认的参数解析器的实现。
+ * 默认的参数解析器，支持 SpEL 表达式. 可以通过实现 {@link LimiterParamsResolver} 接口，并注入到
+ * Spring容器中，覆盖默认的参数解析器的实现。
  *
  * @author javaquan
  * @since 2.2.0
@@ -26,6 +28,7 @@ import java.util.function.Consumer;
 public class DefaultParamsResolver implements LimiterParamsResolver {
 
     private static final ParameterNameDiscoverer NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
+
     private static final ExpressionParser PARSER = new SpelExpressionParser();
 
     @Override
@@ -38,7 +41,7 @@ public class DefaultParamsResolver implements LimiterParamsResolver {
     }
 
     @Override
-    public List resolveArrayParam(MethodInvocation invocation, String[] params) {
+    public List<String> resolveArrayParam(MethodInvocation invocation, String[] params) {
         Method method = invocation.getMethod();
         if (params.length > 0) {
             return getSpelArrayParam(params, method, invocation.getArguments());
@@ -46,47 +49,86 @@ public class DefaultParamsResolver implements LimiterParamsResolver {
         return Collections.emptyList();
     }
 
-    protected List getSpelArrayParam(String[] params, Method method, Object[] parameterValues) {
+    /**
+     * 获取 SpEL 表达式解析后的值. 解析数组类型的参数.
+     * @param params 解析参数的表达式
+     * @param method 方法
+     * @param parameterValues 调用的参数
+     * @return 解析后的值
+     */
+    protected List<String> getSpelArrayParam(String[] params, Method method, Object[] parameterValues) {
         EvaluationContext context = buildEvaluationContext(method, parameterValues);
-        List values = new ArrayList<>();
-        resolveValue(params, (expressionString) -> {
-            List arrayValue = getArrayValue(expressionString, context);
-            if (!CollectionUtils.isEmpty(arrayValue)) {
-                values.addAll(arrayValue);
+        return resolveValue(params, (expressionString) -> {
+            List<?> arrayValue = getArrayValue(expressionString, context);
+            if (CollectionUtils.isEmpty(arrayValue)) {
+                return null;
             }
+            return arrayValue.stream().map(String::valueOf).collect(Collectors.toList());
         });
-        return values;
     }
 
+    /**
+     * 获取 SpEL 表达式解析后的值.
+     * @param params 解析参数的表达式
+     * @param method 方法
+     * @param parameterValues 调用的参数
+     * @return 解析后的值
+     */
     protected String getSpelParam(String[] params, Method method, Object[] parameterValues) {
         EvaluationContext context = buildEvaluationContext(method, parameterValues);
-        List<String> values = new ArrayList<>(params.length);
-        resolveValue(params, (expressionString) -> {
+        List<String> values = resolveValue(params, (expressionString) -> {
             String value = getValue(expressionString, context);
             if (StringUtils.hasText(value)) {
-                values.add(value);
+                return Collections.singletonList(value);
             }
+            return null;
         });
         return StringUtils.collectionToDelimitedString(values, "_", "", "");
     }
 
-    protected void resolveValue(String[] params, Consumer<String> function) {
-        for (String expressionString : params) {
+    /**
+     * 解析 SpEL 表达式.
+     * @param params 解析参数的表达式
+     * @param function 解析后的值
+     * @param <T> 解析后的值类型
+     * @return 解析后的值
+     */
+    protected <T> List<T> resolveValue(String[] params, Function<String, List<T>> function) {
+        return Arrays.stream(params).flatMap(expressionString -> {
             if (StringUtils.hasText(expressionString)) {
-                function.accept(expressionString);
+                return function.apply(expressionString).stream();
             }
-        }
+            return null;
+        }).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
+    /**
+     * 构建 EvaluationContext.
+     * @param method 方法
+     * @param parameterValues 调用的参数
+     * @return evaluationContext
+     */
     private EvaluationContext buildEvaluationContext(Method method, Object[] parameterValues) {
         return new MethodBasedEvaluationContext(null, method, parameterValues, NAME_DISCOVERER);
     }
 
+    /**
+     * 获取 SpEL 表达式解析后的值.
+     * @param expressionString 解析参数的表达式
+     * @param context evaluationContext
+     * @return 解析后的值
+     */
     private String getValue(String expressionString, EvaluationContext context) {
         return PARSER.parseExpression(expressionString).getValue(context, String.class);
     }
 
-    private List getArrayValue(String expressionString, EvaluationContext context) {
+    /**
+     * 获取 SpEL 表达式解析后的值.
+     * @param expressionString 解析参数的表达式
+     * @param context evaluationContext
+     * @return 解析后的值
+     */
+    private List<?> getArrayValue(String expressionString, EvaluationContext context) {
         return PARSER.parseExpression(expressionString).getValue(context, List.class);
     }
 

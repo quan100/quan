@@ -8,11 +8,10 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 文章内容
+ * 文章内容.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -29,4 +28,5 @@ public class ArticleContentServiceFallback implements FallbackFactory<ArticleCon
 
         };
     }
+
 }

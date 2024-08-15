@@ -15,44 +15,82 @@ import org.springframework.web.server.ServerWebExchange;
 import java.util.List;
 
 /**
- * 权限过滤器
+ * 权限过滤器.
  *
  * @author wangquan
- * @date 2020/3/11 16:09
+ * @since 1.0.0
  */
 public abstract class AbstractAuthFilter {
 
     /**
-     * 鉴权服务
+     * 鉴权服务.
      */
     private QuanSecurityFeign authService;
 
+    /**
+     * HTTP请求-响应交互的契约.
+     */
     private ServerWebExchange exchange;
+
+    /**
+     * 表示响应式服务器端HTTP请求.
+     */
     private ServerHttpRequest request;
+
+    /**
+     * 表示响应式服务器端HTTP响应.
+     */
     private ServerHttpResponse response;
 
+    /**
+     * 角色列表.
+     */
     private List<String> roles;
 
+    /**
+     * 获取鉴权服务.
+     * @return 鉴权
+     */
     public QuanSecurityFeign getService() {
-        return authService;
+        return this.authService;
     }
 
+    /**
+     * 设置鉴权服务.
+     * @param authService 鉴权服务
+     */
     public void setService(QuanSecurityFeign authService) {
         this.authService = authService;
     }
 
+    /**
+     * 获取HTTP请求.
+     * @return http请求
+     */
     public ServerHttpRequest getRequest() {
-        return request;
+        return this.request;
     }
 
+    /**
+     * 获取HTTP响应.
+     * @return http响应
+     */
     public ServerHttpResponse getResponse() {
-        return response;
+        return this.response;
     }
 
+    /**
+     * 获取HTTP请求-响应交互的契约.
+     * @return http请求-响应交互的契约
+     */
     public ServerWebExchange getExchange() {
-        return exchange;
+        return this.exchange;
     }
 
+    /**
+     * 设置HTTP请求-响应交互的契约.
+     * @param exchange http请求-响应交互的契约
+     */
     public void setExchange(ServerWebExchange exchange) {
         this.exchange = exchange;
         this.request = exchange.getRequest();
@@ -60,15 +98,13 @@ public abstract class AbstractAuthFilter {
     }
 
     /**
-     * 执行过滤器
-     *
+     * 执行过滤器.
      * @return 执行状态
      */
     public abstract Result doFilter();
 
     /**
-     * 执行过滤器
-     *
+     * 执行过滤器.
      * @param roles 角色
      * @return 是否继续执行
      */
@@ -77,17 +113,15 @@ public abstract class AbstractAuthFilter {
     }
 
     /**
-     * 获取登录类型
-     *
-     * @return
+     * 获取登录类型.
+     * @return 登录类型
      */
     public abstract int getFilterType();
 
     /**
-     * 获取认证信息
-     *
-     * @param token
-     * @return
+     * 获取认证信息.
+     * @param token token
+     * @return 认证信息
      */
     protected AuthenticateResponse getAuth(String token) {
         AuthenticateRequest authenticateReq = new AuthenticateRequest();
@@ -103,10 +137,9 @@ public abstract class AbstractAuthFilter {
     }
 
     /**
-     * 获取token
-     *
-     * @param request
-     * @return
+     * 获取token.
+     * @param request http servlet请求信息
+     * @return token
      */
     protected String getToken(ServerHttpRequest request) {
         String token = request.getHeaders().getFirst(AuthConstant.ACCESS_TOKEN);
@@ -124,19 +157,27 @@ public abstract class AbstractAuthFilter {
     }
 
     /**
-     * 获取请求IP
-     *
-     * @return
+     * 获取请求IP.
+     * @return 请求IP
      */
     protected String getIp() {
         return request.getRemoteAddress().getAddress().getHostAddress();
     }
 
+    /**
+     * 获取角色列表.
+     * @return 角色列表
+     */
     public List<String> getRoles() {
-        return roles;
+        return this.roles;
     }
 
+    /**
+     * 设置角色列表.
+     * @param roles 角色列表
+     */
     public void setRoles(List<String> roles) {
         this.roles = roles;
     }
+
 }

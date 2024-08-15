@@ -7,7 +7,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 
 /**
- * chat服务启动
+ * chat服务启动.
  *
  * @author javaquan
  * @since 1.0.0
@@ -16,12 +16,14 @@ public class ChatServerApplication implements ApplicationRunner {
 
     @Autowired
     private ChatServer chatServer;
+
     @Autowired
     private ChatProperties properties;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        properties.afterPropertiesSet();
-        chatServer.start(properties);
+        this.properties.afterPropertiesSet();
+        this.chatServer.start(this.properties);
     }
+
 }

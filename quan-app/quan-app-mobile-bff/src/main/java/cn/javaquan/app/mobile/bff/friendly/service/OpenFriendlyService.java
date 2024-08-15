@@ -2,7 +2,11 @@ package cn.javaquan.app.mobile.bff.friendly.service;
 
 import cn.javaquan.app.common.constant.MessageTemplateEnum;
 import cn.javaquan.app.common.convert.PageResultAssembler;
-import cn.javaquan.app.common.module.friendly.*;
+import cn.javaquan.app.common.module.friendly.FriendlyLinkAddCommand;
+import cn.javaquan.app.common.module.friendly.FriendlyLinkApplyCommand;
+import cn.javaquan.app.common.module.friendly.FriendlyLinkDTO;
+import cn.javaquan.app.common.module.friendly.FriendlyLinkQuery;
+import cn.javaquan.app.common.module.friendly.FriendlyLinkVO;
 import cn.javaquan.app.common.util.RunUtil;
 import cn.javaquan.app.common.util.TemplateUtils;
 import cn.javaquan.app.common.util.Validate;
@@ -20,34 +24,33 @@ import com.alibaba.fastjson.JSON;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 /**
+ * 友链接口业务实现.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @Slf4j
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/open/friendly/link/")
+@Component
 public class OpenFriendlyService {
 
     @Value("${quan.tools.notify.webhook:}")
     private String to;
+
     private final OpenFriendlyLinkServiceFeign friendlyLinkServiceFeign;
+
     private final JmsUtil jmsUtil;
 
     /**
-     * 查询列表
-     *
-     * @param basePage
-     * @return
+     * 查询列表.
+     * @param basePage 分页查询参数
+     * @return 查询结果
      */
     public Result<PageResult<FriendlyLinkVO>> page(BasePage basePage) {
         FriendlyLinkQuery query = new FriendlyLinkQuery();
@@ -56,17 +59,16 @@ public class OpenFriendlyService {
         query.setPageSize(basePage.getPageSize());
         Result<PageResult<FriendlyLinkDTO>> result = friendlyLinkServiceFeign.page(query);
         return RunUtil.doRun(result, () -> {
-            PageResult<FriendlyLinkVO> page = PageResultAssembler.INSTANCE.toPageResult(result.getData());
+            PageResult<FriendlyLinkVO> page = PageResultAssembler.INSTANCE.toIgnoreDataPageResult(result.getData());
             page.setRecords(OpenFriendlyLinkAssembler.INSTANCE.toFriendlyLinkVoList(result.getData().getRecords()));
             return Result.success(page);
         });
     }
 
     /**
-     * 申请友链
-     *
-     * @param cmd
-     * @return
+     * 申请友链.
+     * @param cmd 申请友链参数
+     * @return 申请操作是否成功
      */
     public Result<Boolean> save(FriendlyLinkApplyCommand cmd) {
         FriendlyLinkAddCommand addCommand = OpenFriendlyLinkAssembler.INSTANCE.toFriendlyLinkAddCommand(cmd);
@@ -74,9 +76,9 @@ public class OpenFriendlyService {
     }
 
     /**
-     * 申请友链
-     *
-     * @param cmd
+     * 申请友链.
+     * @param cmd 申请友链参数
+     * @return 申请操作是否成功
      */
     public Result<Boolean> apply(FriendlyLinkApplyCommand cmd) {
         Result<Boolean> result = save(cmd);

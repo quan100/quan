@@ -24,14 +24,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 角色权限配置
+ * 角色权限配置.
  *
  * @author wangquan
- * @since 2020-12-27 17:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class SysRolePermissionRepositoryImpl extends ServiceImpl<SysRolePermissionMapper, SysRolePermissionPO> implements SysRolePermissionRepository {
+public class SysRolePermissionRepositoryImpl extends ServiceImpl<SysRolePermissionMapper, SysRolePermissionPO>
+        implements SysRolePermissionRepository {
 
     private final SysRolePermissionMapper sysRolePermissionMapper;
 
@@ -61,7 +62,8 @@ public class SysRolePermissionRepositoryImpl extends ServiceImpl<SysRolePermissi
         LambdaQueryWrapper<SysRolePermissionPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.in(Validate.isNotEmpty(query.getRoleIds()), SysRolePermissionPO::getRoleId, query.getRoleIds());
         queryWrapper.eq(Validate.isNotNull(query.getRoleId()), SysRolePermissionPO::getRoleId, query.getRoleId());
-        queryWrapper.in(Validate.isNotEmpty(query.getPermissionIds()), SysRolePermissionPO::getPermissionId, query.getPermissionIds());
+        queryWrapper.in(Validate.isNotEmpty(query.getPermissionIds()), SysRolePermissionPO::getPermissionId,
+                query.getPermissionIds());
         return this.count(queryWrapper);
     }
 
@@ -70,8 +72,10 @@ public class SysRolePermissionRepositoryImpl extends ServiceImpl<SysRolePermissi
         LambdaQueryWrapper<SysRolePermissionPO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.in(Validate.isNotEmpty(event.getRoleIds()), SysRolePermissionPO::getRoleId, event.getRoleIds());
         queryWrapper.eq(Validate.isNotNull(event.getRoleId()), SysRolePermissionPO::getRoleId, event.getRoleId());
-        queryWrapper.eq(Validate.isNotNull(event.getPermissionId()), SysRolePermissionPO::getPermissionId, event.getPermissionId());
-        queryWrapper.in(Validate.isNotEmpty(event.getPermissionIds()), SysRolePermissionPO::getPermissionId, event.getPermissionIds());
+        queryWrapper.eq(Validate.isNotNull(event.getPermissionId()), SysRolePermissionPO::getPermissionId,
+                event.getPermissionId());
+        queryWrapper.in(Validate.isNotEmpty(event.getPermissionIds()), SysRolePermissionPO::getPermissionId,
+                event.getPermissionIds());
         return this.remove(queryWrapper);
     }
 
@@ -79,4 +83,5 @@ public class SysRolePermissionRepositoryImpl extends ServiceImpl<SysRolePermissi
     public List<PermissionRoleDTO> getPermissionRoles() {
         return sysRolePermissionMapper.permissionRoleList();
     }
+
 }

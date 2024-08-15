@@ -30,9 +30,10 @@ import javax.validation.Valid;
 import java.util.function.Function;
 
 /**
+ * 第三方账号登录业务.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2018-12-03 14:26:22
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Component
@@ -43,17 +44,17 @@ public class TripartiteLoginService {
     private final DingtalkApi dingtalkApi;
 
     private final SysUserAccountServiceFeign sysUserAccountServiceFeign;
+
     private final SysUserLoginFeign sysUserLoginFeign;
 
     @Value("${quan.site.domain.default-bound-role:}")
     private Long defaultBoundRole;
 
     /**
-     * 钉钉账号授权
-     *
-     * @param event
-     * @return
-     * @throws Exception
+     * 钉钉账号授权.
+     * @param event 第三方账号登录事件参数
+     * @return 登录成功返回token
+     * @throws Exception 授权失败异常
      */
     public Result dingtalkAuth(@Valid TripartiteAuthEvent event) throws Exception {
         GetUserResponseBody userResponseBody = dingtalkApi.getAccessToken(event.getAuthCode(), event.getState());
@@ -69,13 +70,13 @@ public class TripartiteLoginService {
     }
 
     /**
-     * 用户登录
+     * 用户登录.
+     * <p>
      * 第三方账号登录
-     *
-     * @param thirdId   第三方ID
+     * @param thirdId 第三方ID
      * @param thirdType 第三方类型
-     * @param func
-     * @return
+     * @param func 用于登录成功后的处理函数
+     * @return 登录成功返回token
      */
     private Result login(String thirdId, String thirdType, Function<Result, Result> func) {
         TripartiteLoginEvent event = TripartiteAssembler.INSTANCE.build(thirdType, thirdId);
@@ -87,17 +88,17 @@ public class TripartiteLoginService {
     }
 
     /**
-     * 绑定第三方账号
-     *
-     * @param boundEvent
-     * @return
+     * 绑定第三方账号.
+     * @param boundEvent 绑定事件参数
+     * @return 绑定操作是否成功
      */
-    public Result<String> bound(BoundEvent boundEvent) {
+    public Result<Boolean> bound(BoundEvent boundEvent) {
         String boundCacheKey = RedisKey.tripartiteBoundKey(boundEvent.getAuthId());
         TripartiteBoundEvent tripartiteBoundEvent = CacheUtil.get(boundCacheKey, TripartiteBoundEvent.class);
         Validate.isNotNull(tripartiteBoundEvent, ErrorCodeEnum.TRIPARTITE_NOT_EXIST_ERR);
 
-        SysUserTripartiteAccountQuery query = SystemAssembler.INSTANCE.toSysUserTripartiteAccountQuery(tripartiteBoundEvent.getThirdType(), tripartiteBoundEvent.getThirdId());
+        SysUserTripartiteAccountQuery query = SystemAssembler.INSTANCE
+            .toSysUserTripartiteAccountQuery(tripartiteBoundEvent.getThirdType(), tripartiteBoundEvent.getThirdId());
         Result<SysUserTripartiteAccountDTO> result = sysUserTripartiteAccountServiceFeign.getByTripartite(query);
         if (result.isData()) {
             SysUserTripartiteAccountDTO tripartiteAccountDTO = result.getData();
@@ -106,8 +107,9 @@ public class TripartiteLoginService {
         }
 
         // 当未绑定账号时，绑定账号信息
-        SysUserTripartiteAccountAddCommand cmd = TripartiteAssembler.INSTANCE.toTripartiteAccountAddCommand(tripartiteBoundEvent);
-        Result boundSaveResult = sysUserTripartiteAccountServiceFeign.save(cmd);
+        SysUserTripartiteAccountAddCommand cmd = TripartiteAssembler.INSTANCE
+            .toTripartiteAccountAddCommand(tripartiteBoundEvent);
+        Result<Boolean> boundSaveResult = sysUserTripartiteAccountServiceFeign.save(cmd);
         return RunUtil.doRun(boundSaveResult, () -> {
             CacheUtil.del(boundCacheKey);
             boundSaveResult.setMessage("申请注册成功，请等待管理员审核！");
@@ -115,17 +117,18 @@ public class TripartiteLoginService {
         });
     }
 
-//    /**
-//     * 获取token
-//     *
-//     * @param userId 用户ID
-//     * @return
-//     */
-//    public Result<String> token(String userId) {
-//        // 账号登录
-//        Result<SysUserAccountDTO> result = sysUserAccountServiceFeign.getUserAccount(SysUserAccountQuery.userId(userId));
-//        Validate.isTrue(result.isData(), "账号未注册！");
-//        return userLoginServiceFeign.token(userId);
-//    }
-}
+    // /**
+    // * 获取token
+    // *
+    // * @param userId 用户ID
+    // * @return
+    // */
+    // public Result<String> token(String userId) {
+    // // 账号登录
+    // Result<SysUserAccountDTO> result =
+    // sysUserAccountServiceFeign.getUserAccount(SysUserAccountQuery.userId(userId));
+    // Validate.isTrue(result.isData(), "账号未注册！");
+    // return userLoginServiceFeign.token(userId);
+    // }
 
+}

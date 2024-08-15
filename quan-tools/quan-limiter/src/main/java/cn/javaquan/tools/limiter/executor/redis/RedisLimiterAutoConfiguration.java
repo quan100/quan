@@ -10,10 +10,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.Nullable;
 
 /**
- * 基于 Redis 实现的限制器配置
+ * 基于 Redis 实现的限制器配置.
  *
  * @author javaquan
  * @since 2.2.0
@@ -22,14 +21,21 @@ import org.springframework.lang.Nullable;
 @EnableConfigurationProperties(LimiterProperties.class)
 public class RedisLimiterAutoConfiguration {
 
-
+    /**
+     * Redis 限制器配置.
+     */
     @Configuration(proxyBeanMethods = false)
     @Conditional(RedisLimiterCondition.class)
     protected static class RedisLimiterConfiguration {
 
+        /**
+         * 创建 Redis 限制器执行器.
+         * @param redisService redis 服务
+         * @return redisLimiterExecutor
+         */
         @Bean
         @ConditionalOnClass(IRedisService.class)
-        public RedisLimiterExecutor redissonLimiterExecutor(@Nullable IRedisService redisService) {
+        public RedisLimiterExecutor redissonLimiterExecutor(IRedisService redisService) {
             return new RedisLimiterExecutor(redisService);
         }
 

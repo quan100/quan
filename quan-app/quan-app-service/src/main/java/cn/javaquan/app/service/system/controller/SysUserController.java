@@ -6,17 +6,22 @@ import cn.javaquan.app.common.module.system.SysUserVO;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.app.service.system.service.SysUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * 用户信息
+ * 用户信息.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -25,12 +30,10 @@ public class SysUserController {
 
     private final SysUserService sysUserService;
 
-
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     @GetMapping
     public Result<SysUserVO> details(@RequestParam Long id) {
@@ -38,10 +41,9 @@ public class SysUserController {
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 操作是否成功
      */
     @PutMapping
     public Result<Boolean> update(@RequestBody SysUserUpdateCommand cmd) {
@@ -49,10 +51,9 @@ public class SysUserController {
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 操作是否成功
      */
     @PostMapping
     public Result<Boolean> save(@RequestBody SysUserAddCommand cmd) {
@@ -60,10 +61,9 @@ public class SysUserController {
     }
 
     /**
-     * 删除
-     *
-     * @param ids
-     * @return
+     * 删除.
+     * @param ids 主键
+     * @return 操作是否成功
      */
     @DeleteMapping
     public Result<Boolean> deleteByIds(@RequestBody List<Long> ids) {

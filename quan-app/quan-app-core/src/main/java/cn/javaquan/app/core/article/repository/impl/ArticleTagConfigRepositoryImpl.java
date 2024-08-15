@@ -17,14 +17,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 文章标签配置
+ * 文章标签配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:38:39
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class ArticleTagConfigRepositoryImpl extends ServiceImpl<ArticleTagConfigMapper, ArticleTagConfigPO> implements ArticleTagConfigRepository {
+public class ArticleTagConfigRepositoryImpl extends ServiceImpl<ArticleTagConfigMapper, ArticleTagConfigPO>
+        implements ArticleTagConfigRepository {
 
     @Override
     public PageResult<ArticleTagConfigPO> page(ArticleTagConfigPO po, BasePage basePage) {

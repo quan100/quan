@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * im聊天sdk配置
+ * im聊天sdk配置.
  *
  * @author javaquan
  * @since 1.0.0
@@ -33,6 +33,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @EnableConfigurationProperties(ChatProperties.class)
 public class ChatAutoConfiguration {
 
+    /**
+     * 聊天服务配置.
+     */
     @Import(ChatServerApplication.class)
     @Configuration(proxyBeanMethods = false)
     @Conditional(ChatCondition.class)
@@ -66,11 +69,6 @@ public class ChatAutoConfiguration {
             super(ConfigurationPhase.PARSE_CONFIGURATION);
         }
 
-        @ConditionalOnProperty(prefix = "quan.im", name = "port")
-        static class PortProperty {
-
-        }
-
         @ConditionalOnProperty(prefix = "quan.im.ssl", name = "enabled", havingValue = "true")
         @ConditionalOnMissingBean
         @Bean
@@ -87,6 +85,12 @@ public class ChatAutoConfiguration {
         ChatServer secureChatServer(SslContext context) {
             return new SecureChatServer(context);
         }
+
+        @ConditionalOnProperty(prefix = "quan.im", name = "port")
+        static class PortProperty {
+
+        }
+
     }
 
 }

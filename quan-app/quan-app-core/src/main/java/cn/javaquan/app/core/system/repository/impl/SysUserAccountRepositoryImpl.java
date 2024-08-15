@@ -31,17 +31,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 用户账号
+ * 用户账号.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:53:59
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapper, SysUserAccountPO> implements SysUserAccountRepository {
+public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapper, SysUserAccountPO>
+        implements SysUserAccountRepository {
 
     private final PasswordService passwordService;
+
     private final SysUserRoleRepository sysUserRoleRepository;
 
     @Override
@@ -55,10 +56,9 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     }
 
     /**
-     * 根据账号查询信息
-     *
-     * @param query
-     * @return
+     * 根据账号查询信息.
+     * @param query 查询参数
+     * @return 查询参数
      */
     @Override
     public SysUserAccountPO getUserAccount(SysUserAccountQuery query) {
@@ -77,7 +77,8 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
         if (null != sysUserAccountDTO) {
             List<SysUserRolePO> sysUserRolePOS = sysUserRoleRepository.getUserRole(sysUserAccountDTO.getUserId());
             if (Validate.isNotEmpty(sysUserRolePOS)) {
-                sysUserAccountDTO.setRoleIdList(sysUserRolePOS.stream().map(SysUserRolePO::getRoleId).collect(Collectors.toList()));
+                sysUserAccountDTO
+                    .setRoleIdList(sysUserRolePOS.stream().map(SysUserRolePO::getRoleId).collect(Collectors.toList()));
             }
         }
         return sysUserAccountDTO;
@@ -134,10 +135,9 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     }
 
     /**
-     * 根据账号查询信息
-     *
-     * @param userIds
-     * @return
+     * 根据账号查询信息.
+     * @param userIds 用户id集合
+     * @return 用户账号信息
      */
     public List<SysUserAccountPO> getBytUserIds(List<String> userIds) {
         LambdaQueryWrapper<SysUserAccountPO> queryWrapper = Wrappers.lambdaQuery();
@@ -147,9 +147,8 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     }
 
     /**
-     * 验证账号是否存在
-     *
-     * @param account    原账号
+     * 验证账号是否存在.
+     * @param account 原账号
      * @param newAccount 新账号
      */
     private void verifyAccountExists(String account, String newAccount) {
@@ -160,8 +159,7 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     }
 
     /**
-     * 验证账号是否存在
-     *
+     * 验证账号是否存在.
      * @param account 账号
      */
     private void verifyAccountExists(String account) {
@@ -169,10 +167,9 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     }
 
     /**
-     * 根据账号查询数量
-     *
-     * @param account
-     * @return
+     * 根据账号查询数量.
+     * @param account 用户账号
+     * @return 账号数量
      */
     public int countByAccount(String account) {
         LambdaQueryWrapper<SysUserAccountPO> queryWrapper = Wrappers.lambdaQuery();
@@ -182,10 +179,9 @@ public class SysUserAccountRepositoryImpl extends ServiceImpl<SysUserAccountMapp
     }
 
     /**
-     * 根据用户ID查询
-     *
-     * @param userId
-     * @return
+     * 根据用户ID查询.
+     * @param userId 用户id
+     * @return 用户账号信息
      */
     public SysUserAccountPO getByUserId(String userId) {
         LambdaQueryWrapper<SysUserAccountPO> queryWrapper = Wrappers.lambdaQuery();

@@ -17,14 +17,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 文章分类配置
+ * 文章分类配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:38:40
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class ArticleCategoryConfigRepositoryImpl extends ServiceImpl<ArticleCategoryConfigMapper, ArticleCategoryConfigPO> implements ArticleCategoryConfigRepository {
+public class ArticleCategoryConfigRepositoryImpl extends
+        ServiceImpl<ArticleCategoryConfigMapper, ArticleCategoryConfigPO> implements ArticleCategoryConfigRepository {
 
     @Override
     public PageResult<ArticleCategoryConfigPO> page(ArticleCategoryConfigPO po, BasePage basePage) {

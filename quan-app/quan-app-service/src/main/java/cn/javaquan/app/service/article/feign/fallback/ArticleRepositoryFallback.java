@@ -1,7 +1,11 @@
 package cn.javaquan.app.service.article.feign.fallback;
 
+import cn.javaquan.app.common.module.article.ArticleAddCommand;
+import cn.javaquan.app.common.module.article.ArticleDTO;
+import cn.javaquan.app.common.module.article.ArticleQuery;
+import cn.javaquan.app.common.module.article.ArticleUpdateCommand;
+import cn.javaquan.app.common.module.article.OpenArticleQuery;
 import cn.javaquan.tools.notify.SystemNotifyException;
-import cn.javaquan.app.common.module.article.*;
 import cn.javaquan.app.service.article.feign.ArticleRepositoryFeign;
 import cn.javaquan.common.base.message.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +15,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 文章
+ * 文章.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -75,4 +78,5 @@ public class ArticleRepositoryFallback implements FallbackFactory<ArticleReposit
             }
         };
     }
+
 }

@@ -10,26 +10,28 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.lang.Nullable;
 
 /**
- * 文件上传服务自动配置
+ * 文件上传服务自动配置.
  *
  * @author javaquan
  * @since 2.2.0
  */
 @AutoConfiguration
 @EnableConfigurationProperties(MinioProperties.class)
-@Import({MinioPropertiesConfiguration.class})
+@Import({ MinioPropertiesConfiguration.class })
 public class MinioAutoConfiguration {
 
+    /**
+     * Minio配置.
+     */
     @Configuration(proxyBeanMethods = false)
     @Conditional(MinioCondition.class)
-    @ConditionalOnClass({MinioClient.class})
+    @ConditionalOnClass({ MinioClient.class })
     protected static class MinioConfiguration {
 
         @Bean
-        MinioUtil minioUtil(@Nullable MinioClient minioClient, MinioProperties properties) {
+        MinioUtil minioUtil(MinioClient minioClient, MinioProperties properties) {
             return new MinioUtil(minioClient, properties);
         }
 

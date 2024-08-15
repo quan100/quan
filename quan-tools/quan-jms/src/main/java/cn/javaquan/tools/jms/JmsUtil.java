@@ -3,36 +3,50 @@ package cn.javaquan.tools.jms;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.lang.Nullable;
 
 import javax.jms.Destination;
 
 /**
+ * JMS工具类.
+ *
  * @author wangquan
+ * @since 1.0.0
  */
 public class JmsUtil implements InitializingBean {
 
     private JmsMessagingTemplate jmsMessagingTemplate;
 
-    public JmsUtil() {
-    }
-
+    /**
+     * 构造方法.
+     * @param jmsMessagingTemplate jmsMessagingTemplate
+     */
     public JmsUtil(JmsMessagingTemplate jmsMessagingTemplate) {
-        this();
         setJmsMessagingTemplate(jmsMessagingTemplate);
     }
 
-    public void send(String name, Object payload) {
-        Destination destination = new ActiveMQQueue(name);
+    /**
+     * 发送消息.
+     * @param address 发送的目标地址（topic）
+     * @param payload 发送的消息数据
+     */
+    public void send(String address, Object payload) {
+        Destination destination = new ActiveMQQueue(address);
         jmsMessagingTemplate.convertAndSend(destination, payload);
     }
 
-    @Nullable
+    /**
+     * 获取JmsMessagingTemplate.
+     * @return jmsMessagingTemplate
+     */
     public JmsMessagingTemplate getJmsMessagingTemplate() {
         return jmsMessagingTemplate;
     }
 
-    public void setJmsMessagingTemplate(@Nullable JmsMessagingTemplate jmsMessagingTemplate) {
+    /**
+     * 设置JmsMessagingTemplate.
+     * @param jmsMessagingTemplate jmsMessagingTemplate
+     */
+    public void setJmsMessagingTemplate(JmsMessagingTemplate jmsMessagingTemplate) {
         this.jmsMessagingTemplate = jmsMessagingTemplate;
     }
 
@@ -42,4 +56,5 @@ public class JmsUtil implements InitializingBean {
             throw new IllegalArgumentException("Property 'jmsMessagingTemplate' is required");
         }
     }
+
 }

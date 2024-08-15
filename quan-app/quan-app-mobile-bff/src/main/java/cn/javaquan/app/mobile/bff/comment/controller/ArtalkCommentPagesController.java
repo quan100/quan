@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * @author JavaQuan
- * @version 1.0.0
+ * artalk 评论数据接口.
+ *
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -24,13 +25,14 @@ public class ArtalkCommentPagesController {
     private final ArtalkCommentPagesService artalkCommentPagesService;
 
     /**
-     * 获取文章列表的统计数据
-     *
-     * @param keys
-     * @return
+     * 获取文章列表的统计数据.
+     * <p>
+     * 根据评论系统记录的文章统计数据
+     * @param keys 文章列表的页面唯一键
+     * @return 文章列表的统计数据
      */
     @GetMapping("statistics")
-    public Result<List<OpenArtalkCommentPagesVO>> statistics(@RequestParam(value = "keys")List<String> keys) {
+    public Result<List<OpenArtalkCommentPagesVO>> statistics(@RequestParam List<String> keys) {
         return artalkCommentPagesService.statistics(keys);
     }
 

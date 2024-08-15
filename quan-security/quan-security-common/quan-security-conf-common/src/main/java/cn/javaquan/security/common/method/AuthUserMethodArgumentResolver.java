@@ -13,28 +13,29 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 /**
- * 用户信息处理程序方法参数解析器
+ * 用户信息处理程序方法参数解析器.
  *
  * @author wangquan
+ * @since 1.0.0
  */
 @Slf4j
 public class AuthUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
-     * 校验是否存在 {@link AuthUser} 注解参数，并且注解参数类型为 {@link AuthEntity}
-     *
-     * @param methodParameter
-     * @return
+     * 校验是否存在 {@link AuthUser} 注解参数，并且注解参数类型为 {@link AuthEntity}.
+     * @param methodParameter 方法参数
+     * @return 是否存在 {@link AuthUser} 注解参数，且注解参数类型为 {@link AuthEntity}.
      */
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
         AuthUser authUser = methodParameter.getParameterAnnotation(AuthUser.class);
-        Class clazz = methodParameter.getParameterType();
+        Class<?> clazz = methodParameter.getParameterType();
         return null != authUser && clazz == AuthEntity.class;
     }
 
     @Override
-    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
+    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
+            NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
         AuthUser authUser = methodParameter.getParameterAnnotation(AuthUser.class);
         String token = nativeWebRequest.getHeader(AuthConstant.ACCESS_TOKEN);
         AuthEntity authEntity = AuthUtil.getAuthEntity(token);
@@ -47,4 +48,5 @@ public class AuthUserMethodArgumentResolver implements HandlerMethodArgumentReso
         }
         return authEntity;
     }
+
 }

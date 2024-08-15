@@ -11,69 +11,72 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * @author JavaQuan
- * @version 1.0.0
+ * artalk 评论数据模型.
+ *
+ * @author javaquan
+ * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("comment_pages")
 public class ArtalkCommentPagesPO extends Model<ArtalkCommentPagesPO> {
+
     private static final long serialVersionUID = 1L;
 
     /**
-     *
+     * 自增主键.
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     *
+     * 创建时间.
      */
     private Date createdAt;
 
     /**
-     *
+     * 更新时间.
      */
     private Date updatedAt;
 
     /**
-     *
+     * 删除时间.
      */
     private Date deletedAt;
 
     /**
-     *
+     * 页面唯一键.
      */
     @TableField("`key`")
     private String key;
 
     /**
-     *
+     * 页面标题.
      */
     private String title;
 
     /**
-     *
+     * 管理员.
      */
     private Integer adminOnly;
 
     /**
-     *
+     * 站点名称.
      */
     private String siteName;
 
     /**
-     *
+     * 点赞数.
      */
     private Long voteUp;
 
     /**
-     *
+     * 反对数.
      */
     private Long voteDown;
 
     /**
-     *
+     * 浏览量.
      */
     private Long pv;
 

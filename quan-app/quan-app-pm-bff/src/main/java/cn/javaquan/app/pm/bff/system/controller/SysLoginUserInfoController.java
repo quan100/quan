@@ -6,16 +6,16 @@ import cn.javaquan.app.pm.bff.system.service.LoginUserInfoService;
 import cn.javaquan.security.common.annotation.AuthUser;
 import cn.javaquan.security.common.dto.entity.AuthEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
+ * 系统用户信息管理接口.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -25,12 +25,12 @@ public class SysLoginUserInfoController {
     private final LoginUserInfoService userInfoService;
 
     /**
-     * 获取用户信息
-     *
-     * @return
+     * 获取用户信息.
+     * @param authEntity 用户认证信息
+     * @return 用户信息
      */
     @ResponseBody
-    @GetMapping(value = "currentUser")
+    @DeleteMapping("/currentUser")
     public Result<UserInfoDTO> currentUser(@AuthUser AuthEntity authEntity) {
         return userInfoService.currentUser(authEntity);
     }

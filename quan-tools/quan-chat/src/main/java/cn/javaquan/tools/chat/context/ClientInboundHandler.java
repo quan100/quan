@@ -20,9 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 客户端用户状态处理
+ * 客户端用户状态处理.
  *
  * @author javaquan
+ * @since 1.0.0
  */
 @Sharable
 public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
@@ -30,8 +31,14 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
     private static final Log logger = LogFactory.getLog(ClientInboundHandler.class);
 
     private final ChannelGroup group;
+
     private final String websocketPath;
 
+    /**
+     * 默认构造方法.
+     * @param group 通道组
+     * @param websocketPath websocket路径
+     */
     public ClientInboundHandler(ChannelGroup group, String websocketPath) {
         this.group = group;
         this.websocketPath = websocketPath;
@@ -44,7 +51,7 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
             String uri = request.uri();
             Map<String, String> queryParams = paramsParser(uri);
             online(ctx.channel(), queryParams);
-            request.setUri(websocketPath);
+            request.setUri(this.websocketPath);
         }
         super.channelRead(ctx, msg);
     }
@@ -57,29 +64,24 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
                 logger.info(String.format("用户[%s]闲置时间超过最大值，将关闭连接！", ChannelPool.getSessionState(ctx.channel())));
                 ctx.channel().close();
             }
-        } else {
+        }
+        else {
             super.userEventTriggered(ctx, evt);
         }
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        group.add(ctx.channel());
+        this.group.add(ctx.channel());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
-        group.remove(channel);
+        this.group.remove(channel);
         offline(channel);
     }
 
-    /**
-     * 异常时调用
-     *
-     * @param ctx
-     * @param cause
-     */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         logger.error("服务器错误", cause);
@@ -89,11 +91,10 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * url参数解析
-     *
-     * @param uriParams
-     * @return
-     * @throws URISyntaxException
+     * url参数解析.
+     * @param uriParams url参数
+     * @return url参数
+     * @throws URISyntaxException 异常
      */
     private Map<String, String> paramsParser(String uriParams) throws URISyntaxException {
         URI uri = new URI(uriParams);
@@ -111,9 +112,8 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * 用户上线
-     *
-     * @param channel
+     * 用户上线.
+     * @param channel 绑定到上下文的通道。
      * @param urlParams url参数
      */
     private void online(Channel channel, Map<String, String> urlParams) {
@@ -136,9 +136,8 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * 用户离线
-     *
-     * @param channel
+     * 用户离线.
+     * @param channel 绑定到上下文的通道。
      */
     private void offline(Channel channel) {
         ChannelPool.removeChannel(channel);

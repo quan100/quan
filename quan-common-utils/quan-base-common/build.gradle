@@ -1,5 +1,9 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+}
+
 description = 'Quan Common Base Utils'
-apply plugin: "kotlin"
 
 dependencies {
     api 'com.alibaba:fastjson'

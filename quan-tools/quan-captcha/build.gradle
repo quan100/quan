@@ -1,5 +1,10 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.deployed"
+}
+
 description = 'Quan Tools Captcha'
-apply plugin: "kotlin"
 
 dependencies {
     implementation 'com.github.bingoohuang:patchca'

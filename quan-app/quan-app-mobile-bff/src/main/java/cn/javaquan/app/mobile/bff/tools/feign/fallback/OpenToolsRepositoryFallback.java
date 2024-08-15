@@ -9,11 +9,10 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 工具
+ * 工具.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -38,4 +37,5 @@ public class OpenToolsRepositoryFallback implements FallbackFactory<OpenToolsRep
             }
         };
     }
+
 }

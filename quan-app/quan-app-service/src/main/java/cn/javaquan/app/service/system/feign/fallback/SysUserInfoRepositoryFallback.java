@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 用户信息
+ * 用户信息.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -62,4 +61,5 @@ public class SysUserInfoRepositoryFallback implements FallbackFactory<SysUserInf
             }
         };
     }
+
 }

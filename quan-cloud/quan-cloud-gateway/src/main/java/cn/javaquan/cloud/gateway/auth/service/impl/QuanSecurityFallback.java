@@ -7,8 +7,10 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**
+ * 权限验证服务.
+ *
  * @author wangquan
- * @date 2020/3/11 18:33
+ * @since 1.0.0
  */
 @Component
 public class QuanSecurityFallback implements FallbackFactory<QuanSecurityFeign> {
@@ -23,4 +25,5 @@ public class QuanSecurityFallback implements FallbackFactory<QuanSecurityFeign> 
             }
         };
     }
+
 }

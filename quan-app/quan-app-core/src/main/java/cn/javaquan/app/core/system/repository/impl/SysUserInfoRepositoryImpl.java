@@ -18,14 +18,14 @@ import cn.javaquan.tools.redis.service.CacheUtil;
 import org.springframework.stereotype.Repository;
 
 /**
- * 用户信息
+ * 用户信息.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:53:59
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class SysUserInfoRepositoryImpl extends ServiceImpl<SysUserInfoMapper, SysUserInfoPO> implements SysUserInfoRepository {
+public class SysUserInfoRepositoryImpl extends ServiceImpl<SysUserInfoMapper, SysUserInfoPO>
+        implements SysUserInfoRepository {
 
     @Override
     public PageResult<SysUserInfoPO> page(SysUserInfoPO po, BasePage basePage) {
@@ -35,12 +35,6 @@ public class SysUserInfoRepositoryImpl extends ServiceImpl<SysUserInfoMapper, Sy
         return PageResultAssembler.INSTANCE.toPageResult(page);
     }
 
-    /**
-     * 根据用户ID查询用户信息
-     *
-     * @param userId 用户ID
-     * @return
-     */
     @Override
     public SysUserInfoPO getUserInfo(String userId) {
         String userInfoKey = RedisKey.userInfoKey(userId);

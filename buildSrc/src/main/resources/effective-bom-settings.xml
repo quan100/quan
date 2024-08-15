@@ -1,0 +1,24 @@
+<settings>
+	<localRepository>localRepositoryPath</localRepository>
+	<profiles>
+		<profile>
+			<id>quan-repositories</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>sonatype-snapshot</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>sonatype-releases</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+</settings>

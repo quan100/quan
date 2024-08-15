@@ -7,8 +7,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
+ * 网关服务.
+ *
  * @author wangquan
- * @date 2020/3/10 11:02
+ * @since 1.0.0
  */
 @ConfigurationPropertiesScan
 @EnableFeignClients
@@ -16,7 +18,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 public class GatewayServerApplication {
 
+    /**
+     * 使用默认设置从指定的源运行SpringApplication.
+     * @param args 默认参数
+     */
     public static void main(String[] args) {
         SpringApplication.run(GatewayServerApplication.class, args);
     }
+
 }

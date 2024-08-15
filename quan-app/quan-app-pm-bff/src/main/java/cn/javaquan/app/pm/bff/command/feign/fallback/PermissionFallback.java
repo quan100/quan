@@ -8,11 +8,10 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 字典
+ * 字典.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @Component
 public class PermissionFallback implements FallbackFactory<PermissionFeign> {
@@ -27,4 +26,5 @@ public class PermissionFallback implements FallbackFactory<PermissionFeign> {
             }
         };
     }
+
 }

@@ -14,33 +14,32 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
- * 用户信息参数转换
+ * 用户信息参数转换.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
-@Mapper(imports = {ID.class, LocalDateUtils.class})
+@Mapper(imports = { ID.class, LocalDateUtils.class })
 public interface SysUserInfoAssembler {
 
+    /**
+     * 返回给定映射器类型的实例.
+     */
     SysUserInfoAssembler INSTANCE = Mappers.getMapper(SysUserInfoAssembler.class);
 
     /**
-     * 转换为查询参数
-     *
-     * @param query
-     * @return
+     * 转换为查询参数.
+     * @param query 查询参数
+     * @return 查询参数
      */
     SysUserInfoPO toQueryPO(SysUserInfoQuery query);
 
     /**
-     * 转换为更新参数
+     * 转换为更新参数.
      * <p>
-     * 更新自动配置更新时间。
-     * 更新时不处理删除状态，删除状态交由删除功能处理。
-     *
-     * @param cmd
-     * @return
+     * 更新自动配置更新时间。 更新时不处理删除状态，删除状态交由删除功能处理。
+     * @param cmd 更新指令参数
+     * @return 更新参数
      */
     @Mapping(target = "updateTime", expression = "java(LocalDateUtils.now())")
     @Mapping(target = "delFlag", ignore = true)
@@ -48,12 +47,11 @@ public interface SysUserInfoAssembler {
     SysUserInfoPO toUpdatePO(SysUserInfoUpdateCommand cmd);
 
     /**
-     * 转换为新增参数
+     * 转换为新增参数.
      * <p>
      * 新增时删除状态默认为正常。
-     *
-     * @param cmd
-     * @return
+     * @param cmd 新增指令参数
+     * @return 新增参数
      */
     @Mapping(target = "updateTime", expression = "java(LocalDateUtils.now())")
     @Mapping(target = "createTime", expression = "java(LocalDateUtils.now())")
@@ -61,21 +59,20 @@ public interface SysUserInfoAssembler {
     SysUserInfoPO toAddPO(SysUserInfoAddCommand cmd);
 
     /**
-     * 转换为新增参数
-     *
-     * @param cmds
-     * @return
+     * 转换为新增参数.
+     * @param cmds 新增参数
+     * @return 新增参数
      */
     List<SysUserInfoPO> toAddPOS(List<SysUserInfoAddCommand> cmds);
 
     /**
-     * 第三方绑定信息转换为平台用户信息
-     *
-     * @param event
-     * @return
+     * 第三方绑定信息转换为平台用户信息.
+     * @param event 绑定参数
+     * @return 新增参数
      */
     @Mapping(target = "nickName", source = "nick")
     @Mapping(target = "phone", source = "mobile")
     @Mapping(target = "delFlag", constant = "false")
     SysUserInfoPO toAddPO(TripartiteBoundEvent event);
+
 }

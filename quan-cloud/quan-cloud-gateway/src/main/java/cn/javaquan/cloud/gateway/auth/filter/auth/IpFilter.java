@@ -1,16 +1,15 @@
 package cn.javaquan.cloud.gateway.auth.filter.auth;
 
-
 import cn.javaquan.cloud.gateway.auth.config.AuthProperties;
 import cn.javaquan.cloud.gateway.auth.constant.AccessorTypeEnum;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.cloud.gateway.auth.filter.AbstractAuthFilter;
 
 /**
- * ip 白名单 过滤器
+ * ip 白名单 过滤器.
  *
  * @author wangquan
- * @date 2020/3/11 15:59
+ * @since 1.0.0
  */
 public class IpFilter extends AbstractAuthFilter {
 
@@ -34,4 +33,5 @@ public class IpFilter extends AbstractAuthFilter {
         }
         return authProperties.getIp().contains(addr);
     }
+
 }

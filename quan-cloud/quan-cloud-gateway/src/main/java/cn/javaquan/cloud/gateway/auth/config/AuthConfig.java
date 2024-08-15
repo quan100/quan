@@ -10,28 +10,34 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.lang.Nullable;
 
 /**
+ * 认证服务配置.
+ *
  * @author wangquan
- * @date 2020/3/10 14:24
+ * @since 1.0.0
  */
 @Configuration
 public class AuthConfig {
 
     /**
-     * 获取默认资源配置
-     *
-     * @return
+     * 默认资源配置.
+     * @param authSource 权限处理接口
+     * @return 权限资源处理器
      */
     @ConditionalOnMissingBean
     @Bean("chainDefinitionSource")
-    public ChainDefinitionSource chainDefinitionSource(@Nullable IAuthSource authSource) {
+    public ChainDefinitionSource chainDefinitionSource(IAuthSource authSource) {
         ChainDefinitionSource definitionSource = new ChainDefinitionSource();
         definitionSource.setAuthSource(authSource);
         return definitionSource;
     }
 
+    /**
+     * 权限资源处理器.
+     * @param authSourceFeign 权限处理接口
+     * @return 权限资源处理器
+     */
     @ConditionalOnMissingBean
     @Bean
     public IAuthSource authSource(AuthSourceFeign authSourceFeign) {
@@ -39,16 +45,19 @@ public class AuthConfig {
     }
 
     /**
-     * 获取Filter
-     *
-     * @return
+     * 权限过滤器.
+     * @param chainDefinitionSource 权限资源处理器
+     * @param authSourceProperties 权限配置
+     * @return 权限过滤器
      */
     @Bean
-    @DependsOn({"chainDefinitionSource"})
-    public AuthFilterFactory authFilterFactory(ChainDefinitionSource chainDefinitionSource, AuthSourceProperties authSourceProperties) {
+    @DependsOn({ "chainDefinitionSource" })
+    public AuthFilterFactory authFilterFactory(ChainDefinitionSource chainDefinitionSource,
+            AuthSourceProperties authSourceProperties) {
         AuthFilterFactory filter = new AuthFilterFactory(chainDefinitionSource);
         filter.setFilterChainMap(authSourceProperties.isEnabled());
         filter.setFilters(PermEnum.filters);
         return filter;
     }
+
 }

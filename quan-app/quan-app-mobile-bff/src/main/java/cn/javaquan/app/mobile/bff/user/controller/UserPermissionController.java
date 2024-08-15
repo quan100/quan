@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
+ * 用户权限接口.
+ *
  * @author wangquan
- * @version 1.0.0
- * @date 2020-02-12 19:50:38
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -27,11 +27,11 @@ public class UserPermissionController {
     private final UserFeign userFeign;
 
     /**
-     * 获取用户菜单列表
-     *
-     * @return
+     * 获取用户菜单列表.
+     * @param authEntity 用户认证信息
+     * @return 用户权限菜单
      */
-    @GetMapping(value = "nav")
+    @GetMapping("nav")
     public Result<List<UserPermissionTreeDTO>> getInfo(@AuthUser(check = false) AuthEntity authEntity) {
         AuthQuery query = new AuthQuery();
         query.setAppType(authEntity.getAppType());

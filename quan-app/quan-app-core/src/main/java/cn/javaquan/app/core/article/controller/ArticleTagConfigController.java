@@ -9,17 +9,22 @@ import cn.javaquan.app.common.module.article.ArticleTagConfigQuery;
 import cn.javaquan.app.common.module.article.ArticleTagConfigUpdateCommand;
 import cn.javaquan.common.base.message.Result;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * 文章标签配置
+ * 文章标签配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -29,72 +34,66 @@ public class ArticleTagConfigController {
     private final ArticleTagConfigRepository articleTagConfigRepository;
 
     /**
-     * 查询列表
-     *
-     * @param query
-     * @return
+     * 查询列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("page")
-    public Result<PageResult> page(ArticleTagConfigQuery query) {
+    public Result<PageResult<ArticleTagConfigPO>> page(ArticleTagConfigQuery query) {
         ArticleTagConfigPO po = ArticleTagConfigAssembler.INSTANCE.toQueryPO(query);
         return Result.success(articleTagConfigRepository.page(po, query));
     }
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     @GetMapping("details")
-    public Result details(@RequestParam Long id) {
+    public Result<ArticleTagConfigPO> details(@RequestParam Long id) {
         return Result.success(articleTagConfigRepository.getById(id));
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 更新操作是否成功
      */
     @PutMapping("update")
-    public Result update(@RequestBody ArticleTagConfigUpdateCommand cmd) {
+    public Result<Boolean> update(@RequestBody ArticleTagConfigUpdateCommand cmd) {
         ArticleTagConfigPO po = ArticleTagConfigAssembler.INSTANCE.toUpdatePO(cmd);
         return Result.success(articleTagConfigRepository.updateById(po));
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 新增操作是否成功
      */
     @PostMapping("save")
-    public Result save(@RequestBody ArticleTagConfigAddCommand cmd) {
+    public Result<Boolean> save(@RequestBody ArticleTagConfigAddCommand cmd) {
         ArticleTagConfigPO po = ArticleTagConfigAssembler.INSTANCE.toAddPO(cmd);
         return Result.success(articleTagConfigRepository.save(po));
     }
 
     /**
-     * 批量新增
-     *
-     * @param cmds
-     * @return
+     * 批量新增.
+     * @param cmds 新增参数
+     * @return 新增操作是否成功
      */
     @PostMapping("saveBatch")
-    public Result saveBatch(@RequestBody List<ArticleTagConfigAddCommand> cmds) {
+    public Result<Boolean> saveBatch(@RequestBody List<ArticleTagConfigAddCommand> cmds) {
         List<ArticleTagConfigPO> pos = ArticleTagConfigAssembler.INSTANCE.toAddPOS(cmds);
         return Result.success(articleTagConfigRepository.saveBatch(pos));
     }
 
     /**
-     * 删除
-     *
-     * @param ids
-     * @return
+     * 删除.
+     * @param ids 主键
+     * @return 操作是否成功
      */
     @DeleteMapping("deleteByIds")
-    public Result deleteByIds(@RequestBody List<Long> ids) {
+    public Result<Boolean> deleteByIds(@RequestBody List<Long> ids) {
         return Result.success(articleTagConfigRepository.removeByIds(ids));
     }
 

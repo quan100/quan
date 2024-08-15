@@ -14,13 +14,14 @@ import cn.javaquan.app.core.chat.repository.ChatGroupInfoRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * 群组信息
+ * 群组信息.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class ChatGroupInfoRepositoryImpl extends ServiceImpl<ChatGroupInfoMapper, ChatGroupInfoPO> implements ChatGroupInfoRepository {
+public class ChatGroupInfoRepositoryImpl extends ServiceImpl<ChatGroupInfoMapper, ChatGroupInfoPO>
+        implements ChatGroupInfoRepository {
 
     @Override
     public PageResult<ChatGroupInfoPO> page(ChatGroupInfoPO po, BasePage basePage) {

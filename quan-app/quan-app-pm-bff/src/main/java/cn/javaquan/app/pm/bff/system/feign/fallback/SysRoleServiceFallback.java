@@ -15,11 +15,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 角色配置
+ * 角色配置.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
 @Slf4j
 @Component
@@ -64,4 +63,5 @@ public class SysRoleServiceFallback implements FallbackFactory<SysRoleServiceFei
             }
         };
     }
+
 }

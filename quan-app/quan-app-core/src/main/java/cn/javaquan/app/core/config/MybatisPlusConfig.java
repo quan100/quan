@@ -8,17 +8,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * mybatis-plus配置
+ * mybatis-plus配置.
  *
  * @author wangquan
- * @date 2021/12/29 00:29
+ * @since 1.0.0
  */
 @MapperScan("cn.javaquan.app.core.**.mapper*")
 @Configuration
 public class MybatisPlusConfig {
 
     /**
-     * @return
+     * Mybatis Plus 配置.
+     * @return mybatis plus拦截器
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {

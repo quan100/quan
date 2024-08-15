@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 /**
- * 密码加密工具配置
+ * 密码加密工具配置.
  *
  * @author javaquan
  * @since 2.2.0
@@ -19,18 +19,23 @@ import org.springframework.context.annotation.DependsOn;
 @EnableConfigurationProperties(CryptoProperties.class)
 public class CryptoAutoConfiguration {
 
+    /**
+     * 密码加密工具配置.
+     */
     @Configuration(proxyBeanMethods = false)
-    @ConditionalOnClass({IRedisService.class})
+    @ConditionalOnClass({ IRedisService.class })
     protected static class CryptoConfiguration {
 
         @Bean
-        RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher(IRedisService redisService, CryptoProperties properties) {
+        RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher(IRedisService redisService,
+                CryptoProperties properties) {
             return new RetryLimitHashedCredentialsMatcher(redisService, properties);
         }
 
         @Bean
-        @DependsOn({"retryLimitHashedCredentialsMatcher"})
-        PasswordService passwordService(RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher, CryptoProperties properties) {
+        @DependsOn({ "retryLimitHashedCredentialsMatcher" })
+        PasswordService passwordService(RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher,
+                CryptoProperties properties) {
             return new PasswordService(retryLimitHashedCredentialsMatcher, properties);
         }
 

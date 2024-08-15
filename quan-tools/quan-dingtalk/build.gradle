@@ -1,5 +1,10 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.deployed"
+}
+
 description = 'quan-tools-dingtalk'
-apply plugin: "kotlin"
 
 dependencies {
     api 'org.springframework:spring-beans'
@@ -7,5 +12,10 @@ dependencies {
     api 'org.projectlombok:lombok'
     api 'com.aliyun:dingtalk'
     api 'com.alibaba:fastjson'
-    api 'com.taobao2:dingding:2.0'
+    api('com.aliyun:alibaba-dingtalk-service-sdk') {
+        exclude group: 'com.sun.jdmk', module: 'jmxtools'
+        exclude group: 'com.sun.jmx', module: 'jmxri'
+        exclude group: 'javax.jms', module: 'jms'
+    }
+    api 'commons-codec:commons-codec'
 }

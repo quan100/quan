@@ -24,15 +24,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 文章标签
+ * 文章标签.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:38:39
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class ArticleTagRepositoryImpl extends ServiceImpl<ArticleTagMapper, ArticleTagPO> implements ArticleTagRepository {
+public class ArticleTagRepositoryImpl extends ServiceImpl<ArticleTagMapper, ArticleTagPO>
+        implements ArticleTagRepository {
 
     private final ArticleTagConfigRepository articleTagConfigRepository;
 
@@ -54,19 +54,24 @@ public class ArticleTagRepositoryImpl extends ServiceImpl<ArticleTagMapper, Arti
         List<ArticleTagConfigPO> articleTagConfig = articleTagConfigRepository.queryByArticleId(articleId);
 
         // 需要新增的数据
-        List<ArticleTagConfigPO> insertData = tagIdList.stream().filter(tagId -> (articleTagConfig.parallelStream().noneMatch(tagConfig -> tagConfig.getTagId().equals(tagId))))
-                .map(tagId -> {
-                    return ArticleTagConfigAssembler.INSTANCE.toAddPO(articleId, tagId);
-                })
-                .collect(Collectors.toList());
+        List<ArticleTagConfigPO> insertData = tagIdList.stream()
+            .filter(tagId -> (articleTagConfig.parallelStream()
+                .noneMatch(tagConfig -> tagConfig.getTagId().equals(tagId))))
+            .map(tagId -> {
+                return ArticleTagConfigAssembler.INSTANCE.toAddPO(articleId, tagId);
+            })
+            .collect(Collectors.toList());
         // 需要删除的数据
-        List<Long> removeData = articleTagConfig.stream().filter(tagConfig -> (tagIdList.parallelStream().noneMatch(tagId -> tagConfig.getTagId().equals(tagId))))
-                .map(ArticleTagConfigPO::getId)
-                .collect(Collectors.toList());
+        List<Long> removeData = articleTagConfig.stream()
+            .filter(tagConfig -> (tagIdList.parallelStream().noneMatch(tagId -> tagConfig.getTagId().equals(tagId))))
+            .map(ArticleTagConfigPO::getId)
+            .collect(Collectors.toList());
 
-        return RunUtil.doRun(Validate.isNotEmpty(insertData) ? articleTagConfigRepository.saveOrUpdateBatch(insertData) : true, () -> {
-            return Validate.isNotEmpty(removeData) ? articleTagConfigRepository.removeByIds(removeData) : true;
-        });
+        return RunUtil.doRun(
+                Validate.isNotEmpty(insertData) ? articleTagConfigRepository.saveOrUpdateBatch(insertData) : true,
+                () -> {
+                    return Validate.isNotEmpty(removeData) ? articleTagConfigRepository.removeByIds(removeData) : true;
+                });
     }
 
 }

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * id生成参数配置
+ * id生成参数配置.
  *
  * @author javaquan
  * @since 2.2.0
@@ -18,6 +18,9 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(IdProperties.class)
 public class IdAutoConfiguration {
 
+    /**
+     * id生成器配置.
+     */
     @Configuration(proxyBeanMethods = false)
     protected static class IdConfiguration {
 

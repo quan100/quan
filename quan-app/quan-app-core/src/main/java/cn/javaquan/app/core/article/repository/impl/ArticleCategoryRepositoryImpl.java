@@ -24,15 +24,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 文章分类
+ * 文章分类.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:38:40
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @Repository
-public class ArticleCategoryRepositoryImpl extends ServiceImpl<ArticleCategoryMapper, ArticleCategoryPO> implements ArticleCategoryRepository {
+public class ArticleCategoryRepositoryImpl extends ServiceImpl<ArticleCategoryMapper, ArticleCategoryPO>
+        implements ArticleCategoryRepository {
 
     private final ArticleCategoryConfigRepository articleCategoryConfigRepository;
 
@@ -54,14 +54,18 @@ public class ArticleCategoryRepositoryImpl extends ServiceImpl<ArticleCategoryMa
             return true;
         }
 
-        List<String> categoryIdList = articleCategoryPOS.stream().map(ArticleCategoryPO::getCategoryId).collect(Collectors.toList());
+        List<String> categoryIdList = articleCategoryPOS.stream()
+            .map(ArticleCategoryPO::getCategoryId)
+            .collect(Collectors.toList());
 
         return RunUtil.doRun(this.removeByIds(ids), () -> {
-            List<ArticleCategoryConfigPO> categoryConfigPOS = articleCategoryConfigRepository.queryByCategoryList(categoryIdList);
+            List<ArticleCategoryConfigPO> categoryConfigPOS = articleCategoryConfigRepository
+                .queryByCategoryList(categoryIdList);
             if (Validate.isEmpty(categoryConfigPOS)) {
                 return true;
             }
-            return articleCategoryConfigRepository.removeByIds(categoryConfigPOS.stream().map(ArticleCategoryConfigPO::getId).collect(Collectors.toList()));
+            return articleCategoryConfigRepository.removeByIds(
+                    categoryConfigPOS.stream().map(ArticleCategoryConfigPO::getId).collect(Collectors.toList()));
         });
     }
 
@@ -72,22 +76,30 @@ public class ArticleCategoryRepositoryImpl extends ServiceImpl<ArticleCategoryMa
             return true;
         }
 
-        List<ArticleCategoryConfigPO> articleCategoryConfig = articleCategoryConfigRepository.queryByArticleId(articleId);
+        List<ArticleCategoryConfigPO> articleCategoryConfig = articleCategoryConfigRepository
+            .queryByArticleId(articleId);
 
         // 需要新增的数据
-        List<ArticleCategoryConfigPO> insertData = categoryIdList.stream().filter(categoryId -> (articleCategoryConfig.parallelStream().noneMatch(categoryConfig -> categoryConfig.getCategoryId().equals(categoryId))))
-                .map(categoryId -> {
-                    return ArticleCategoryConfigAssembler.INSTANCE.toAddPO(articleId, categoryId);
-                })
-                .collect(Collectors.toList());
+        List<ArticleCategoryConfigPO> insertData = categoryIdList.stream()
+            .filter(categoryId -> (articleCategoryConfig.parallelStream()
+                .noneMatch(categoryConfig -> categoryConfig.getCategoryId().equals(categoryId))))
+            .map(categoryId -> {
+                return ArticleCategoryConfigAssembler.INSTANCE.toAddPO(articleId, categoryId);
+            })
+            .collect(Collectors.toList());
         // 需要删除的数据
-        List<Long> removeData = articleCategoryConfig.stream().filter(categoryConfig -> (categoryIdList.parallelStream().noneMatch(categoryId -> categoryConfig.getCategoryId().equals(categoryId))))
-                .map(ArticleCategoryConfigPO::getId)
-                .collect(Collectors.toList());
+        List<Long> removeData = articleCategoryConfig.stream()
+            .filter(categoryConfig -> (categoryIdList.parallelStream()
+                .noneMatch(categoryId -> categoryConfig.getCategoryId().equals(categoryId))))
+            .map(ArticleCategoryConfigPO::getId)
+            .collect(Collectors.toList());
 
-        return RunUtil.doRun(Validate.isNotEmpty(insertData) ? articleCategoryConfigRepository.saveOrUpdateBatch(insertData) : true, () -> {
-            return Validate.isNotEmpty(removeData) ? articleCategoryConfigRepository.removeByIds(removeData) : true;
-        });
+        return RunUtil.doRun(
+                Validate.isNotEmpty(insertData) ? articleCategoryConfigRepository.saveOrUpdateBatch(insertData) : true,
+                () -> {
+                    return Validate.isNotEmpty(removeData) ? articleCategoryConfigRepository.removeByIds(removeData)
+                            : true;
+                });
     }
 
 }

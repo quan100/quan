@@ -11,39 +11,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 工具
+ * 工具.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 16:43:32
+ * @author javaquan
+ * @since 1.0.0
  */
-@FeignClient(value = "${quan.app.feign.core.name}", url = "${quan.app.feign.core.url:}", fallbackFactory = OpenToolsRepositoryFallback.class)
+@FeignClient(value = "${quan.app.feign.core.name}", url = "${quan.app.feign.core.url:}",
+        fallbackFactory = OpenToolsRepositoryFallback.class)
 public interface OpenToolsRepositoryFeign {
 
     /**
-     * 查询列表
-     *
-     * @param query
-     * @return
+     * 查询列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("/core/tools/page")
     Result<PageResult<ToolsDTO>> page(@SpringQueryMap ToolsQuery query);
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     @GetMapping("/core/tools/details")
-    Result<ToolsDTO> details(@RequestParam(value = "id") Long id);
+    Result<ToolsDTO> details(@RequestParam Long id);
 
     /**
-     * 获取工具列表
-     *
-     * @param query
-     * @return
+     * 获取工具列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("/core/tools/tools")
     Result getTools(@SpringQueryMap ToolsQuery query);
+
 }

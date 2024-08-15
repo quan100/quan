@@ -11,14 +11,28 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 /**
+ * 系统用户数据转换器.
+ *
  * @author wangquan
+ * @since 1.0.0
  */
 @Mapper
 public interface SysUserAssembler {
 
+    /**
+     * 返回给定映射器类型的实例.
+     */
     SysUserAssembler INSTANCE = Mappers.getMapper(SysUserAssembler.class);
 
-    default SysUserVO toSysUserVO(SysUserInfoPO info, SysUserAccountPO account, SysUserTripartiteAccountPO tripartiteAccount) {
+    /**
+     * 转换为用户VO对象.
+     * @param info 用户信息
+     * @param account 用户账号信息
+     * @param tripartiteAccount 用户第三方账号信息
+     * @return 用户VO对象
+     */
+    default SysUserVO toSysUserVO(SysUserInfoPO info, SysUserAccountPO account,
+            SysUserTripartiteAccountPO tripartiteAccount) {
         SysUserVO vo = new SysUserVO();
         vo.setInfo(toSysUserInfoVO(info));
         vo.setAccount(toSysUserAccountVO(account));
@@ -26,9 +40,25 @@ public interface SysUserAssembler {
         return vo;
     }
 
-    SysUserInfoVO toSysUserInfoVO(SysUserInfoPO dto);
+    /**
+     * 转换为用户信息VO对象.
+     * @param po po
+     * @return vo
+     */
+    SysUserInfoVO toSysUserInfoVO(SysUserInfoPO po);
 
-    SysUserAccountVO toSysUserAccountVO(SysUserAccountPO dto);
+    /**
+     * 转换为用户账号VO对象.
+     * @param po po
+     * @return vo
+     */
+    SysUserAccountVO toSysUserAccountVO(SysUserAccountPO po);
 
-    SysUserTripartiteAccountVO toSysUserTripartiteAccountVO(SysUserTripartiteAccountPO dto);
+    /**
+     * 转换为用户第三方账号VO对象.
+     * @param po po
+     * @return vo
+     */
+    SysUserTripartiteAccountVO toSysUserTripartiteAccountVO(SysUserTripartiteAccountPO po);
+
 }

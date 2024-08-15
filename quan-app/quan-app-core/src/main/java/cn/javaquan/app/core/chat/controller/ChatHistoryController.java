@@ -9,16 +9,22 @@ import cn.javaquan.common.base.message.Result;
 import cn.javaquan.app.core.chat.convert.ChatHistoryAssembler;
 import cn.javaquan.app.core.chat.entity.ChatHistoryPO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * 聊天记录表
+ * 聊天记录表.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -28,72 +34,66 @@ public class ChatHistoryController {
     private final ChatHistoryRepository chatHistoryRepository;
 
     /**
-     * 查询列表
-     *
-     * @param query
-     * @return
+     * 查询列表.
+     * @param query 查询参数
+     * @return 查询结果
      */
     @GetMapping("page")
-    public Result<PageResult> page(ChatHistoryQuery query) {
+    public Result<PageResult<ChatHistoryPO>> page(ChatHistoryQuery query) {
         ChatHistoryPO po = ChatHistoryAssembler.INSTANCE.toQueryPO(query);
         return Result.success(chatHistoryRepository.page(po, query));
     }
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * 根据ID查询.
+     * @param id 主键
+     * @return 查询结果
      */
     @GetMapping("details")
-    public Result details(@RequestParam Long id) {
+    public Result<ChatHistoryPO> details(@RequestParam Long id) {
         return Result.success(chatHistoryRepository.getById(id));
     }
 
     /**
-     * 根据主键更新
-     *
-     * @param cmd
-     * @return
+     * 根据主键更新.
+     * @param cmd 更新指令参数
+     * @return 更新操作是否成功
      */
     @PutMapping("update")
-    public Result update(@RequestBody ChatHistoryUpdateCommand cmd) {
+    public Result<Boolean> update(@RequestBody ChatHistoryUpdateCommand cmd) {
         ChatHistoryPO po = ChatHistoryAssembler.INSTANCE.toUpdatePO(cmd);
         return Result.success(chatHistoryRepository.updateById(po));
     }
 
     /**
-     * 新增
-     *
-     * @param cmd
-     * @return
+     * 新增.
+     * @param cmd 新增指令参数
+     * @return 新增操作是否成功
      */
     @PostMapping("save")
-    public Result save(@RequestBody ChatHistoryAddCommand cmd) {
+    public Result<Boolean> save(@RequestBody ChatHistoryAddCommand cmd) {
         ChatHistoryPO po = ChatHistoryAssembler.INSTANCE.toAddPO(cmd);
         return Result.success(chatHistoryRepository.save(po));
     }
 
     /**
-     * 批量新增
-     *
-     * @param cmds
-     * @return
+     * 批量新增.
+     * @param cmds 新增参数
+     * @return 新增操作是否成功
      */
     @PostMapping("saveBatch")
-    public Result saveBatch(@RequestBody List<ChatHistoryAddCommand> cmds) {
+    public Result<Boolean> saveBatch(@RequestBody List<ChatHistoryAddCommand> cmds) {
         List<ChatHistoryPO> pos = ChatHistoryAssembler.INSTANCE.toAddPOS(cmds);
         return Result.success(chatHistoryRepository.saveBatch(pos));
     }
 
     /**
-     * 删除
-     *
-     * @param ids
-     * @return
+     * 删除.
+     * @param ids 主键
+     * @return 操作是否成功
      */
     @DeleteMapping("deleteByIds")
-    public Result deleteByIds(@RequestBody List<Long> ids) {
+    public Result<Boolean> deleteByIds(@RequestBody List<Long> ids) {
         return Result.success(chatHistoryRepository.removeByIds(ids));
     }
 

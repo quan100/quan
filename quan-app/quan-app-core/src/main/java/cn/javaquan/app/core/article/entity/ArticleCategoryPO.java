@@ -11,70 +11,71 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 文章分类
+ * 文章分类.
  *
- * @author JavaQuan
- * @since 2023-04-04 10:38:40
+ * @author javaquan
+ * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("article_category")
 public class ArticleCategoryPO extends Model<ArticleCategoryPO> {
+
     private static final long serialVersionUID = 1L;
 
     /**
-     * 自增主键
+     * 自增主键.
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 分类ID
+     * 分类ID.
      */
     private String categoryId;
 
     /**
-     * 分类名称
+     * 分类名称.
      */
     private String name;
 
     /**
-     * 0：自定义分类；1：系统分类
+     * 0：自定义分类；1：系统分类.
      */
     private Integer type;
 
     /**
-     * 字体颜色
+     * 字体颜色.
      */
     private String color;
 
     /**
-     * 排序
+     * 排序.
      */
     private Integer sort;
 
     /**
-     *
+     * 创建时间.
      */
     private Date createTime;
 
     /**
-     *
+     * 更新时间.
      */
     private Date updateTime;
 
     /**
-     *
+     * 创建人.
      */
     private String createUser;
 
     /**
-     *
+     * 更新人.
      */
     private String updateUser;
 
     /**
-     * 删除状态，false：未删除，true：已删除
+     * 删除状态，false：未删除，true：已删除.
      */
     @TableLogic
     private Boolean delFlag;

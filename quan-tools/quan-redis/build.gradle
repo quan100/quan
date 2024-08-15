@@ -1,5 +1,10 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.deployed"
+}
+
 description = 'Quan Tools Redis'
-apply plugin: "kotlin"
 
 dependencies {
     api 'org.springframework.boot:spring-boot-starter-data-redis'

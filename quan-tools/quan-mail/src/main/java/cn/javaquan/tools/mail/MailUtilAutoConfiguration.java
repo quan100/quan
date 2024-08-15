@@ -7,11 +7,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.Nullable;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 /**
- * 邮件工具配置
+ * 邮件工具配置.
  *
  * @author javaquan
  * @since 2.2.0
@@ -20,12 +19,22 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @EnableConfigurationProperties(MailUtilProperties.class)
 public class MailUtilAutoConfiguration {
 
+    /**
+     * 邮件工具配置.
+     */
     @Configuration(proxyBeanMethods = false)
     @Conditional(MailUtilCondition.class)
     protected static class MailUtilConfiguration {
 
+        /**
+         * 邮件工具实例.
+         * @param javaMailSender 邮件发送实现的实例
+         * @param properties 邮件工具配置
+         * @return 邮件工具实例
+         */
+        @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
         @Bean
-        MailUtil mailUtil(@Nullable JavaMailSenderImpl javaMailSender, MailUtilProperties properties) {
+        MailUtil mailUtil(JavaMailSenderImpl javaMailSender, MailUtilProperties properties) {
             return new MailUtil(javaMailSender, properties);
         }
 

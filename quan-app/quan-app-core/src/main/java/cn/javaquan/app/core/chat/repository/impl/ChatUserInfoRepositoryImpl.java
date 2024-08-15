@@ -16,13 +16,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 用户信息表
+ * 用户信息表.
  *
- * @author JavaQuan
- * @version 1.0.0
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class ChatUserInfoRepositoryImpl extends ServiceImpl<ChatUserInfoMapper, ChatUserInfoPO> implements ChatUserInfoRepository {
+public class ChatUserInfoRepositoryImpl extends ServiceImpl<ChatUserInfoMapper, ChatUserInfoPO>
+        implements ChatUserInfoRepository {
 
     @Override
     public PageResult<ChatUserInfoPO> page(ChatUserInfoPO po, BasePage basePage) {

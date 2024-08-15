@@ -8,10 +8,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户信息
+ * 用户信息.
  *
- * @author JavaQuan
- * @since 2023-04-04 10:53:59
+ * @author javaquan
+ * @since 1.0.0
  */
 @Data
 public class SysUserInfoUpdateCommand implements Serializable {
@@ -19,69 +19,69 @@ public class SysUserInfoUpdateCommand implements Serializable {
     private static final long serialVersionUID = -137770378920503836L;
 
     /**
-     * 主键
+     * 主键.
      */
     @NotNull(message = "id不能为空")
     private Long id;
 
     /**
-     * 用户ID
+     * 用户ID.
      */
     private String userId;
 
     /**
-     * 昵称
+     * 昵称.
      */
     @NotBlank(message = "昵称不能为空")
     private String nickName;
 
     /**
-     * 性别（0：保密）
+     * 性别（0：保密）.
      */
     private Integer sex;
 
     /**
-     * 通讯地址
+     * 通讯地址.
      */
     private String address;
 
     /**
-     * 通讯邮箱
+     * 通讯邮箱.
      */
     private String email;
 
     /**
-     * 真实姓名
+     * 真实姓名.
      */
     private String realName;
 
     /**
-     * 出生日期
+     * 出生日期.
      */
     private String birthday;
 
     /**
-     * 个人描述
+     * 个人描述.
      */
     private String description;
 
     /**
-     * 通讯电话
+     * 通讯电话.
      */
     private String phone;
 
     /**
-     * 用户头像地址
+     * 用户头像地址.
      */
     private String avatar;
 
     /**
-     * 更新人
+     * 更新人.
      */
     private String updateUser;
 
     /**
-     * 更新时间
+     * 更新时间.
      */
     private Date updateTime;
 

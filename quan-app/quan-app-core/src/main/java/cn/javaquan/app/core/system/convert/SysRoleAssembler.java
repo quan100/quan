@@ -13,52 +13,51 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
- * 角色配置参数转换
+ * 角色配置参数转换.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-14 18:19:03
+ * @author javaquan
+ * @since 1.0.0
  */
-@Mapper(imports = {ID.class, LocalDateUtils.class})
+@Mapper(imports = { ID.class, LocalDateUtils.class })
 public interface SysRoleAssembler {
 
+    /**
+     * 返回给定映射器类型的实例.
+     */
     SysRoleAssembler INSTANCE = Mappers.getMapper(SysRoleAssembler.class);
 
     /**
-     * 转换为查询参数
-     *
-     * @param query
-     * @return
+     * 转换为查询参数.
+     * @param query 查询参数
+     * @return 查询参数
      */
     SysRolePO toQueryPO(SysRoleQuery query);
 
     /**
-     * 转换为更新参数
+     * 转换为更新参数.
      * <p>
      * 更新时不处理删除状态，删除状态交由删除功能处理。
-     *
-     * @param cmd
-     * @return
+     * @param cmd 更新指令参数
+     * @return 更新参数
      */
     @Mapping(target = "delFlag", ignore = true)
     SysRolePO toUpdatePO(SysRoleUpdateCommand cmd);
 
     /**
-     * 转换为新增参数
+     * 转换为新增参数.
      * <p>
      * 新增时删除状态默认为正常。
-     *
-     * @param cmd
-     * @return
+     * @param cmd 新增指令参数
+     * @return 新增参数
      */
     @Mapping(target = "delFlag", constant = "false")
     SysRolePO toAddPO(SysRoleAddCommand cmd);
 
     /**
-     * 转换为新增参数
-     *
-     * @param cmds
-     * @return
+     * 转换为新增参数.
+     * @param cmds 新增参数
+     * @return 新增参数
      */
     List<SysRolePO> toAddPOS(List<SysRoleAddCommand> cmds);
+
 }

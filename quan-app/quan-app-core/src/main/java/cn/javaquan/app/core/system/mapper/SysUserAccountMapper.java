@@ -4,11 +4,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.javaquan.app.core.system.entity.SysUserAccountPO;
 
 /**
- * 用户账号
+ * 用户账号.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:53:59
+ * @author javaquan
+ * @since 1.0.0
  */
 public interface SysUserAccountMapper extends BaseMapper<SysUserAccountPO> {
 

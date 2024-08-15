@@ -14,14 +14,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Repository;
 
 /**
- * 友情链接
+ * 友情链接.
  *
- * @author JavaQuan
- * @version 1.0.0
- * @date 2023-04-04 10:53:59
+ * @author javaquan
+ * @since 1.0.0
  */
 @Repository
-public class FriendlyLinkRepositoryImpl extends ServiceImpl<FriendlyLinkMapper, FriendlyLinkPO> implements FriendlyLinkRepository {
+public class FriendlyLinkRepositoryImpl extends ServiceImpl<FriendlyLinkMapper, FriendlyLinkPO>
+        implements FriendlyLinkRepository {
 
     @Override
     public PageResult<FriendlyLinkPO> page(FriendlyLinkPO po, BasePage basePage) {
