@@ -129,6 +129,13 @@ bom {
             ]
         }
     }
+    library("Mapstruct", "1.4.2.Final") {
+        group("org.mapstruct") {
+            modules = [
+                    "mapstruct-processor"
+            ]
+        }
+    }
     library("Shardingsphere Jdbc Core Spring Boot Starter", "5.1.1") {
         group("org.apache.shardingsphere") {
             modules = [

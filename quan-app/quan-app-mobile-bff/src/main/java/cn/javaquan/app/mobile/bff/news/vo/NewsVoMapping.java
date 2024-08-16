@@ -38,11 +38,11 @@ public interface NewsVoMapping {
      * @param bandList 新闻数据
      * @return 通用数据模型
      */
-    @Mapping(target = "url", expression = "java(toUrl(null, searchUrl, realtime.getWord()))")
-    @Mapping(target = "title", source = "realtime.note")
+    @Mapping(target = "url", expression = "java(toUrl(null, searchUrl, bandList.getWord()))")
+    @Mapping(target = "title", source = "bandList.note")
     @Mapping(target = "titleIconColor", constant = "#df3e3e")
-    @Mapping(target = "actions", expression = "java(toWeiBoAction(realtime))")
-    @Mapping(target = "sort", source = "realtime.realpos")
+    @Mapping(target = "actions", expression = "java(toWeiBoAction(bandList))")
+    @Mapping(target = "sort", source = "bandList.realpos")
     NewsVo toNewsVo(@Context String searchUrl, WeiBo.BandList bandList);
 
     /**

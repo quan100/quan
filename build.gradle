@@ -33,7 +33,16 @@ allprojects {
     apply plugin: "cn.javaquan.quan.annotationProcessor"
 
     repositories {
+        mavenLocal()
+        maven {
+            url = uri('https://maven.aliyun.com/repository/public')
+            // allowInsecureProtocol = true
+        }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         mavenCentral()
+        gradlePluginPortal()
     }
 
     configurations.configureEach {

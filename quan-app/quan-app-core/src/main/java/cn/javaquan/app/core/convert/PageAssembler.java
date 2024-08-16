@@ -23,20 +23,18 @@ public interface PageAssembler {
     /**
      * 忽略records数据转换.
      * @param page 分页查询参数
-     * @param <T> 约定响应的数据类型
      * @return 忽略records数据转换的对象
      */
     @Mapping(target = "records", ignore = true)
-    <T> Page<T> toPage(Page page);
+    Page toPage(Page page);
 
     /**
      * 分页查询参数转换.
      * @param basePage 分页查询参数
-     * @param <T> 约定返回的数据类型
      * @return 分页查询参数
      */
     @Mapping(target = "current", source = "pageNum")
     @Mapping(target = "size", source = "pageSize")
-    <T> Page<T> toPage(BasePage basePage);
+    Page toPage(BasePage basePage);
 
 }

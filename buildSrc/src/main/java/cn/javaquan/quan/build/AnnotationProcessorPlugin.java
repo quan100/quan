@@ -29,19 +29,13 @@ public class AnnotationProcessorPlugin implements Plugin<Project> {
             subProject.getPlugins().withType(JavaPlugin.class).all((javaPlugin) -> {
                 subProject.getDependencies()
                     .add(JavaPlugin.ANNOTATION_PROCESSOR_CONFIGURATION_NAME, "org.projectlombok:lombok");
+                subProject.getDependencies()
+                    .add(JavaPlugin.ANNOTATION_PROCESSOR_CONFIGURATION_NAME, "org.mapstruct:mapstruct-processor");
                 subProject.afterEvaluate((afterProject) -> {
                     Configuration config = afterProject.getConfigurations()
                         .findByName(JavaPlugin.API_CONFIGURATION_NAME);
                     if (config == null) {
                         return;
-                    }
-                    boolean mapstructDependencyExists = config.getDependencies()
-                        .stream()
-                        .anyMatch((dependency) -> dependency.getName().equals(MAPSTRUCT));
-                    if (mapstructDependencyExists) {
-                        subProject.getDependencies()
-                            .add(JavaPlugin.ANNOTATION_PROCESSOR_CONFIGURATION_NAME,
-                                    "org.mapstruct:mapstruct-processor:1.4.2.Final");
                     }
                     boolean springBootConfigurationProcessorDependencyExists = config.getDependencies()
                         .stream()

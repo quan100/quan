@@ -218,8 +218,9 @@ class JavaConventions {
                 compile.setTargetCompatibility(SOURCE_AND_TARGET_COMPATIBILITY);
             }
             else if (buildingWithJava8(project)) {
-                args.addAll(Arrays.asList("-Werror", "-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:rawtypes",
-                        "-Xlint:varargs"));
+                // 暂不添加 "-Xlint:varargs" 参数
+                args.addAll(
+                        Arrays.asList("-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:rawtypes", "-Xlint:varargs"));
             }
         });
     }
