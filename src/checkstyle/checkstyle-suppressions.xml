@@ -65,11 +65,11 @@
 	<suppress files="SpringBootVersion" checks="JavadocPackage" />
 	<suppress files="WebEndpointTest\.java" checks="SpringTestFileName" />
 	<suppress files="ConversionServiceTest\.java" checks="SpringTestFileName" />
-	<suppress files="[\\/]quan[\\/]" checks="JavadocPackageCheck" />
-	<suppress files="[\\/]quan[\\/]" checks="SpringImportOrderCheck" />
-	<suppress files="[\\/]quan[\\/]" checks="SpringLambdaCheck" />
-	<suppress files="[\\/]quan[\\/]" checks="SpringHideUtilityClassConstructor" />
-	<suppress files="[\\/]quan[\\/]" checks="FinalClassCheck" />
+	<suppress files="[\\/]quan[\\/]*" checks="JavadocPackageCheck" />
+	<suppress files="[\\/]quan[\\/]*" checks="SpringImportOrderCheck" />
+	<suppress files="[\\/]quan[\\/]*" checks="SpringLambdaCheck" />
+	<suppress files="[\\/]quan[\\/]*" checks="SpringHideUtilityClassConstructor" />
+	<suppress files="[\\/]quan[\\/]*" checks="FinalClassCheck" />
 	<suppress files="[\\/]quan-app-common[\\/]" checks="MutableExceptionCheck" />
 	<suppress files=".*\.java" checks="JavadocTypeCheck" />
 	<suppress files=".*\.java" checks="SpringHeaderCheck" />
