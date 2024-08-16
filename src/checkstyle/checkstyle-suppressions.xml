@@ -89,6 +89,8 @@
 	<suppress files="[\\/]quan-code[\\/]" checks="MutableExceptionCheck" />
 	<suppress files="[\\/]quan-code[\\/]" checks="RequireThisCheck" />
 	<suppress files="[\\/]quan-code[\\/]" checks="IllegalImportCheck" />
+	<suppress files="[\\/]quan-code[\\/]" checks="SpringImportOrderCheck" />
+	<suppress files="[\\/]quan-code[\\/]" checks="SpringLambdaCheck" />
 	<suppress files="JmsUtil\.java" checks="RequireThisCheck" />
 	<suppress files="SnowflakeIdWorker\.java" checks="EmptyBlockCheck" />
 </suppressions>
