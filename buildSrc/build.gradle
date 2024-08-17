@@ -76,5 +76,9 @@ gradlePlugin {
             id = "cn.javaquan.quan.annotationProcessor"
             implementationClass = "cn.javaquan.quan.build.AnnotationProcessorPlugin"
         }
+        dockerDeployedPlugin {
+            id = "cn.javaquan.quan.dockerDeployed"
+            implementationClass = "cn.javaquan.quan.build.DockerDeployedPlugin"
+        }
     }
 }

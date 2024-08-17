@@ -16,11 +16,13 @@
 
 package org.springframework.boot.build;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +52,8 @@ public class ExtractResources extends DefaultTask {
 
     private final DirectoryProperty destinationDirectory;
 
+    private String sourceDirectory;
+
     private List<String> resourceNames = new ArrayList<>();
 
     public ExtractResources() {
@@ -70,6 +74,10 @@ public class ExtractResources extends DefaultTask {
         return this.destinationDirectory;
     }
 
+    public void setSourceDirectory(String sourceDirectory) {
+        this.sourceDirectory = sourceDirectory;
+    }
+
     public void property(String name, String value) {
         this.properties.put(name, value);
     }
@@ -82,7 +90,14 @@ public class ExtractResources extends DefaultTask {
     @TaskAction
     void extractResources() throws IOException {
         for (String resourceName : this.resourceNames) {
-            InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(resourceName);
+            InputStream resourceStream;
+            if (this.sourceDirectory != null) {
+                File file = new File(getProject().getRootDir(), this.sourceDirectory + "/" + resourceName);
+                resourceStream = Files.newInputStream(file.toPath());
+            }
+            else {
+                resourceStream = getClass().getClassLoader().getResourceAsStream(resourceName);
+            }
             if (resourceStream == null) {
                 throw new GradleException("Resource '" + resourceName + "' does not exist");
             }

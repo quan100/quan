@@ -1,7 +1,7 @@
 FROM registry.cn-shenzhen.aliyuncs.com/quan100/tools:java-8
 VOLUME /tmp
 RUN mkdir -p /app
-ADD quan-cloud-gateway-${version}.jar /app/app.jar
+ADD ${appName}-${version}.jar /app/app.jar
 ADD runboot.sh /app/
 RUN bash -c 'touch /app/app.jar'
 WORKDIR /app
