@@ -6,7 +6,7 @@ import cn.javaquan.app.pm.bff.system.service.LoginUserInfoService;
 import cn.javaquan.security.common.annotation.AuthUser;
 import cn.javaquan.security.common.dto.entity.AuthEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +30,7 @@ public class SysLoginUserInfoController {
      * @return 用户信息
      */
     @ResponseBody
-    @DeleteMapping("/currentUser")
+    @GetMapping("/currentUser")
     public Result<UserInfoDTO> currentUser(@AuthUser AuthEntity authEntity) {
         return userInfoService.currentUser(authEntity);
     }

@@ -31,7 +31,7 @@ public class JasyptAutoConfiguration {
         @Bean
         public EncryptUtil encryptUtil(@Value("${jasypt.encryptor.password:}") String password,
                 @Value("${jasypt.encryptor.algorithm:PBEWithMD5AndDES}") String algorithm) {
-            return new EncryptUtil(password, algorithm);
+            return EncryptUtil.newInstance(password, algorithm);
         }
 
     }

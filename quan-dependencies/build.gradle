@@ -17,7 +17,7 @@ bom {
             ]
         }
     }
-    library("Redisson Spring Boot Starter", "3.32.0") {
+    library("Redisson Spring Boot Starter", "3.13.6") {
         group("org.redisson") {
             modules = [
                     "redisson-spring-boot-starter"

@@ -21,14 +21,30 @@ public class EncryptUtil {
 
     /**
      * 构造方法.
+     */
+    private EncryptUtil() {
+    }
+
+    /**
+     * 构造方法.
      * @param password 加密密码.
      * @param algorithm 加密算法
      */
-    public EncryptUtil(String password, String algorithm) {
+    private EncryptUtil(String password, String algorithm) {
         standardPBEStringEncryptor = new StandardPBEStringEncryptor();
         standardPBEStringEncryptor.setAlgorithm(algorithm);
         // 设置加密密码
         standardPBEStringEncryptor.setPassword(password);
+    }
+
+    /**
+     * 提供静态方法构造实例.
+     * @param password 加密密码.
+     * @param algorithm 加密算法
+     * @return 加密工具实例
+     */
+    public static EncryptUtil newInstance(String password, String algorithm) {
+        return new EncryptUtil(password, algorithm);
     }
 
     /**

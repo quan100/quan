@@ -99,7 +99,7 @@ public class SysUserAccountController {
      * @param query 查询参数
      * @return 用户权限
      */
-    @DeleteMapping("/userPermission")
+    @GetMapping("/userPermission")
     public Result<List<UserPermissionTreeDTO>> getUserPermission(AuthQuery query) {
         return sysUserAccountService.getUserPermission(query);
     }
