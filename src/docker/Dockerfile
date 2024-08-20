@@ -1,4 +1,4 @@
-FROM registry.cn-shenzhen.aliyuncs.com/quan100/tools:java-8
+FROM registry.cn-shenzhen.aliyuncs.com/openquan/tools:openjdk-8
 VOLUME /tmp
 RUN mkdir -p /app
 ADD ${appName}-${version}.jar /app/app.jar
