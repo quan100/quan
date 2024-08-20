@@ -18,13 +18,6 @@ public class DictionaryUtil {
     private static DictionaryUtilFeign dictionaryUtilFeign;
 
     /**
-     * 私有构造器.
-     */
-    private DictionaryUtil() {
-
-    }
-
-    /**
      * 注入feign.
      * @param dictionaryUtilFeign 注入feign
      */
