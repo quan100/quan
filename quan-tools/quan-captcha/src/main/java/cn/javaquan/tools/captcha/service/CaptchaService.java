@@ -158,7 +158,7 @@ public class CaptchaService {
      */
     public boolean verifyEmailCode(String verifycode, String uuid, String email) {
         String code = redisService.get(getKey(uuid, email));
-        return StringUtils.hasText(code) && !code.equalsIgnoreCase(verifycode);
+        return StringUtils.hasText(code) && code.equalsIgnoreCase(verifycode);
     }
 
 }
