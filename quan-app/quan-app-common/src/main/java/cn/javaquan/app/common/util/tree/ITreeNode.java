@@ -28,6 +28,6 @@ public interface ITreeNode<T> extends Comparable<T>, Serializable {
      * 子节点列表.
      * @return 子节点列表
      */
-    List<T> getChildren();
+    List<T> determineChildren();
 
 }

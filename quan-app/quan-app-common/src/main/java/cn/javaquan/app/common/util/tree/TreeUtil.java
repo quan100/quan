@@ -55,7 +55,7 @@ public final class TreeUtil {
         originalDataList.forEach(node -> {
             // 是否为父节点
             if (parentId.equals(node.getParentId())) {
-                buildTreeNode(node.getId(), originalDataList, node.getChildren());
+                buildTreeNode(node.getId(), originalDataList, node.determineChildren());
                 treeNodeData.add(node);
             }
         });

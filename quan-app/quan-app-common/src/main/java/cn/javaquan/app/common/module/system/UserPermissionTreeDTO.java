@@ -20,14 +20,14 @@ public class UserPermissionTreeDTO extends UserPermissionDTO implements ITreeNod
     /**
      * 子集权限菜单.
      */
-    private List<UserPermissionTreeDTO> children;
+    private List<UserPermissionTreeDTO> routes;
 
     @Override
-    public List<UserPermissionTreeDTO> getChildren() {
-        if (null == this.children) {
-            this.children = new ArrayList<>();
+    public List<UserPermissionTreeDTO> determineChildren() {
+        if (null == this.routes) {
+            this.routes = new ArrayList<>();
         }
-        return this.children;
+        return this.routes;
     }
 
     @Override
