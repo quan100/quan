@@ -1,22 +1,23 @@
 package cn.javaquan.cloud.gateway.auth.filter.auth;
 
 import cn.javaquan.cloud.gateway.auth.constant.AccessorTypeEnum;
+import cn.javaquan.cloud.gateway.auth.constant.HttpStatusErrorEnum;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.security.common.dto.AccessorInfo;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
- * 按钮权限过滤器.
+ * 系统权限过滤器.
  * <p>
- * 该权限将校验用户是否拥有按钮权限
+ * 该权限过滤器将校验用户是否拥有对应的 url 权限.
+ * <p>
+ * 通过角色配置，当用户拥有该角色时，则拥有该角色对应 url 的权限.
  *
  * @author wangquan
- * @since 1.0.0
+ * @since 2.3.1
  */
 public class PermissionsFilter extends UserFilter {
 
@@ -31,7 +32,7 @@ public class PermissionsFilter extends UserFilter {
         if (result.isSuccess()) {
             // 校验角色是否拥有当前访问权限
             if (!validRole(result.getData(), roles)) {
-                return Result.fail(HttpStatus.FORBIDDEN.value(), "无权限！");
+                return Result.fail(HttpStatusErrorEnum.FORBIDDEN);
             }
         }
         return result;
@@ -53,16 +54,15 @@ public class PermissionsFilter extends UserFilter {
         if (CollectionUtils.isEmpty(permRoles)) {
             return false;
         }
-        List<Map<String, Object>> roles = (List<Map<String, Object>>) accessorInfo.getRoles();
+        List<Map<String, Object>> userRoles = (List<Map<String, Object>>) accessorInfo.getRoles();
 
-        if (CollectionUtils.isEmpty(roles)) {
+        if (CollectionUtils.isEmpty(userRoles)) {
             return false;
         }
-        List<Object> roleCode = roles.stream().map(role -> role.get("code")).collect(Collectors.toList());
 
-        // 校验角色满足权限必须的校验
-        for (String role : permRoles) {
-            if (roleCode.contains(role)) {
+        // 校验当前链接访问的角色是否包含在用户角色中
+        for (String permRole : permRoles) {
+            if (userRoles.stream().anyMatch(userRole -> permRole.equals(userRole.get("code")))) {
                 return true;
             }
         }

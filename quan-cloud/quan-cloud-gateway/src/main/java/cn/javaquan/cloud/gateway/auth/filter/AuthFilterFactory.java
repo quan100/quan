@@ -1,5 +1,6 @@
 package cn.javaquan.cloud.gateway.auth.filter;
 
+import cn.javaquan.cloud.gateway.auth.constant.PermEnum;
 import cn.javaquan.cloud.gateway.auth.factory.ChainDefinitionSource;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
  * 权限处理工厂.
  *
  * @author wangquan
- * @since 1.0.0
+ * @since 2.3.1
  */
 @Setter
 public class AuthFilterFactory {
@@ -30,12 +31,17 @@ public class AuthFilterFactory {
     /**
      * 权限过滤器.
      */
-    private Map<String, AbstractAuthFilter> filters = new LinkedHashMap<>();
+    private Map<String, PermEnum> filters = new LinkedHashMap<>();
 
     /**
      * 权限责任链配置数据.
      */
     private Map<String, String> filterChainMap;
+
+    /**
+     * 权限责任链配置数据. 根据请求方法配置的二级责任链.
+     */
+    private Map<String, Map<String, String>> methodFilterChain;
 
     /**
      * 设置权限责任链配置服务.
@@ -50,23 +56,30 @@ public class AuthFilterFactory {
      * <p>
      * 权限解析数据 index0：权限 index1：角色
      * @param url 请求url
+     * @param method 请求方法
      * @return 权限解析数据
      */
-    public String[] authParse(String url) {
-        String auth = null;
-
+    public String[] authParse(String url, String method) {
         PathMatcher matcher = new AntPathMatcher();
-        for (Map.Entry<String, String> entry : this.filterChainMap.entrySet()) {
+        // 关联方法的责任链解析
+        for (Map.Entry<String, Map<String, String>> entry : this.methodFilterChain.entrySet()) {
             if (matcher.match(entry.getKey(), url)) {
-                auth = entry.getValue();
-                break;
+                String auth = entry.getValue().get(method);
+                if (!StringUtils.isEmpty(auth)) {
+                    return auth.split(ChainDefinitionSource.ROLE_REGEX);
+                }
             }
         }
-
-        if (StringUtils.isEmpty(auth)) {
-            return null;
+        // 责任链解析，所有资源的访问权限，必须放在最后
+        for (Map.Entry<String, String> entry : this.filterChainMap.entrySet()) {
+            if (matcher.match(entry.getKey(), url)) {
+                String auth = entry.getValue();
+                if (!StringUtils.isEmpty(auth)) {
+                    return auth.split(ChainDefinitionSource.ROLE_REGEX);
+                }
+            }
         }
-        return auth.split(ChainDefinitionSource.ROLE_REGEX);
+        return null;
     }
 
     /**
@@ -78,7 +91,7 @@ public class AuthFilterFactory {
         List<AbstractAuthFilter> authFilters = new LinkedList<>();
         String[] filterKeys = authKey.split(",");
         for (String key : filterKeys) {
-            authFilters.add(this.filters.get(key));
+            authFilters.add(this.filters.get(key).getFilter());
         }
         return authFilters;
     }
@@ -108,6 +121,7 @@ public class AuthFilterFactory {
      */
     public void setFilterChainMap(boolean enabled) {
         this.filterChainMap = chainDefinitionSource.getFilterChain(enabled);
+        this.methodFilterChain = chainDefinitionSource.getMethodFilterChain();
     }
 
 }

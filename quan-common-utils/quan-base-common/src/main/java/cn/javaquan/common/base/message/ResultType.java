@@ -3,27 +3,33 @@ package cn.javaquan.common.base.message;
 import org.springframework.http.HttpStatus;
 
 /**
- * 响应类型.
+ * 响应类型接口.
  *
  * @author wangquan
- * @since 1.0.0
+ * @since 2.3.1
  */
-public final class ResultType {
+public interface ResultType {
 
     /**
-     * 私有构造方法.
+     * 默认成功状态码.
      */
-    private ResultType() {
-    }
+    Integer MSG_SUCCESS = HttpStatus.OK.value();
 
     /**
-     * 默认成功信息.
+     * 默认失败状态码.
      */
-    public static final Integer MSG_SUCCESS = HttpStatus.OK.value();
+    Integer MSG_ERROR = HttpStatus.INTERNAL_SERVER_ERROR.value();
 
     /**
-     * 默认失败信息.
+     * 获取响应码.
+     * @return 响应码
      */
-    public static final Integer MSG_ERROR = HttpStatus.INTERNAL_SERVER_ERROR.value();
+    Integer getCode();
+
+    /**
+     * 获取响应信息.
+     * @return 响应信息
+     */
+    String getMessage();
 
 }

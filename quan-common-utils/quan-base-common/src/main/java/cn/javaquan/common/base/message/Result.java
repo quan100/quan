@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 统一响应参数.
  *
  * @author wangquan
- * @since 1.0.0
+ * @since 2.3.1
  */
 @Data
 public class Result<T> implements Serializable {
@@ -106,6 +106,16 @@ public class Result<T> implements Serializable {
      */
     public static <T> Result<T> fail(String msg) {
         return instance(ResultType.MSG_ERROR, null, msg, null);
+    }
+
+    /**
+     * 失败结果.
+     * @param resultType 失败的错误信息类型
+     * @param <T> 约定的数据类型
+     * @return 失败结果
+     */
+    public static <T> Result<T> fail(ResultType resultType) {
+        return instance(resultType.getCode(), null, resultType.getMessage(), null);
     }
 
     /**

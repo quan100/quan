@@ -15,7 +15,7 @@ import org.springframework.context.annotation.DependsOn;
  * 认证服务配置.
  *
  * @author wangquan
- * @since 1.0.0
+ * @since 2.3.1
  */
 @Configuration
 public class AuthConfig {
@@ -56,7 +56,7 @@ public class AuthConfig {
             AuthSourceProperties authSourceProperties) {
         AuthFilterFactory filter = new AuthFilterFactory(chainDefinitionSource);
         filter.setFilterChainMap(authSourceProperties.isEnabled());
-        filter.setFilters(PermEnum.filters);
+        filter.setFilters(PermEnum.MAPPINGS);
         return filter;
     }
 

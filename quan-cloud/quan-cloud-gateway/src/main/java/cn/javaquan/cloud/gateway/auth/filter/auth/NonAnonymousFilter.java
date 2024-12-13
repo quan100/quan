@@ -1,6 +1,7 @@
 package cn.javaquan.cloud.gateway.auth.filter.auth;
 
 import cn.javaquan.cloud.gateway.auth.constant.AccessorTypeEnum;
+import cn.javaquan.cloud.gateway.auth.constant.HttpStatusErrorEnum;
 import cn.javaquan.common.base.message.Result;
 import cn.javaquan.cloud.gateway.auth.filter.AbstractAuthFilter;
 import cn.javaquan.security.common.AuthConstant;
@@ -12,7 +13,7 @@ import org.springframework.http.ResponseCookie;
  * 非匿名权限过滤器.
  *
  * @author wangquan
- * @since 1.0.0
+ * @since 2.3.1
  */
 public class NonAnonymousFilter extends AbstractAuthFilter {
 
@@ -22,12 +23,12 @@ public class NonAnonymousFilter extends AbstractAuthFilter {
 
         AuthenticateResponse authRes = getAuth(token);
         if (authRes == null) {
-            Result.success();
+            return Result.success();
         }
 
         // 未能获取到用户token信息
         if (!authRes.isExecute()) {
-            return Result.fail("请先登录");
+            return Result.fail(HttpStatusErrorEnum.UNAUTHORIZED);
         }
 
         // 如果jwt非空 保存身份信息到cookie

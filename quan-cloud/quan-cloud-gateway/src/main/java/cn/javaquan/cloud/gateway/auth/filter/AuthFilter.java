@@ -13,14 +13,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * 权限过滤器.
  *
  * @author wangquan
- * @since 1.0.0
+ * @since 2.3.1
  */
 @RequiredArgsConstructor
 @Component
@@ -40,16 +39,14 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
-        String[] auths = filterFactory.authParse(request.getURI().getPath());
+        String[] auths = filterFactory.authParse(request.getURI().getPath(), request.getMethodValue());
         if (null == auths) {
             return ResponseUtil.writeResponse(response, Result.fail("系统异常"));
         }
         List<AbstractAuthFilter> abstractAuthFilters = filterFactory.getFilter(auths[0]);
         List<String> roles = filterFactory.getRole(auths);
 
-        for (Iterator<AbstractAuthFilter> it = abstractAuthFilters.iterator(); it.hasNext();) {
-            AbstractAuthFilter abstractAuthFilter = it.next();
-
+        for (AbstractAuthFilter abstractAuthFilter : abstractAuthFilters) {
             abstractAuthFilter.setExchange(exchange);
             abstractAuthFilter.setService(quanSecurityFeign);
             Result result = abstractAuthFilter.doFilter(roles);
