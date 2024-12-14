@@ -72,6 +72,7 @@ public class SysUserTripartiteAccountPO extends Model<SysUserTripartiteAccountPO
     /**
      * 创建人.
      */
+    @FieldSensitive(rule = SensitiveRuleEnum.ALL)
     private String createUser;
 
     /**
@@ -82,6 +83,7 @@ public class SysUserTripartiteAccountPO extends Model<SysUserTripartiteAccountPO
     /**
      * 更新人.
      */
+    @FieldSensitive(rule = SensitiveRuleEnum.ALL)
     private String updateUser;
 
     /**
