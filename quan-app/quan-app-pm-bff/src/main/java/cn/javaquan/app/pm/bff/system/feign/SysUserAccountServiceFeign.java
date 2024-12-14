@@ -2,9 +2,9 @@ package cn.javaquan.app.pm.bff.system.feign;
 
 import cn.javaquan.app.common.module.auth.AuthQuery;
 import cn.javaquan.app.common.module.system.SysUserAccountAddCommand;
-import cn.javaquan.app.common.module.system.SysUserAccountDTO;
 import cn.javaquan.app.common.module.system.SysUserAccountQuery;
 import cn.javaquan.app.common.module.system.SysUserAccountUpdateCommand;
+import cn.javaquan.app.common.module.system.SysUserAccountVO;
 import cn.javaquan.app.common.module.system.UserPermissionTreeDTO;
 import cn.javaquan.app.pm.bff.system.feign.fallback.SysUserAccountServiceFallback;
 import cn.javaquan.common.base.message.PageResult;
@@ -24,7 +24,7 @@ import java.util.List;
  * 用户账号.
  *
  * @author javaquan
- * @since 1.0.0
+ * @since 2.3.2
  */
 @FeignClient(value = "${quan.app.feign.service.name}", url = "${quan.app.feign.service.url:}",
         fallbackFactory = SysUserAccountServiceFallback.class)
@@ -36,7 +36,7 @@ public interface SysUserAccountServiceFeign {
      * @return 查询结果
      */
     @GetMapping("/service/sys/user/account/page")
-    Result<PageResult<SysUserAccountDTO>> page(@SpringQueryMap SysUserAccountQuery query);
+    Result<PageResult<SysUserAccountVO>> page(@SpringQueryMap SysUserAccountQuery query);
 
     /**
      * 根据ID查询.
@@ -44,7 +44,7 @@ public interface SysUserAccountServiceFeign {
      * @return 查询结果
      */
     @GetMapping("/service/sys/user/account/details")
-    Result<SysUserAccountDTO> details(@RequestParam Long id);
+    Result<SysUserAccountVO> details(@RequestParam Long id);
 
     /**
      * 根据主键更新.
@@ -92,6 +92,6 @@ public interface SysUserAccountServiceFeign {
      * @return 用户账号信息
      */
     @GetMapping("/service/sys/user/account/userAccount")
-    Result<SysUserAccountDTO> getUserAccount(@SpringQueryMap SysUserAccountQuery query);
+    Result<SysUserAccountVO> getUserAccount(@SpringQueryMap SysUserAccountQuery query);
 
 }

@@ -1,5 +1,7 @@
 package cn.javaquan.app.core.system.entity;
 
+import cn.javaquan.tools.sensitive.FieldSensitive;
+import cn.javaquan.tools.sensitive.SensitiveRuleEnum;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -14,7 +16,7 @@ import java.util.Date;
  * 用户第三方账户.
  *
  * @author javaquan
- * @since 1.0.0
+ * @since 2.3.2
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -37,6 +39,7 @@ public class SysUserTripartiteAccountPO extends Model<SysUserTripartiteAccountPO
     /**
      * 账号.
      */
+    @FieldSensitive(rule = { SensitiveRuleEnum.PHONE, SensitiveRuleEnum.EMAIL })
     private String account;
 
     /**
@@ -47,6 +50,7 @@ public class SysUserTripartiteAccountPO extends Model<SysUserTripartiteAccountPO
     /**
      * 第三方ID.
      */
+    @FieldSensitive
     private String thirdId;
 
     /**

@@ -17,5 +17,6 @@ dependencies {
     api project(':quan-app:quan-app-common')
     api project(':quan-tools:quan-redis')
     api project(':quan-tools:quan-jasypt')
+    api project(':quan-tools:quan-sensitive')
     implementation project(path: ':quan-tools:quan-crypto')
 }

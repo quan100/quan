@@ -1,0 +1,16 @@
+plugins {
+    id "java-library"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.deployed"
+}
+
+description = 'Quan Tools Sensitive'
+
+dependencies {
+    api 'com.baomidou:mybatis-plus-boot-starter'
+
+    api 'org.projectlombok:lombok'
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}

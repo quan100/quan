@@ -1,14 +1,14 @@
 <p align="center">
 	<img width="100px" alt="logo" src="https://file.javaquan.cn/public/logo.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Quan v2.3.1</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Quan v2.3.2</h1>
 <h4 align="center">基于Java语言的轻量级、高性能、分布式架构的解决方案</h4>
 <p align="center">
     <a href="https://github.com/quan100/quan" target="_blank">
         <img src='https://img.shields.io/github/stars/quan100/quan?style=social&label=Stars' alt='GitHub stars' class="no-zoom">
     </a>
 	<a href="https://gitee.com/quan100/quan"><img src="https://gitee.com/quan100/quan/badge/star.svg"></a>
-    <img src="https://img.shields.io/badge/Quan-v2.3.1-green">
+    <img src="https://img.shields.io/badge/Quan-v2.3.2-green">
 	<a href="https://gitee.com/quan100/quan/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
 </p>
 

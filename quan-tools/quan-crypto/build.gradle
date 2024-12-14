@@ -10,6 +10,7 @@ dependencies {
     implementation 'org.apache.shiro:shiro-core'
     api project(':quan-tools:quan-redis')
     compileOnly 'org.projectlombok:lombok'
+    api 'commons-codec:commons-codec'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }

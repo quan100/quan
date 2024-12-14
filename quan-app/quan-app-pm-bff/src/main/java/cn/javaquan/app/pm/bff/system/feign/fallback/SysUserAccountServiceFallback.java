@@ -3,7 +3,6 @@ package cn.javaquan.app.pm.bff.system.feign.fallback;
 import cn.javaquan.tools.notify.SystemNotifyException;
 import cn.javaquan.app.common.module.auth.AuthQuery;
 import cn.javaquan.app.common.module.system.SysUserAccountAddCommand;
-import cn.javaquan.app.common.module.system.SysUserAccountDTO;
 import cn.javaquan.app.common.module.system.SysUserAccountQuery;
 import cn.javaquan.app.common.module.system.SysUserAccountUpdateCommand;
 import cn.javaquan.app.pm.bff.system.feign.SysUserAccountServiceFeign;
@@ -18,7 +17,7 @@ import java.util.List;
  * 用户账号.
  *
  * @author javaquan
- * @since 1.0.0
+ * @since 2.3.2
  */
 @Slf4j
 @Component
@@ -63,7 +62,7 @@ public class SysUserAccountServiceFallback implements FallbackFactory<SysUserAcc
             }
 
             @Override
-            public Result<SysUserAccountDTO> getUserAccount(SysUserAccountQuery query) {
+            public Result getUserAccount(SysUserAccountQuery query) {
                 throw new SystemNotifyException(throwable);
             }
         };

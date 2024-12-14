@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 自定义凭证校验.
  *
  * @author javaquan
- * @since 2.2.0
+ * @since 2.3.2
  */
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 
@@ -100,7 +100,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         // 创建认证信息和令牌
         UsernamePasswordToken token = new UsernamePasswordToken(cryptoParam.getAccount(), cryptoParam.getPassword());
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(cryptoParam.getAccount(), cryptoParam.getSecret(),
-                getByteSource(cryptoParam), cryptoParam.getAccount());
+                getByteSource(cryptoParam), properties.determineDefaultRealmName());
         setIp(cryptoParam.getIp());
         return this.doCredentialsMatch(token, info);
     }

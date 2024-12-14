@@ -1,9 +1,9 @@
 package cn.javaquan.app.pm.bff.system.controller;
 
 import cn.javaquan.app.common.module.system.SysUserAccountAddCommand;
-import cn.javaquan.app.common.module.system.SysUserAccountDTO;
 import cn.javaquan.app.common.module.system.SysUserAccountQuery;
 import cn.javaquan.app.common.module.system.SysUserAccountUpdateCommand;
+import cn.javaquan.app.common.module.system.SysUserAccountVO;
 import cn.javaquan.app.common.module.system.UserPermissionTreeDTO;
 import cn.javaquan.app.pm.bff.system.convert.AuthEntityAssembler;
 import cn.javaquan.app.pm.bff.system.feign.SysUserAccountServiceFeign;
@@ -27,7 +27,7 @@ import java.util.List;
  * 用户账号.
  *
  * @author javaquan
- * @since 1.0.0
+ * @since 2.3.2
  */
 @RequiredArgsConstructor
 @RestController
@@ -42,7 +42,7 @@ public class SysUserAccountController {
      * @return 查询结果
      */
     @GetMapping("page")
-    public Result<PageResult<SysUserAccountDTO>> page(SysUserAccountQuery query) {
+    public Result<PageResult<SysUserAccountVO>> page(SysUserAccountQuery query) {
         return sysUserAccountServiceFeign.page(query);
     }
 
@@ -52,7 +52,7 @@ public class SysUserAccountController {
      * @return 查询结果
      */
     @GetMapping("details")
-    public Result<SysUserAccountDTO> details(@RequestParam Long id) {
+    public Result<SysUserAccountVO> details(@RequestParam Long id) {
         return sysUserAccountServiceFeign.details(id);
     }
 
